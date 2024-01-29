@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\CitizenController;
+use App\Http\Controllers\JournalController;
 use Illuminate\Support\Facades\Route;
-
+use Inertia\Inertia;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,5 +16,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return inertia::render('index');
+})->name('home');
+
+Route::get('/citizens', function () {
+    return inertia::render('citizens/index');
+})->name('citizens');
+
+Route::resource('citizens', CitizenController::class);
+Route::resource('journals', JournalController::class);

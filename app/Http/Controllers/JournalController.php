@@ -23,8 +23,6 @@ class JournalController extends Controller
     public function store(JournalRequest $request)
     {
         $this->journalService->doStore($request->all());
-
-        return response(json_encode('Created'), 201);
     }
 
     public function update(Request $request, $journalId)
