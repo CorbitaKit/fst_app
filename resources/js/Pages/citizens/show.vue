@@ -1,9 +1,14 @@
 <script setup>
-    import {router, useForm} from '@inertiajs/vue3';
+    import {useForm, router} from '@inertiajs/vue3';
+    import {ref} from 'vue';
     import moment from 'moment';
+  
     const props = defineProps({
         citizen: Object
     })
+
+    const is_creating = ref(false)
+
     const form = useForm({
         'title': null,
         'date': null,
@@ -14,9 +19,16 @@
         'citizen_id': props.citizen.id
     })
 
+    function createJournal() {
+        is_creating.value = true
+    }
+
     function submit() {
        form.post('/journals', {
         preventScroll: true,
+        onSuccess: async () => {
+            router.get('/citizens/'+props.citizen.id)
+        }
        })
     }
 
@@ -66,7 +78,7 @@
                             <div v-if="! is_creating">
                                 <div class="row mb-5">
                                     <div class="col-md-6">
-                                        <button type="button" @click.prevent="is_creating = true" class="btn bg-gradient-success mb-2 mr-2">
+                                        <button type="button" @click.prevent="createJournal" class="btn bg-gradient-success mb-2 mr-2">
                                             <i class="fas fa-plus"></i>
                                             Add new journal
                                         </button>
@@ -319,12 +331,3 @@
         </div>
     </div>
 </template>
-<script>
-    export default{
-        data() {
-            return{
-                is_creating: false,
-            }
-        }
-    }
-</script>
