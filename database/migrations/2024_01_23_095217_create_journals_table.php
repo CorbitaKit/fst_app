@@ -18,6 +18,9 @@ return new class extends Migration
             $table->longText('content');
             $table->date('date');
             $table->foreignId('citizen_id');
+            $table->boolean('is_draft')->default(0);
+            $table->boolean('is_lock')->default(0);
+            $table->boolean('is_favorite')->default(0);
         });
     }
     /**
