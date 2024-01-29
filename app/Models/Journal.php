@@ -10,4 +10,9 @@ class Journal extends Model
     use HasFactory;
 
     protected $fillable = ['title', 'content', 'citizen_id', 'date'];
+
+    public function citizen()
+    {
+        return $this->belongsTo(Citizen::class);
+    }
 }

@@ -16,6 +16,11 @@ return new class extends Migration
             $table->timestamps();
             $table->string('first_name');
             $table->string('last_name');
+            $table->integer('social_security_number')->unique();
+            $table->string('email')->unique();
+            $table->string('phone');
+            $table->longText('note');
+            $table->date('birth_day');
         });
     }
 
