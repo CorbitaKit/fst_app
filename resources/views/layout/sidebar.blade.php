@@ -19,14 +19,6 @@
         <!-- Sidebar Menu -->
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                <li class="nav-item active">
-                    <a href="{{ route('home') }}" class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}">
-                        <i class="nav-icon far fa-calendar-alt"></i>
-                        <p>
-                            Calendar
-                        </p>
-                    </a>
-                </li>
                 <li class="nav-item">
                     <a href="{{ route('citizens.index') }}" class="nav-link {{ request()->routeIs('citizens.index') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-users"></i>
@@ -35,6 +27,15 @@
                         </p>
                     </a>
                 </li>
+                <li class="nav-item active">
+                    <a href="{{ route('home') }}" class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}">
+                        <i class="nav-icon far fa-calendar-alt"></i>
+                        <p>
+                            Calendar
+                        </p>
+                    </a>
+                </li>
+
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-briefcase"></i>
