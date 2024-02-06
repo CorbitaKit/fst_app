@@ -12,6 +12,7 @@
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
+
     <div class="wrapper">
         @include('layout.navbar')
         @include('layout.sidebar')

@@ -100,9 +100,16 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">Post Code</label>
-                                    <input type="text" v-model="form.postcode" class="form-control" :class="{ 'is-invalid': errors.postcode }" placeholder="Enter Post Code">
-                                    <div class="text-danger text-xs" v-if="errors.postcode"> {{ errors.postcode }} </div>
+                                    <label for="exampleInputEmail1">Country</label>
+                                    <input type="text" v-model="form.country" class="form-control" :class="{ 'is-invalid': errors.country }" placeholder="Enter Country">
+                                    <div class="text-danger text-xs" v-if="errors.country"> {{ errors.country }} </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="exampleInputEmail1">Region</label>
+                                    <input type="text" v-model="form.state" class="form-control" :class="{ 'is-invalid': errors.state }" placeholder="Enter Region">
+                                    <div class="text-danger text-xs" v-if="errors.state"> {{ errors.state }} </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -114,16 +121,9 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="exampleInputEmail1">State/Province/City</label>
-                                    <input type="text" v-model="form.state" class="form-control" :class="{ 'is-invalid': errors.state }" placeholder="Enter State/Province/City">
-                                    <div class="text-danger text-xs" v-if="errors.state"> {{ errors.state }} </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Country</label>
-                                    <input type="text" v-model="form.country" class="form-control" :class="{ 'is-invalid': errors.country }" placeholder="Enter Country">
-                                    <div class="text-danger text-xs" v-if="errors.country"> {{ errors.country }} </div>
+                                    <label for="exampleInputEmail1">Post Code</label>
+                                    <input type="text" v-model="form.postcode" class="form-control" :class="{ 'is-invalid': errors.postcode }" placeholder="Enter Post Code">
+                                    <div class="text-danger text-xs" v-if="errors.postcode"> {{ errors.postcode }} </div>
                                 </div>
                             </div>
                             <div class="col-md-12">
