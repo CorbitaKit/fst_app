@@ -40,7 +40,7 @@
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-briefcase"></i>
                         <p>
-                            Services
+                            Duty Schedule
                         </p>
                     </a>
                 </li>
@@ -48,7 +48,7 @@
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-file-invoice"></i>
                         <p>
-                            Invoices
+                            Employees
                         </p>
                     </a>
                 </li>
@@ -56,7 +56,15 @@
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-chart-pie"></i>
                         <p>
-                            Statistics
+                            Protocol
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            App
                         </p>
                     </a>
                 </li>
@@ -70,9 +78,9 @@
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-th"></i>
+                        <i class="nav-icon fas fa-cog"></i>
                         <p>
-                            App
+                            Duty Schedule
                         </p>
                     </a>
                 </li>

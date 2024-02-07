@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\CitizenRequest;
 use Inertia\Inertia;
 use App\Services\CitizenService;
+use App\Services\RegionService;
 use Illuminate\Support\Facades\Redirect;
 
 class CitizenController extends Controller
@@ -19,12 +20,24 @@ class CitizenController extends Controller
     }
     public function index()
     {
-        return Inertia::render('citizens/index', ['citizens' => $this->citizenService->doGet()]);
+
+        return Inertia::render(
+            'citizens/index',
+            [
+                'citizens' => $this->citizenService->doGet(),
+            ]
+        );
     }
 
-    public function create()
+    public function create(RegionService $regionService)
     {
-        return Inertia::render('citizens/create');
+        $regions = $regionService->doGet();
+        return Inertia::render(
+            'citizens/create',
+            [
+                'regions' => $regions
+            ]
+        );
     }
 
     public function store(CitizenRequest $request)

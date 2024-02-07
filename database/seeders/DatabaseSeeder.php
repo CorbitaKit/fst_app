@@ -20,5 +20,10 @@ class DatabaseSeeder extends Seeder
             'password' => Hash::make('fstadmin'),
             'role_id' => 1
         ]);
+
+        $this->call([
+            RegionSeeder::class,
+            CitySeeder::class,
+        ]);
     }
 }
