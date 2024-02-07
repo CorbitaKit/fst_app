@@ -2,6 +2,11 @@
     import {useForm, router} from '@inertiajs/vue3';
     import {ref} from 'vue';
     import moment from 'moment';
+    import { QuillEditor } from '@vueup/vue-quill'
+    import '@vueup/vue-quill/dist/vue-quill.snow.css';
+    import axios from 'axios'
+    import Swal from 'sweetalert2/dist/sweetalert2.js'
+    import 'sweetalert2/src/sweetalert2.scss'
   
     const props = defineProps({
         citizen: Object
@@ -36,6 +41,47 @@
         return moment(date).format('MMMM D, YYYY hh:mm A');
     }
 
+    function deleteJournal(journal_id) {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                axios.delete('/journals' + '/' + journal_id)
+                .then(() => {
+                    Swal.fire({
+                        title: "Deleted!",
+                        text: "Your file has been deleted.",
+                        icon: "success"
+                    });
+                    router.get('/citizens/'+props.citizen.id)
+                })
+            }
+        });
+        
+    }
+
+    function addJournalToFavorite(journal_id) {
+        axios.patch('/journals/add-journal-to-favorite' + '/' + journal_id)
+        .then(() => {
+            router.get('/citizens/'+props.citizen.id)
+        })
+    }
+    function lockJournal(journal_id) {
+        axios.patch('/journals/lock-journal' + '/' + journal_id)
+        .then(() => {
+            router.get('/citizens/'+props.citizen.id)
+        })
+    }
+    defineOptions({
+        QuillEditor
+    })
+    
 </script>
 <template>
     <div class="row">
@@ -49,7 +95,7 @@
                     </div>
                     <h3 class="profile-username text-center">{{ citizen.first_name }} {{ citizen.last_name }}</h3>
                     <div class="text-center">
-                        <span>{{ citizen.address.address }}</span>
+                        <!-- <span>{{ citizen.address.address }}</span> -->
                     </div>
                     <ul class="list-group list-group-unbordered mb-3">
                         <li class="list-group-item">
@@ -119,8 +165,8 @@
                                         </span>
                                         <span class="description">Created at {{ formatDate(citizen.create_at) }}</span>
                                     </div>
-                                    <p>
-                                        {{ journal.content }}
+                                    <p v-html="journal.content">
+                                      
                                     </p>
 
                                     <div class="text-right">
@@ -131,16 +177,24 @@
                                             <button type="button" class="btn btn-s bg-gradient-default mb-2 mr-2" title="Time Log">
                                                 <i class="far fa-clock"></i>
                                             </button>
-                                            <button type="button" class="btn btn-s bg-gradient-default mb-2 mr-2" title="Favorite">
+
+                                            <button v-if="journal.is_favorite == 0" @click="addJournalToFavorite(journal.id)" type="button" class="btn btn-s bg-gradient-default mb-2 mr-2" title="Favorite">
                                                 <i class="far fa-star"></i>
                                             </button>
-                                            <button type="button" class="btn btn-s bg-gradient-default mb-2 mr-2" title="Unlock">
+                                            <button v-if="journal.is_favorite == 1" type="button" class="btn btn-s bg-gradient-default mb-2 mr-2" title="Favorite">
+                                                <i class="fas fa-star"></i>
+                                            </button>
+                                            <button type="button" v-if="journal.is_lock == 0" @click="lockJournal(journal.id)" class="btn btn-s bg-gradient-default mb-2 mr-2" title="Lock">
                                                 <i class="fas fa-unlock"></i>
+                                            </button>
+
+                                            <button type="button" v-if="journal.is_lock == 1" class="btn btn-s bg-gradient-default mb-2 mr-2" title="Lock">
+                                                <i class="fas fa-lock"></i>
                                             </button>
                                             <button type="button" class="btn btn-s bg-gradient-default mb-2 mr-2" title="Print">
                                                 <i class="fas fa-print"></i>
                                             </button>
-                                            <button type="button" class="btn btn-s bg-gradient-default mb-2 mr-2" title="Delete">
+                                            <button type="button" @click="deleteJournal(journal.id)" class="btn btn-s bg-gradient-default mb-2 mr-2" title="Delete">
                                                 <i class="fas fa-trash"></i>
                                             </button>
                                         </p>
@@ -166,7 +220,7 @@
                                         <div class="col-md-12">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Content</label>
-                                                <textarea class="form-control" v-model="form.content"></textarea>
+                                                <QuillEditor theme="snow" toolbar="full" v-model:content="form.content" contentType="html"/>
                                                 
                                             </div>
                                         </div>

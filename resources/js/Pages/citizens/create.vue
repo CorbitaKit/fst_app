@@ -1,8 +1,12 @@
 <script setup>
     import {router, useForm} from '@inertiajs/vue3';
+    import axios from 'axios';
+    import {ref} from 'vue';
 
     defineProps({
-        errors: Object
+        errors: Object,
+        regions: Object,
+        cities: Object
     })
     const form = useForm({
         'email': null,
@@ -13,18 +17,25 @@
         'phone': null,
         'address': null,
         'postcode': null,
-        'city': null,
-        'state': null,
+        'city_id': null,
+        'region_id': null,
         'country': null,
         'note': null,
     })
 
+    const cities = ref(null)
     function submit() {
         router.post('/citizens', form)
     }
 
     function cancel() {
         router.get('/citizens')
+    }
+    function getCities() {
+        axios.get('/get-cities'+'/'+form.region_id)
+        .then(response => {
+            cities.value = response.data
+        })
     }
 </script>
 
@@ -108,15 +119,23 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Region</label>
-                                    <input type="text" v-model="form.state" class="form-control" :class="{ 'is-invalid': errors.state }" placeholder="Enter Region">
+                                    <select class="form-control" @change="getCities" v-model="form.region_id">
+                                        <option v-for="(region, i) in regions" :key="i" :value="region.id">
+                                            {{ region.region }}
+                                        </option>
+                                    </select>
                                     <div class="text-danger text-xs" v-if="errors.state"> {{ errors.state }} </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">City</label>
-                                    <input type="text" v-model="form.city" class="form-control" :class="{ 'is-invalid': errors.city }" placeholder="Enter City">
-                                    <div class="text-danger text-xs" v-if="errors.city"> {{ errors.city }} </div>
+                                    <select class="form-control"  v-model="form.city_id">
+                                        <option v-for="(city, i) in cities" :key="i" :value="city.id">
+                                            {{ city.city }}
+                                        </option>
+                                    </select>
+                                    <div class="text-danger text-xs" v-if="errors.state"> {{ errors.state }} </div>
                                 </div>
                             </div>
                             <div class="col-md-6">

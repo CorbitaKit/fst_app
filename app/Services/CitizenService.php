@@ -33,7 +33,6 @@ class CitizenService
             $new_citizen->birth_day = $citizen->birth_day;
             $new_citizen->note = $citizen->note;
             $new_citizen->save();
-
             $this->citizenAddressService->doStore($citizen, $new_citizen->id);
 
             DB::commit();

@@ -31,4 +31,16 @@ class JournalService
     {
         return Journal::get();
     }
+
+    public function doAddJournalToFavorite($journal_id): void
+    {
+        $journal = Journal::findOrFail($journal_id);
+        $journal->update(['is_favorite' => 1]);
+    }
+
+    public function doLockJournal($journal_id): void
+    {
+        $journal = Journal::findOrFail($journal_id);
+        $journal->update(['is_lock' => 1]);
+    }
 }
