@@ -2,8 +2,9 @@
 
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CitizenController;
-use App\Http\Controllers\CityController;
 use App\Http\Controllers\JournalController;
+use App\Http\Controllers\MedicineController;
+use App\Http\Controllers\MedicineJournalController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -39,6 +40,10 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::resource('citizens', CitizenController::class);
     Route::resource('journals', JournalController::class);
+    Route::resource('medicines', MedicineController::class);
+
+    Route::get('medicine-journals/{citizen_id}', [MedicineJournalController::class, 'getCitizenMedicineJournal']);
+
 
     Route::post('/logout', function () {
         auth()->logout();

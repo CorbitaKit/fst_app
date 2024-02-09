@@ -42,7 +42,7 @@ class CitizenService
     }
     public function doGetCitizenInfo(int $citizen_id): Citizen
     {
-        return Citizen::with('address', 'journals')->where('id', $citizen_id)->first();
+        return Citizen::with('address', 'journals', 'medicines')->where('id', $citizen_id)->first();
     }
 
     public function doUpdate(int $citizen_id, object $request): void
