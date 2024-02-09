@@ -30,9 +30,9 @@ class CitizenRequest extends FormRequest
             'phone' => 'required',
             'address' => 'required',
             'postcode' => 'required',
-            'city' => 'required',
-            'state' => 'required',
-            'country' => 'required',
+            'city_id' => 'required',
+            'region_id' => 'required',
+            'municipality_id' => 'required',
             'note' => 'required',
         ];
     }

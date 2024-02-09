@@ -9,7 +9,7 @@ class Journal extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'content', 'citizen_id', 'date'];
+    protected $fillable = ['title', 'content', 'citizen_id', 'date', 'is_favorite', 'is_lock', 'is_draft'];
 
     public function citizen()
     {

@@ -5,8 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class CitizenAddress extends Model
+class City extends Model
 {
     use HasFactory;
-    protected $fillable = ['address', 'postcode', 'city_id', 'region_id', 'municipality_id'];
+
+    public function municipality()
+    {
+        return $this->belongsTo(\App\Models\Municipality::class);
+    }
 }
