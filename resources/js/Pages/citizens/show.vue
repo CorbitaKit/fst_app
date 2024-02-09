@@ -1,8 +1,11 @@
 <script setup>
-    import JounalTab from '../journals/index.vue'
+    import JounalTab from '../journals/index.vue';
+    import MedJournal from '../medicines/index.vue';
     const props = defineProps({
         citizen: Object
     })
+
+    
 </script>
 <template>
     <div class="row">
@@ -34,14 +37,16 @@
                 <div class="card-header p-2">
                     <ul class="nav nav-pills">
                         <li class="nav-item"><a class="nav-link active" href="#journal" data-toggle="tab">Journal</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#medjournal" data-toggle="tab">Midicine Journal</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#medJournal" data-toggle="tab">Midicine Journal</a></li>
                         <li class="nav-item"><a class="nav-link" href="#notifications" data-toggle="tab">Notifications</a></li>
                         <li class="nav-item"><a class="nav-link" href="#appointments" data-toggle="tab">Appointments</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#invoices" data-toggle="tab">Invoices</a></li>
                     </ul>
                 </div>
                 <div class="card-body">
                     <div class="tab-content">
                         <JounalTab :journals="citizen.journals" :citizen_id="citizen.id"/>
+                        <MedJournal :citizen="citizen"/>
                         <div class="tab-pane" id="notifications">
                             <!-- The timeline -->
                             <div class="timeline timeline-inverse">
