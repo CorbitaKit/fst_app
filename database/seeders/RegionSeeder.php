@@ -22,7 +22,7 @@ class RegionSeeder extends Seeder
         ];
 
         foreach ($regions as $region) {
-            \App\Models\Region::create(['region' => $region]);
+            \App\Models\Region::create(['name' => $region]);
         }
     }
 }

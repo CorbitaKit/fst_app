@@ -12,128 +12,336 @@ class CitySeeder extends Seeder
      */
     public function run(): void
     {
-        $citiesByRegion = [
-            'Hovedstaden' => [
-                'Copenhagen',
+        $CitiesByMunicipality = [
+            'Copenhagen' => [
+                'Indre By',
+                'Østerbro',
+                'Nørrebro',
+                'Vesterbro/Kongens Enghave',
+                'Valby',
+                'Vanløse',
+                'Brønshøj-Husum',
+                'Bispebjerg',
+                'Amager Øst',
+                'Amager Vest',
+                'Slotsholmen',
+                'Frederiksstaden',
+                'Islands Brygge',
+                'Christiania ',
+                'Carlsberg',
+                'Sluseholmen',
+                'Amagerbro',
+                'Ørestad',
+                'Nordhavnen',
+                'Bellahøj',
+                'Brønshøj',
+                'Ryparken',
+                'Vigerslev',
+            ],
+            'Frederiksberg' => [
                 'Frederiksberg',
+            ],
+            'Helsingør' => [
                 'Helsingør',
+            ],
+            'Gentofte' => [
                 'Gentofte',
+            ],
+            'Gladsaxe' => [
                 'Gladsaxe',
+            ],
+            'Ballerup' => [
                 'Ballerup',
+            ],
+            'Lyngby-Taarbæk' => [
                 'Lyngby-Taarbæk',
+            ],
+            'Herlev' => [
                 'Herlev',
+            ],
+            'Hvidovre' => [
                 'Hvidovre',
+            ],
+            'Rødovre' => [
                 'Rødovre',
+            ],
+            'Tårnby' => [
                 'Tårnby',
+            ],
+            'Albertslund' => [
                 'Albertslund',
+            ],
+            'Allerød' => [
                 'Allerød',
+            ],
+            'Bornholm (Regional Municipality)' => [
                 'Bornholm (Regional Municipality)',
+            ],
+            'Brøndby' => [
                 'Brøndby',
+            ],
+            'Dragør' => [
                 'Dragør',
+            ],
+            'Egedal' => [
                 'Egedal',
+            ],
+            'Fredensborg' => [
                 'Fredensborg',
+            ],
+            'Frederikssund' => [
                 'Frederikssund',
+            ],
+            'Furesø' => [
                 'Furesø',
+            ],
+            'Glostrup' => [
                 'Glostrup',
+            ],
+            'Gribskov' => [
                 'Gribskov',
+            ],
+            'Halsnæs' => [
                 'Halsnæs',
+            ],
+            'Hillerød' => [
                 'Hillerød',
+            ],
+            'Høje-Taastrup' => [
                 'Høje-Taastrup',
+            ],
+            'Hørsholm' => [
                 'Hørsholm',
+            ],
+            'Ishøj' => [
                 'Ishøj',
+            ],
+            'Rudersdal' => [
                 'Rudersdal',
+            ],
+            'Vallensbæk' => [
                 'Vallensbæk',
             ],
-            'Midtjylland' => [
+            'Aarhus' => [
                 'Aarhus',
+            ],
+            'Randers' => [
                 'Randers',
+            ],
+            'Horsens' => [
                 'Horsens',
+            ],
+            'Silkeborg' => [
                 'Silkeborg',
+            ],
+            'Herning' => [
                 'Herning',
+            ],
+            'Viborg' => [
                 'Viborg',
+            ],
+            'Holstebro' => [
                 'Holstebro',
+            ],
+            'Skive' => [
                 'Skive',
+            ],
+            'Ikast-Brande' => [
                 'Ikast-Brande',
+            ],
+            'Struer' => [
                 'Struer',
+            ],
+            'Skanderborg' => [
                 'Skanderborg',
+            ],
+            'Norddjurs' => [
                 'Norddjurs',
+            ],
+            'Favrskov' => [
                 'Favrskov',
+            ],
+            'Odder' => [
                 'Odder',
+            ],
+            'Samsø' => [
                 'Samsø',
+            ],
+            'Hedensted' => [
                 'Hedensted',
+            ],
+            'Ringkøbing-Skjern' => [
                 'Ringkøbing-Skjern',
             ],
-            'Nordjylland' => [
+            'Aalborg' => [
                 'Aalborg',
+            ],
+            'Hjørring' => [
                 'Hjørring',
+            ],
+            'Frederikshavn' => [
                 'Frederikshavn',
+            ],
+            'Thisted' => [
                 'Thisted',
+            ],
+            'Brønderslev' => [
                 'Brønderslev',
+            ],
+            'Jammerbugt' => [
                 'Jammerbugt',
+            ],
+            'Vesthimmerland' => [
                 'Vesthimmerland',
+            ],
+            'Mariagerfjord' => [
                 'Mariagerfjord',
+            ],
+            'Rebild' => [
                 'Rebild',
+            ],
+            'Læsø' => [
                 'Læsø',
+            ],
+            'Morsø' => [
                 'Morsø',
             ],
-            'Sjælland' => [
+            'Roskilde' => [
                 'Roskilde',
+            ],
+            'Køge' => [
                 'Køge',
+            ],
+            'Næstved' => [
                 'Næstved',
+            ],
+            'Slagelse' => [
                 'Slagelse',
+            ],
+            'Holbæk' => [
                 'Holbæk',
+            ],
+            'Kalundborg' => [
                 'Kalundborg',
+            ],
+            'Ringsted' => [
                 'Ringsted',
+            ],
+            'Guldborgsund' => [
                 'Guldborgsund',
+            ],
+            'Vordingborg' => [
                 'Vordingborg',
+            ],
+            'Lolland' => [
                 'Lolland',
+            ],
+            'Sorø' => [
                 'Sorø',
+            ],
+            'Faxe' => [
                 'Faxe',
+            ],
+            'Stevns' => [
                 'Stevns',
+            ],
+            'Odsherred' => [
                 'Odsherred',
+            ],
+            'Lejre' => [
                 'Lejre',
+            ],
+            'Solrød' => [
                 'Solrød',
+            ],
+            'Furesø' => [
                 'Furesø',
+            ],
+            'Gribskov' => [
                 'Gribskov',
+            ],
+            'Halsnæs' => [
                 'Halsnæs',
             ],
-            'Syddanmark' => [
+            'Odense' => [
                 'Odense',
+            ],
+            'Esbjerg' => [
                 'Esbjerg',
+            ],
+            'Aabenraa' => [
                 'Aabenraa',
+            ],
+            'Kolding' => [
                 'Kolding',
+            ],
+            'Sønderborg' => [
                 'Sønderborg',
+            ],
+            'Haderslev' => [
                 'Haderslev',
+            ],
+            'Vejle' => [
                 'Vejle',
+            ],
+            'Fredericia' => [
                 'Fredericia',
+            ],
+            'Varde' => [
                 'Varde',
+            ],
+            'Billund' => [
                 'Billund',
+            ],
+            'Vejen' => [
                 'Vejen',
+            ],
+            'Middelfart' => [
                 'Middelfart',
+            ],
+            'Assens' => [
                 'Assens',
+            ],
+            'Faaborg-Midtfyn' => [
                 'Faaborg-Midtfyn',
+            ],
+            'Nyborg' => [
                 'Nyborg',
+            ],
+            'Svendborg' => [
                 'Svendborg',
+            ],
+            'Nordfyn' => [
                 'Nordfyn',
+            ],
+            'Kerteminde' => [
                 'Kerteminde',
+            ],
+            'Langeland' => [
                 'Langeland',
+            ],
+            'Ærø' => [
                 'Ærø',
+            ],
+            'Tønder' => [
                 'Tønder',
+            ],
+            'Fanø' => [
                 'Fanø',
-                'Varde',
             ],
         ];
 
 
-        foreach ($citiesByRegion as $regionName => $cities) {
-            $region = \App\Models\Region::where('region', $regionName)->first();
-            if (!$region) {
+
+        foreach ($CitiesByMunicipality as $regionName => $cities) {
+            $municipality = \App\Models\Municipality::where('name', $regionName)->first();
+            if (!$municipality) {
                 continue;
             }
             foreach ($cities as $cityName) {
                 \App\Models\City::create([
-                    'city' => $cityName,
-                    'region_id' => $region->id,
+                    'name' => $cityName,
+                    'municipality_id' => $municipality->id,
                 ]);
             }
         }

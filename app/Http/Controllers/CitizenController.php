@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\CitizenRequest;
+use App\Http\Resources\CitizenResource;
 use Inertia\Inertia;
 use App\Services\CitizenService;
 use App\Services\RegionService;
@@ -49,5 +50,27 @@ class CitizenController extends Controller
     public function show($citizen_id)
     {
         return Inertia::render('citizens/show', ['citizen' => $this->citizenService->doGetCitizenInfo($citizen_id)]);
+    }
+
+    public function edit($citizen_id, RegionService $regionService)
+    {
+        return Inertia::render(
+            'citizens/edit',
+            [
+                'citizen' => new CitizenResource($this->citizenService->doGetCitizenInfo($citizen_id)),
+                'regions' => $regionService->doGet(),
+            ]
+        );
+    }
+
+    public function update(Request $request, $citizen_id)
+    {
+        $this->citizenService->doUpdate($citizen_id, $request);
+        return Redirect::route('citizens.index');
+    }
+
+    public function destroy($citizen_id)
+    {
+        $this->citizenService->doDelete($citizen_id);
     }
 }
