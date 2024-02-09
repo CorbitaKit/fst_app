@@ -9,6 +9,7 @@ class Citizen extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['email', 'first_name', 'last_name', 'birth_day', 'note', 'social_security_number', 'phone'];
     public function getFullNameAttribute()
     {
         return $this->attributes['first_name'] . ' ' . $this->attributes['last_name'];

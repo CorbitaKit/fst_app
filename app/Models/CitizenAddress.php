@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class CitizenAddress extends Model
 {
     use HasFactory;
+    protected $fillable = ['address', 'postcode', 'city_id', 'region_id', 'municipality_id'];
 }

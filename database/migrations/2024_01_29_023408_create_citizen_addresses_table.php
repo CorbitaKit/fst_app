@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('postcode');
             $table->foreignId('city_id');
             $table->foreignId('region_id');
-            $table->string('country');
+            $table->foreignId('municipality_id');
         });
     }
 

@@ -42,9 +42,6 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::patch('/journals/add-journal-to-favorite/{journal_id}', [JournalController::class, 'addJournalToFavorite']);
     Route::patch('/journals/lock-journal/{journal_id}', [JournalController::class, 'lockJournal']);
-
-    Route::get('/get-cities/{region_id}', CityController::class);
-
     Route::post('/logout', function () {
         auth()->logout();
         $cookie = Cookie::forget('token');
