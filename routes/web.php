@@ -40,8 +40,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::resource('citizens', CitizenController::class);
     Route::resource('journals', JournalController::class);
 
-    Route::patch('/journals/add-journal-to-favorite/{journal_id}', [JournalController::class, 'addJournalToFavorite']);
-    Route::patch('/journals/lock-journal/{journal_id}', [JournalController::class, 'lockJournal']);
     Route::post('/logout', function () {
         auth()->logout();
         $cookie = Cookie::forget('token');
