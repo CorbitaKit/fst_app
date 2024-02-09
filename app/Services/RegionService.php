@@ -9,6 +9,6 @@ class RegionService
 {
     public function doGet(): Collection
     {
-        return Region::all();
+        return Region::with('municipalities.cities')->get();
     }
 }
