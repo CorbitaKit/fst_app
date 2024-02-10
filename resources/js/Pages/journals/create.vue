@@ -3,6 +3,7 @@
     import '@vueup/vue-quill/dist/vue-quill.snow.css';
     import { useForm, router } from '@inertiajs/vue3';
     import { ref } from 'vue'
+    // import Editor from 'primevue/editor';
 
     const props = defineProps({
         citizen_id: Number,
@@ -18,6 +19,15 @@
         'is_favorite': 0, 
         'citizen_id': props.citizen_id,
     })
+
+    const toolbar = ref([
+        ['bold', 'italic', 'underline', 'strike'],
+        [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+        [{ 'align': [] }],
+        ['link'],
+        [{ 'header': 1 }, { 'header': 2 }],
+        ['image']
+    ])
 
     const submit = () => {
         form.post('/journals', {
@@ -59,8 +69,7 @@
                 <div class="col-md-12">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Content</label>
-                        <QuillEditor theme="snow" toolbar="full" v-model:content="form.content" contentType="html"/>
-                        
+                        <QuillEditor theme="snow" :toolbar="toolbar" v-model:content="form.content" contentType="html" style="height: 300px;"/>
                     </div>
                 </div>
             </div>
