@@ -1,7 +1,7 @@
 <script setup>
     import { router } from '@inertiajs/vue3';
     import {ref} from 'vue';
-
+    import { vMaska } from "maska"
     const props = defineProps({
         errors: Object,
         regions: Object,
@@ -82,7 +82,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Social Security Number</label>
-                                    <input type="text" v-model="form.social_security_number" class="form-control" :class="{ 'is-invalid': errors.social_security_number }" placeholder="Enter Social Security Number">
+                                    <input type="text" v-maska data-maska="######-####" v-model="form.social_security_number" class="form-control" :class="{ 'is-invalid': errors.social_security_number }" placeholder="Enter Social Security Number">
                                     <div class="text-danger text-xs" v-if="errors.social_security_number"> {{ errors.social_security_number }} </div>
                                 </div>
                             </div>
@@ -96,11 +96,19 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Phone Number</label>
-                                    <input type="text" v-model="form.phone" class="form-control" :class="{ 'is-invalid': errors.phone }" placeholder="Enter Phone Number">
-                                    <div class="text-danger text-xs" v-if="errors.phone"> {{ errors.phone }} </div>
+                                    <div class="input-group mb-3">
+                                        
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">🇩🇰</span>
+                                        </div>
+
+                                        
+                                        <input type="text" v-maska data-maska="(+45)###-#####" v-model="form.phone" class="form-control" :class="{ 'is-invalid': errors.phone }" placeholder="Enter Phone Number">
+                                        <div class="text-danger text-xs" v-if="errors.phone"> {{ errors.phone }} </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-12">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Address</label>
                                     <input type="text" v-model="form.address" class="form-control" :class="{ 'is-invalid': errors.address }" placeholder="Enter Address">
@@ -111,7 +119,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Region</label>
-                                    <select class="form-control" :class="{ 'is-invalid': errors.region_id }" @change="getMunicipalities" v-model="form.region_id">
+                                    <select class="form-control select2" :class="{ 'is-invalid': errors.region_id }" @change="getMunicipalities" v-model="form.region_id">
                                         <option v-for="(region, i) in regions" :key="i" :value="region.id">
                                             {{ region.name }}
                                         </option>
@@ -144,8 +152,8 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Post Code</label>
-                                    <input type="text" v-model="form.postcode" class="form-control" :class="{ 'is-invalid': errors.postcode }" placeholder="Enter Post Code">
-                                    <div class="text-danger text-xs" v-if="errors.postcode"> {{ errors.postcode }} </div>
+                                    <input type="text" v-maska data-maska="####" v-model="form.postcode" class="form-control" :class="{ 'is-invalid': errors.postcode }" placeholder="Enter Post Code">
+                                    <div class="text-danger text-xs"  v-if="errors.postcode"> {{ errors.postcode }} </div>
                                 </div>
                             </div>
                             <div class="col-md-12">
