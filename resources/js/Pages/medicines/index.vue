@@ -4,6 +4,7 @@
     import { ref, onMounted } from 'vue'
     import axios from 'axios'
     import moment from 'moment';
+    import 'moment/locale/da'
     const props = defineProps({
         citizen: Object
     })
@@ -21,6 +22,7 @@
     }
 
     const formatDate = (date, format) => {
+        moment.locale('da')
         return moment(date).format(format);
     }
 </script>
@@ -46,7 +48,7 @@
             <div class="timeline timeline-inverse"  v-for="(med_journal, i) in medicine_journals" :key="i">
                 <div class="time-label">
                     <span class="bg-danger">
-                        {{ formatDate(med_journal.created_at, "MMMM D, YYYY") }}
+                        {{ formatDate(med_journal.created_at, "D. MMMM YYYY") }}
                     </span>
                 </div>
                 <div v-if="med_journal.action == 'Add'">
@@ -62,7 +64,7 @@
                     <i class="fas fa-trash bg-primary"></i>
 
                     <div class="timeline-item">
-                        <span class="time"><i class="far fa-clock"></i> {{ formatDate(med_journal.created_at, "hh:mm A") }}</span>
+                        <span class="time"><i class="far fa-clock"></i> {{ formatDate(med_journal.created_at, "H:mm") }}</span>
 
                         <h3 class="timeline-header"><a href="#">{{ med_journal.user.name }}</a> Deleted {{ med_journal.citizen.first_name }} {{ med_journal.citizen.last_name }}  {{  med_journal.medicine.name }}s medicine</h3>
                     </div>

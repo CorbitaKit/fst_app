@@ -49,7 +49,7 @@
                     <div class="tab-content">
                         <JounalTab :journals="citizen.journals" :citizen_id="citizen.id"/>
                         <MedJournal :citizen="citizen"/>
-                        <PlansAndGoals />
+                        <PlansAndGoals :plans="citizen.plans"/>
                         <div class="tab-pane" id="notifications">
                             <!-- The timeline -->
                             <div class="timeline timeline-inverse">

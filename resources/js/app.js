@@ -3,6 +3,8 @@ import { createApp, h } from 'vue'
 import { createInertiaApp } from '@inertiajs/vue3'
 import PrimeVue from 'primevue/config';
 import 'primevue/resources/themes/aura-light-green/theme.css'
+import 'primeicons/primeicons.css'
+import Tooltip from 'primevue/tooltip';
 
 createInertiaApp({
   resolve: name => {
@@ -13,6 +15,7 @@ createInertiaApp({
     createApp({ render: () => h(App, props) })
       .use(plugin)
       .use(PrimeVue)
+      .directive('tooltip', Tooltip)
       .mount(el)
   },
 })
