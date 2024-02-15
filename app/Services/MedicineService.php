@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Medicine;
 use Auth;
 use App\Models\MedicineJournal;
+use Illuminate\Database\Eloquent\Collection;
 
 class MedicineService
 {
@@ -26,7 +27,7 @@ class MedicineService
         $medicine = Medicine::findOrFail($id);
         $citizen_id = $medicine->citizen_id;
 
-        // $medicine->delete();
+        $medicine->delete();
 
         MedicineJournal::create([
             'user_id' => Auth::user()->id,
@@ -34,5 +35,10 @@ class MedicineService
             'medicine_id' => $id,
             'citizen_id' => $citizen_id
         ]);
+    }
+
+    public function doGetCitizenMedicines($citizen_id): Collection
+    {
+        return Medicine::withoutTrashed()->where('citizen_id', $citizen_id)->get();
     }
 }

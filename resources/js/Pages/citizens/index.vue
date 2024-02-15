@@ -2,22 +2,27 @@
     import {router} from '@inertiajs/vue3';
     import Swal from 'sweetalert2/dist/sweetalert2.js'
     import 'sweetalert2/src/sweetalert2.scss'
-
-    defineProps({
+    import DataTable from 'primevue/datatable'
+    import Column from 'primevue/column';
+    import Button from 'primevue/button'
+    import { ref, onMounted } from 'vue'
+    const props = defineProps({
         citizens: Object
     })
-    function createNewCitizen() {
+    const data = ref([])
+    const createNewCitizen = () => {
         router.get('/citizens/create')
     }
 
-    function show(id) {
+    const show = (id) => {
+        console.log(id)
         router.get('/citizens/'+id)
     }
 
-    function edit(id) {
+    const edit = (id) => {
         router.get('/citizens/' + id +"/edit")
     }
-    function destroy(id) {
+    const destroy = (id) => {
         Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",
@@ -44,65 +49,30 @@
 </script>
 
 <template>
-    <div class="row">
-        <div class="col-md-3">
-            <button type="button" @click.prevent="createNewCitizen" class="btn btn-block bg-gradient-success mb-2">
-                <i class="fas fa-user-plus mr-2"></i>
-                Add new citizen
-            </button>
-        </div>
-        <div class="col-12">
-            <div class="card">
-                <div class="card-header">
-                <div class="card-tools">
-                    <div class="input-group input-group-sm" style="width: 150px;">
-                        <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-                        <div class="input-group-append">
-                            <button type="submit" class="btn btn-default">
-                            <i class="fas fa-search"></i>
-                            </button>
-                        </div>
+    
+    <div class="card">
+        <DataTable :value="citizens" showGridlines paginator :rows="5" :rowsPerPageOptions="[5, 10, 20, 50]" >
+            <template #header>
+                <div class="flex flex-wrap align-items-center justify-content-between gap-2">
+                    <span class="text-xl text-900 font-bold">Citizen List</span>
+                    <Button label="Add new citizen" @click="createNewCitizen" icon="pi pi-plus" class="float-right" raised />
+                </div>
+            </template>
+            <Column field="first_name" header="First Name" />
+            <Column field="last_name" header="Last Name" />
+            <Column field="email" header="Email" />
+            <Column field="phone" header="Phone" />
+            <Column header="Actions">
+                <template #body="citizen">
+                    <div class="flex flex-wrap">
+                        <Button @click="show(citizen.data.id)"  v-tooltip.bottom="'View citizens details'" class="mr-2"  icon="pi pi-eye" rounded severity="info" raised />
+                        <Button @click="edit(citizen.data.id)"  v-tooltip.bottom="'Edit Citizens record'" class="mr-2" type="button"  icon="pi pi-file-edit" rounded severity="success" raised />
+                        <Button @click="destroy(citizen.data.id)"  v-tooltip.bottom="'Delete Citizens record'" type="button"  icon="pi pi-trash" rounded severity="danger" raised />
                     </div>
-                </div>
-                </div>
-                <div class="card-body table-responsive p-0">
-                    <table class="table table-hover text-nowrap">
-                        <thead>
-                        <tr>
-                            <th>Image</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Phone Number</th>
-                            <th>Actions</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr v-for="(citizen, i) in citizens" :key="i">
-                            <td>
-                                <img src="https://via.placeholder.com/32" alt="User Image" class="img-circle img-size-32">
-                            </td>
-                            <td> {{  citizen.first_name }} {{ citizen.last_name }} </td>
-                            <td>{{  citizen.email }}</td>
-                            <td>{{  citizen.phone }}</td>
-                            <td>
-                                <div class="btn-group">
-                                    <button type="button" @click="show(citizen.id)" class="btn btn-sm btn-success mr-1">
-                                        <i class="fas fa-eye"></i> Show
-                                    </button>
-                                    <button type="button" @click="edit(citizen.id)" class="btn btn-sm btn-info mr-1">
-                                        <i class="fas fa-edit"></i> Edit
-                                    </button>
-                                    <button type="button" @click="destroy(citizen.id)" class="btn btn-sm btn-danger mr-1">
-                                        <i class="fas fa-trash-alt"></i> Delete
-                                    </button>
-                                    
-                                </div>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
+                </template>
+            </Column>
+        </DataTable>
     </div>
+    
+    
 </template>

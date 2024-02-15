@@ -29,14 +29,8 @@ class JournalController extends Controller
     public function update(Request $request, $journalId)
     {
         $this->journalService->doUpdate($request->all(), $journalId);
-        return response(json_encode('Updated'), 200);
     }
 
-    // public function destroy($journalId)
-    // {
-    //     $this->journalService->doDestroy($journalId);
-    //     return response(json_encode('Deleted'), 204);
-    // }
 
     public function show($journalId)
     {
@@ -51,13 +45,10 @@ class JournalController extends Controller
         return response(json_encode('Deleted'), 204);
     }
 
-    public function addJournalToFavorite($journal_id)
+    public function getCitizenJournal($citizen_id)
     {
-        $this->journalService->doAddJournalToFavorite($journal_id);
-    }
+        $journals = $this->journalService->doGetCitizenJournals($citizen_id);
 
-    public function lockJournal($journal_id)
-    {
-        $this->journalService->doLockJournal($journal_id);
+        return response(json_encode($journals), 200);
     }
 }

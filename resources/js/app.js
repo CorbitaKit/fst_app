@@ -3,6 +3,7 @@ import { createApp, h } from 'vue'
 import { createInertiaApp } from '@inertiajs/vue3'
 import PrimeVue from 'primevue/config';
 import 'primevue/resources/themes/aura-light-green/theme.css'
+import "primeflex/primeflex.css";
 import 'primeicons/primeicons.css'
 import Tooltip from 'primevue/tooltip';
 
