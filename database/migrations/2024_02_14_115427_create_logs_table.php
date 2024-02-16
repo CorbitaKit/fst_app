@@ -18,6 +18,9 @@ return new class extends Migration
             $table->string('action');
             $table->foreignId('record_id');
             $table->string('record');
+            $table->string('status');
+            $table->string('color');
+            $table->string('icon');
         });
     }
 

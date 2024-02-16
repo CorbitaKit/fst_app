@@ -6,6 +6,7 @@
     import Dialog from 'primevue/dialog';
     import {ref} from 'vue';
     import Timeline from 'primevue/timeline';
+    import Card from 'primevue/card';
     const props = defineProps({
         journal: Object
     })
@@ -63,6 +64,8 @@
         return moment(date).format(format);
     }
 
+    
+
 </script>
 
 <template>
@@ -79,14 +82,45 @@
 
     <Dialog v-model:visible="visible" modal header="Journal Time Logs" :style="{ width: '50rem' }">
         <div class="card">
-            <Timeline :value="logs">
-                <template #opposite="slotProps">
-                    <small class="p-text-secondary">{{ formatDate(slotProps.item.created_at, "D. MMMM YYYY HH:mm")}}</small>
+            <Timeline :value="logs"  align="alternate">
+                <template #marker="slotProps">
+                    <span class="flex w-2rem h-2rem align-items-center justify-content-center text-white border-circle z-1 shadow-1" :style="{ backgroundColor: slotProps.item.color }">
+                        <i :class="slotProps.item.icon"></i>
+                    </span>
                 </template>
                 <template #content="slotProps">
-                    {{ slotProps.item.user.name }} {{slotProps.item.action}}
+                    <Card class="mt-3">
+                        <template #title>
+                            {{ slotProps.item.status }}
+                        </template>
+                        <template #subtitle>
+                            {{ formatDate(slotProps.item.created_at, "D. MMMM YYYY HH:mm")}}
+                        </template>
+                        <template #content>
+                            <p>
+                                {{ slotProps.item.user.name }} {{slotProps.item.action}}
+                            </p>
+                        </template>
+                    </Card>
                 </template>
             </Timeline>
         </div>
     </Dialog>
 </template>
+<style lang="scss" scoped>
+@media screen and (max-width: 960px) {
+    ::v-deep(.customized-timeline) {
+        .p-timeline-event:nth-child(even) {
+            flex-direction: row;
+
+            .p-timeline-event-content {
+                text-align: left;
+            }
+        }
+
+        .p-timeline-event-opposite {
+            flex: 0;
+        }
+    }
+}
+</style>

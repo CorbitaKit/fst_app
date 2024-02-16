@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Log extends Model
 {
     use HasFactory;
-    protected $fillable = ['user_id', 'action', 'record', 'record_id'];
+    protected $fillable = ['user_id', 'action', 'record', 'record_id', 'status', 'color', 'icon'];
 
     public function user()
     {
