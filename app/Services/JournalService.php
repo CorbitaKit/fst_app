@@ -3,11 +3,14 @@
 namespace App\Services;
 
 use App\Models\Journal;
+use Illuminate\Database\Eloquent\Collection;
 
 class JournalService
 {
     public function doStore(array $journal): Journal
     {
+        $journal['created_by'] = auth()->id();
+
         return Journal::create($journal);
     }
 
@@ -29,6 +32,11 @@ class JournalService
 
     public function doGet(): Journal
     {
-        return Journal::get();
+        return Journal::withoutTrashed()->get();
+    }
+
+    public function doGetCitizenJournals(int $citizen_id): Collection
+    {
+        return Journal::with('creator')->where('citizen_id', $citizen_id)->get();
     }
 }

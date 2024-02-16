@@ -17,9 +17,9 @@ return new class extends Migration
             $table->foreignId('citizen_id');
             $table->string('address');
             $table->string('postcode');
-            $table->string('city');
-            $table->string('state');
-            $table->string('country');
+            $table->foreignId('city_id');
+            $table->foreignId('region_id');
+            $table->foreignId('municipality_id');
         });
     }
 

@@ -2,6 +2,16 @@
 
 namespace App\Providers;
 
+use App\Events\JournalProcessed;
+use App\Events\MedicineProcessed;
+use App\Listeners\SaveJournalProcess;
+use App\Listeners\SaveMedicineProcess;
+use App\Models\Journal;
+use App\Models\Medicine;
+use App\Models\SubGoal;
+use App\Observers\JournalObserver;
+use App\Observers\MedicineObserver;
+use App\Observers\SubGoalObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -25,7 +35,17 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        SubGoal::observe(SubGoalObserver::class);
+        Journal::observe(JournalObserver::class);
+        Medicine::observe(MedicineObserver::class);
+        Event::listen(
+            JournalProcessed::class,
+            SaveJournalProcess::class
+        );
+        Event::listen(
+            MedicineProcessed::class,
+            SaveMedicineProcess::class
+        );
     }
 
     /**

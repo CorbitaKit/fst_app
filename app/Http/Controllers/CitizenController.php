@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\CitizenRequest;
+use App\Http\Resources\CitizenResource;
 use Inertia\Inertia;
 use App\Services\CitizenService;
+use App\Services\RegionService;
 use Illuminate\Support\Facades\Redirect;
 
 class CitizenController extends Controller
@@ -19,12 +21,24 @@ class CitizenController extends Controller
     }
     public function index()
     {
-        return Inertia::render('citizens/index', ['citizens' => $this->citizenService->doGet()]);
+
+        return Inertia::render(
+            'citizens/index',
+            [
+                'citizens' => $this->citizenService->doGet(),
+            ]
+        );
     }
 
-    public function create()
+    public function create(RegionService $regionService)
     {
-        return Inertia::render('citizens/create');
+        $regions = $regionService->doGet();
+        return Inertia::render(
+            'citizens/create',
+            [
+                'regions' => $regions
+            ]
+        );
     }
 
     public function store(CitizenRequest $request)
@@ -36,5 +50,27 @@ class CitizenController extends Controller
     public function show($citizen_id)
     {
         return Inertia::render('citizens/show', ['citizen' => $this->citizenService->doGetCitizenInfo($citizen_id)]);
+    }
+
+    public function edit($citizen_id, RegionService $regionService)
+    {
+        return Inertia::render(
+            'citizens/edit',
+            [
+                'citizen' => new CitizenResource($this->citizenService->doGetCitizenInfo($citizen_id)),
+                'regions' => $regionService->doGet(),
+            ]
+        );
+    }
+
+    public function update(Request $request, $citizen_id)
+    {
+        $this->citizenService->doUpdate($citizen_id, $request);
+        return Redirect::route('citizens.index');
+    }
+
+    public function destroy($citizen_id)
+    {
+        $this->citizenService->doDelete($citizen_id);
     }
 }

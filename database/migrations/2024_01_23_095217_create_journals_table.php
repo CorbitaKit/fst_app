@@ -21,6 +21,8 @@ return new class extends Migration
             $table->boolean('is_draft')->default(0);
             $table->boolean('is_lock')->default(0);
             $table->boolean('is_favorite')->default(0);
+            $table->foreignId('created_by');
+            $table->softDeletes();
         });
     }
     /**

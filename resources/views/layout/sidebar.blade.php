@@ -10,7 +10,7 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                <img src="{{ asset('dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
                 <a href="#" class="d-block">Admin Admin</a>
@@ -19,14 +19,6 @@
         <!-- Sidebar Menu -->
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                <li class="nav-item active">
-                    <a href="{{ route('home') }}" class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}">
-                        <i class="nav-icon far fa-calendar-alt"></i>
-                        <p>
-                            Calendar
-                        </p>
-                    </a>
-                </li>
                 <li class="nav-item">
                     <a href="{{ route('citizens.index') }}" class="nav-link {{ request()->routeIs('citizens.index') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-users"></i>
@@ -35,11 +27,20 @@
                         </p>
                     </a>
                 </li>
+                <li class="nav-item active">
+                    <a href="{{ route('home') }}" class="nav-link {{ request()->routeIs('home') ? 'active' : '' }}">
+                        <i class="nav-icon far fa-calendar-alt"></i>
+                        <p>
+                            Calendar
+                        </p>
+                    </a>
+                </li>
+
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-briefcase"></i>
                         <p>
-                            Services
+                            Duty Schedule
                         </p>
                     </a>
                 </li>
@@ -47,7 +48,7 @@
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-file-invoice"></i>
                         <p>
-                            Invoices
+                            Employees
                         </p>
                     </a>
                 </li>
@@ -55,7 +56,15 @@
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-chart-pie"></i>
                         <p>
-                            Statistics
+                            Protocol
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('apps.index') }}" class=" nav-link">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            App
                         </p>
                     </a>
                 </li>
@@ -64,14 +73,6 @@
                         <i class="nav-icon fas fa-cog"></i>
                         <p>
                             Settings
-                        </p>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-th"></i>
-                        <p>
-                            App
                         </p>
                     </a>
                 </li>
