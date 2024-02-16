@@ -29,4 +29,9 @@ class Citizen extends Model
     {
         return $this->hasMany(Medicine::class);
     }
+
+    public function plans()
+    {
+        return $this->hasMany(Plan::class);
+    }
 }

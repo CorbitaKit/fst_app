@@ -22,9 +22,11 @@ class CitizenService
     }
     public function doStore(object $citizen): void
     {
+
         DB::beginTransaction();
         try {
             $new_citizen = new Citizen;
+
             $new_citizen->email = $citizen->email;
             $new_citizen->first_name = $citizen->first_name;
             $new_citizen->last_name = $citizen->last_name;
@@ -37,12 +39,13 @@ class CitizenService
 
             DB::commit();
         } catch (\Exception $e) {
+            dd($e);
             DB::rollBack();
         }
     }
     public function doGetCitizenInfo(int $citizen_id): Citizen
     {
-        return Citizen::with('address', 'journals', 'medicines')->where('id', $citizen_id)->first();
+        return Citizen::with('address', 'journals', 'medicines', 'plans.goals.subGoals')->where('id', $citizen_id)->first();
     }
 
     public function doUpdate(int $citizen_id, object $request): void

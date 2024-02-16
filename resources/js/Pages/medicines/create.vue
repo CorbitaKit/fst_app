@@ -1,9 +1,11 @@
 <script setup>
     import { useForm, router } from '@inertiajs/vue3';
-
+    import { ref } from 'vue'
+    import Swal from 'sweetalert2'
     const props = defineProps({
         citizen_id: Number
     })
+    const emit = defineEmits(['fetchMedicineJournal'])
     const form = useForm({
         'name': null,
         'date_given': null,
@@ -11,8 +13,19 @@
         'citizen_id': props.citizen_id
 
     })
+    const closeButton = ref(null);
     const submit = () => {
-        form.post('/medicines')
+        form.post('/medicines',{
+            onSuccess: (() => {
+                Swal.fire({
+                    title: "Success!",
+                    text: "Medicine added successfully!",
+                    icon: "success"
+                });
+                closeButton.value.click();
+                emit('fetchMedicineJournal')
+            })
+        })
     }
 </script>
 
@@ -23,7 +36,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                 <h4 class="modal-title">Medicine Details</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" ref="closeButton" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
                 </div>
