@@ -2,6 +2,7 @@
     import JounalTab from '../journals/index.vue';
     import MedJournal from '../medicines/index.vue';
     import PlansAndGoals from '../plans/index.vue'
+    import Document from '../documents/index.vue';
     import { ref } from 'vue'
     const props = defineProps({
         citizen: Object
@@ -43,7 +44,7 @@
                         <li class="nav-item"><a @click="active_tab = 'journal'" class="nav-link active" href="#journal" data-toggle="tab">Journal</a></li>
                         <li class="nav-item"><a @click="active_tab = 'medicine_journal'" class="nav-link" href="#medJournal" data-toggle="tab">Midicine Journal</a></li>
                         <li class="nav-item"><a @click="active_tab = 'plans_and_goals'" class="nav-link" href="#plansAndGoals" data-toggle="tab">Plans And Goals</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#notifications" data-toggle="tab">Documents</a></li>
+                        <li class="nav-item"><a @click="active_tab = 'documents'" class="nav-link" href="#documents" data-toggle="tab">Documents</a></li>
                         <li class="nav-item"><a class="nav-link" href="#notifications" data-toggle="tab">Notifications</a></li>
                         <li class="nav-item"><a class="nav-link" href="#appointments" data-toggle="tab">Appointments</a></li>
                     </ul>
@@ -53,6 +54,7 @@
                         <JounalTab v-if="active_tab == 'journal'" :citizen_id="citizen.id"/>
                         <MedJournal v-if="active_tab == 'medicine_journal'" :citizen_id="citizen.id"/>
                         <PlansAndGoals v-if="active_tab == 'plans_and_goals'" :citizen_id="citizen.id"/>
+                        <Document v-if="active_tab == 'documents'" />
                     </div>
                 </div>
             </div>
