@@ -2,9 +2,25 @@
     import Swal from 'sweetalert2/dist/sweetalert2.js'
     import 'sweetalert2/src/sweetalert2.scss'
     import axios from 'axios'
+    import { ref, onMounted } from 'vue'
     const props = defineProps({
-        medicines: Object
+        citizen_id: Number
     })
+
+    const emit = defineEmits(['fetchMedicineJournal'])
+
+    const medicines = ref(null)
+
+    onMounted(() => {
+        fetchMedicines()
+    })
+
+    const fetchMedicines = () => {
+        axios.get('/medicines/get-citizen-medicines/' + props.citizen_id)
+        .then((response) => {
+            medicines.value = response.data
+        })
+    }
 
     const deleteMedicine = (id) => {
         Swal.fire({
@@ -22,8 +38,10 @@
                     Swal.fire({
                         title: "Deleted!",
                         text: "Medicine has been deleted.",
-                        icon: "success"
+                        icon: "success",
                     });
+                    emit('fetchMedicineJournal')
+                    fetchMedicines()
                 })
             }
         });

@@ -23,4 +23,10 @@ class MedicineController extends Controller
     {
         $this->medicineService->doDestroy($id);
     }
+
+    public function getCitizenMedicines($citizen_id)
+    {
+        $medicines = $this->medicineService->doGetCitizenMedicines($citizen_id);
+        return response(json_encode($medicines), 200);
+    }
 }
