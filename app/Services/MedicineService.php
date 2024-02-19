@@ -23,8 +23,19 @@ class MedicineService
         $medicine->delete();
     }
 
+    public function doUpdate(array $data, $id)
+    {
+        $medicine = Medicine::findOrFail($id);
+        $medicine->update($data);
+    }
+
     public function doGetCitizenMedicines($citizen_id): Collection
     {
         return Medicine::withoutTrashed()->where('citizen_id', $citizen_id)->get();
+    }
+
+    public function doGetMedicine($id): Medicine
+    {
+        return Medicine::where('id', $id)->first();
     }
 }
