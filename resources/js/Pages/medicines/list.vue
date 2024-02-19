@@ -3,13 +3,21 @@
     import 'sweetalert2/src/sweetalert2.scss'
     import axios from 'axios'
     import { ref, onMounted } from 'vue'
+    import DataTable from 'primevue/datatable';
+    import Column from 'primevue/column';
+    import Button from 'primevue/button';
+    import addMedicine from '../medicines/create.vue'
+    import { useForm } from '@inertiajs/vue3';
+
     const props = defineProps({
         citizen_id: Number
     })
 
-    const emit = defineEmits(['fetchMedicineJournal'])
+    const emit = defineEmits(['fetchMedicineJournal', 'goBack'])
 
     const medicines = ref(null)
+    const medicine = ref({})
+    const is_updating = ref(false)
 
     onMounted(() => {
         fetchMedicines()
@@ -46,57 +54,56 @@
             }
         });
     }
+
+    const edit = (id) => {
+
+        is_updating.value = true
+        axios.get('/medicines/' + id)
+        .then(response=> {
+            medicine.value = response.data
+           
+        })
+    }
+
+    const submit = () => {
+        axios.put('/medicines/' + medicine.value.id, medicine.value)
+        .then((response) => {
+            fetchMedicines()
+            Swal.fire({
+                title: "Updated!!",
+                text: "Medicine updated successfully!",
+                icon: "success",
+            });
+
+            emit('fetchMedicineJournal')
+        })
+
+        
+    }
+
+   
 </script>
 
 <template>
-    <div class="modal fade" id="medList">
-        <div class="modal-dialog modal-xl">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h4 class="modal-title">Citizens Medicine List</h4>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
+    <DataTable :value="medicines" tableStyle="min-width: 50rem">
+        <template #header>
+            <div class="flex flex-wrap align-items-center justify-content-between gap-2">
+                <span class="text-xl text-900 font-bold">Medicines</span>
+                <Button icon="pi pi-arrow-left" v-tooltip.bottom="'Go Back'" rounded raised @click="$emit('goBack')"/>
             </div>
-            <div class="modal-body">
-                <div class="card-body table-responsive p-0">
-                    <table class="table table-hover text-nowrap">
-                        <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Description</th>
-                            <th>Date Given</th>
-                            <th>Actions</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr v-for="(medicine, i) in medicines" :key="i">
-                            <td>
-                                {{ medicine.name }}
-                            </td>
-                            <td> {{ medicine.description }} </td>
-                            <td>{{ medicine.date_given }}</td>
-                            <td>
-                                <div class="btn-group">
-                                   
-                                    <button type="button" class="btn btn-sm btn-info mr-1">
-                                        <i class="fas fa-edit"></i> Edit
-                                    </button>
-                                    <button type="button" @click="deleteMedicine(medicine.id)" class="btn btn-sm btn-danger mr-1">
-                                        <i class="fas fa-trash-alt"></i> Delete
-                                    </button>
-                                    
-                                </div>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
+        </template>
+        <Column field="name" header="Name"></Column>
+        <Column field="date_given" header="Date Given"></Column>
+        <Column field="description" header="Reason"></Column>
+        <Column header="Actions">
+            <template #body="medicine">
+                <div class="flex flex-wrap">
+                    <Button @click="edit(medicine.data.id)" v-tooltip.bottom="'Edit medicine record'" class="mr-2" type="button" data-toggle="modal" data-target="#modal-default"  icon="pi pi-file-edit" rounded severity="success" raised />
+                    <Button @click="deleteMedicine(medicine.data.id)"  v-tooltip.bottom="'Delete medicine record'" type="button"  icon="pi pi-trash" rounded severity="danger" raised />
                 </div>
-            </div>
-            
-          </div>
-          <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-    </div>
+            </template>
+        </Column>
+       
+    </DataTable>
+    <addMedicine :form="medicine" v-if="is_updating" @submit="submit"/>
 </template>

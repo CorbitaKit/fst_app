@@ -8,9 +8,20 @@
     import 'moment/locale/da'
     import Timeline from 'primevue/timeline';
     import Card from 'primevue/card';
+    import { useForm } from '@inertiajs/vue3';
+    import Swal from 'sweetalert2/dist/sweetalert2.js'
     const props = defineProps({
         citizen_id: Number
     })
+
+    const form = useForm({
+        'name': null,
+        'date_given': null,
+        'description': null,
+        'citizen_id': props.citizen_id
+
+    })
+    
 
     const list_view = ref(false)
     const is_creating = ref(false)
@@ -30,6 +41,20 @@
         moment.locale('da')
         return moment(date).format(format);
     }
+
+    const submit = () => {
+        form.post('/medicines',{
+            onSuccess: (() => {
+                Swal.fire({
+                    title: "Success!",
+                    text: "Medicine added successfully!",
+                    icon: "success"
+                });
+                
+                emit('fetchMedicineJournal')
+            })
+        })
+    }
 </script>
 
 <template>
@@ -42,7 +67,7 @@
                             <i class="fas fa-plus"></i>
                             Give Medicine
                         </button>
-                        <button type="button" @click="list_view = true" class="btn bg-gradient-primary mb-2 mr-2" data-toggle="modal" data-target="#medList">
+                        <button type="button" @click="list_view = true" class="btn bg-gradient-primary mb-2 mr-2">
                             <i class="fas fa-list"></i>
                             Show all Citizens Medicine
                         </button>
@@ -50,7 +75,7 @@
                 </div>
             </div>
             <div class="card">
-                <Timeline :value="logs"  align="alternate" class="mt-5 mb-5">
+                <Timeline :value="logs"  align="alternate" class="mt-5 mb-5" v-if="!list_view">
                     <template #marker="slotProps">
                         <span class="flex w-2rem h-2rem align-items-center justify-content-center text-white border-circle z-1 shadow-1" :style="{ backgroundColor: slotProps.item.color }">
                             <i :class="slotProps.item.icon"></i>
@@ -72,9 +97,10 @@
                         </Card>
                     </template>
                 </Timeline>
+                <addMedicine :citizen_id="citizen_id" v-if="is_creating" @fetchMedicineJournal="getMedicineJournal" :form="form" @submit="submit"/>
+                <medicineList :citizen_id="citizen_id" v-if="list_view" @fetchMedicineJournal="getMedicineJournal" @goBack="list_view = false"/>
             </div>
         </div>
-        <addMedicine :citizen_id="citizen_id" v-if="is_creating" @fetchMedicineJournal="getMedicineJournal"/>
-        <medicineList :citizen_id="citizen_id" v-if="list_view" @fetchMedicineJournal="getMedicineJournal"/>
+        
     </div>
 </template>
