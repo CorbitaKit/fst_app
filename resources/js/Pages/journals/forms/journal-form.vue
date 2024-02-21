@@ -36,7 +36,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="exampleInputEmail1">Date</label>
-                        <input type="date" class="form-control" v-model="form.date"  placeholder="Enter First Name">
+                        <input type="date" min="01. 01 1990" class="form-control" v-model="form.date">
                         
                     </div>
                 </div>
