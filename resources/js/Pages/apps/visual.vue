@@ -5,7 +5,7 @@
 </script>
 
 <template>
-    <div class="row">
+    <div class="row" id="visual">
         <div class="col-md-3">
             <h5>Visual</h5>
         </div>
@@ -30,8 +30,8 @@
                         
                         <template #subtitle>DKK 2999 per month</template>
                         <template #footer>
-                            <div class="flex gap-3 mt-1">
-                                <Button style="white-space: nowrap;" label="Read more" severity="secondary" outlined class="w-full" />
+                            <div class="flex mt-1">
+                                <Button data-toggle="modal" data-target="#photovideo" style="white-space: nowrap;" label="Read more" severity="secondary" outlined class="w-full" />
                                 <Button style="white-space: nowrap;" label="Order now" class="w-full" />
                             </div>
                         </template>
@@ -54,8 +54,8 @@
                         </template>
                         <template #subtitle>DKK 2999 per month</template>
                         <template #footer>
-                            <div class="flex gap-3 mt-1">
-                                <Button style="white-space: nowrap;" label="Read more" severity="secondary" outlined class="w-full" />
+                            <div class="flex mt-1">
+                                <Button data-toggle="modal" data-target="#website" style="white-space: nowrap;" label="Read more" severity="secondary" outlined class="w-full" />
                                 <Button style="white-space: nowrap;" label="Order now" class="w-full" />
                             </div>
                         </template>
@@ -78,18 +78,113 @@
                         </template>
                         <template #subtitle>DKK 2999 per month</template>
                         <template #footer>
-                            <div class="flex gap-3 mt-1">
-                                <Button style="white-space: nowrap;" label="Read more" severity="secondary" outlined class="w-full" />
+                            <div class="flex mt-1">
+                                <Button data-toggle="modal" data-target="#brand" style="white-space: nowrap;" label="Read more" severity="secondary" outlined class="w-full" />
                                 <Button style="white-space: nowrap;" label="Order now" class="w-full" />
                             </div>
                         </template>
                     </Card>
                 </div>
-               
             </div>
         </div>
-        
-       
     </div>
     <hr>
+    <div class="modal fade" id="photovideo">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <Card>
+                        <template #header>
+                            <img alt="user header" src="/images/photoandvideo.jpeg" width="100%" height="300"/>
+                        </template>
+                       
+                        <template #content>
+                            <p class="m-0">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque
+                                quas!
+                            </p>
+                        </template>
+                        <template #footer>
+                            <div class="flex gap-3 mt-1">
+                                <Button label="Contact Us" severity="secondary" outlined class="w-full" />
+                                <Button label="Order Now" class="w-full" />
+                            </div>
+                        </template>
+                    </Card>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="website">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <Card>
+                        <template #header>
+                            <img alt="user header" src="/images/website.jpeg" width="100%" height="300"/>
+                        </template>
+                       
+                        <template #content>
+                            <p class="m-0">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque
+                                quas!
+                            </p>
+                        </template>
+                        <template #footer>
+                            <div class="flex gap-3 mt-1">
+                                <Button label="Contact Us" severity="secondary" outlined class="w-full" />
+                                <Button label="Order Now" class="w-full" />
+                            </div>
+                        </template>
+                    </Card>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="brand">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <Card>
+                        <template #header>
+                            <img alt="user header" src="/images/brand.jpeg" width="100%" height="300"/>
+                        </template>
+                       
+                        <template #content>
+                            <p class="m-0">
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque
+                                quas!
+                            </p>
+                        </template>
+                        <template #footer>
+                            <div class="flex gap-3 mt-1">
+                                <Button label="Contact Us" severity="secondary" outlined class="w-full" />
+                                <Button label="Order Now" class="w-full" />
+                            </div>
+                        </template>
+                    </Card>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   
 </template>
+
