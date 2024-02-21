@@ -5,8 +5,8 @@
     import { ref, onMounted } from 'vue';
     import Details from '../plans/details.vue';
     import Swal from 'sweetalert2';
-    import axios from 'axios';
     import ProgressBar from 'primevue/progressbar';
+    import axios from 'axios';
     import CreatePlan from '../plans/plan/create.vue';
     const props = defineProps({
         citizen_id: Number
@@ -16,6 +16,7 @@
     const data = ref(null)
     const route = ref(null)
     const plans = ref(null)
+    const value = ref(parseInt(10))
     const is_creating = ref(false)
     onMounted(() => {
         fetchPlansAndGoals()
@@ -99,10 +100,10 @@
             }
         })
         if (completed.value > 0) {
-            return (completed.value / nodes.length) * 100;
+            return parseInt(((completed.value / nodes.length) * 100).toFixed(2));
         }
 
-        return 0
+        return parseInt(0)
     }
 
     const getSelectedNode = (node) => {
@@ -160,9 +161,9 @@
                 <Column field="progress" header="Progress Rate" >
                     
                     <template #body="node">
-                        <div class="flex flex-wrap">
-                            <ProgressBar :value="node.node.data.progress"></ProgressBar> 
-                        </div>
+                        
+                            <ProgressBar :value="node.node.data.progress">{{ node.node.data.progress }}/100</ProgressBar> 
+                   
                     </template>
                     
                 </Column>
@@ -171,7 +172,7 @@
                     <template #body="node">
                         <div class="flex flex-wrap">
                             <Button class="mr-2" @click="getSelectedNode(node)" data-toggle="modal"  data-target="#details" v-tooltip.bottom="'View Details'" icon="pi pi-eye" rounded severity="info" raised />
-                            <Button type="button" @click="markAsComplete(node.node.data)" v-tooltip.bottom="'Mark as complete'" icon="pi pi-check" rounded severity="success" raised />
+                            <Button type="button" :disabled="node.node.data.status == 'complete'" @click="markAsComplete(node.node.data)" v-tooltip.bottom="'Mark as complete'" icon="pi pi-check" rounded severity="success" raised />
                         </div>
                     </template>
                 </Column>

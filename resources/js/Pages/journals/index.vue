@@ -33,7 +33,7 @@
 
 
     const formatDate = (date) => {
-        return moment(date).format('MMMM D, YYYY hh:mm A');
+        return moment(date).locale('da').format('D. MMMM YYYY HH:mm');
     }
 
     const createJournal = () => {

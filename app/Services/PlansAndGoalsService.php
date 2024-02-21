@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\Plan;
 use App\Models\Goal;
+use App\Models\SubGoal;
 use Illuminate\Database\Eloquent\Collection;
 
 class PlansAndGoalsService
@@ -32,5 +33,26 @@ class PlansAndGoalsService
         if ($goal->subGoals->count() === $completedCtr) {
             $goal->update(['status' => 'complete']);
         }
+    }
+
+    public function checkIfAllGoalsAreCompleted(object $goal): void
+    {
+        $completedCtr = 0;
+        $plan = Plan::with('goals')->where('id', $goal->plan_id)->first();
+
+        foreach ($plan->goals as $g) {
+            if ($g->status == 'complete') {
+                $completedCtr++;
+            }
+        }
+
+        if ($plan->goals->count() === $completedCtr) {
+            $plan->update(['status' => 'complete']);
+        }
+    }
+
+    public function GetSubGoals($id): Collection
+    {
+        return SubGoal::where('goal_id', $id)->where('status', 'Active')->get();
     }
 }

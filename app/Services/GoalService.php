@@ -10,8 +10,10 @@ class GoalService implements PlansAndGoalsInterface
 {
     public function markAsComplete(int $id): void
     {
-        $sub_goal = Goal::findOrFail($id);
-        $sub_goal->update(['status' => 'complete']);
+        $goal = Goal::findOrFail($id);
+        $goal->update(['status' => 'complete']);
+        $plansAndGoalsService = new PlansAndGoalsService();
+        $plansAndGoalsService->checkIfAllGoalsAreCompleted($goal);
     }
     public function doCreate(array $object): void
     {

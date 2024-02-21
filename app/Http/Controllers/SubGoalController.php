@@ -14,6 +14,11 @@ class SubGoalController extends Controller
     {
         $this->subGoalService = $plansAndGoalsInterface;
     }
+
+    public function store(Request $request)
+    {
+        $this->subGoalService->doCreate($request->all());
+    }
     public function markAsComplete($id)
     {
         $this->subGoalService->markAsComplete($id);

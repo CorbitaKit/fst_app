@@ -24,6 +24,7 @@
             </section>
 
             <section class="content">
+
                 @inertia
             </section>
         </div>

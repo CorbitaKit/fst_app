@@ -98,6 +98,10 @@
             </div>
 
             <button type="submit">Login</button>
+            <div style="margin-top: 10px;">
+                <a href="https://findsocialetilbud.dk/priser-og-pakker" target="_blank" style="margin-left: 183px">New User? Sign up here</a>
+            </div>
+
         </form>
     </div>
     <script>
