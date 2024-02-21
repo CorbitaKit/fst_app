@@ -67,6 +67,9 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/get-plan-goals/{plan_id}', [PlanController::class, 'getGoalsOfPlan']);
     });
     Route::patch('sub_goals/mark-as-complete/{id}', [SubGoalController::class, 'markAsComplete']);
+    Route::patch('goals/mark-as-complete/{id}', [GoalController::class, 'markAsComplete']);
+
+    Route::get('goals/get-sub-goals/{id}', [GoalController::class, 'getSubGoals']);
 
     Route::get('medicine-journals/{citizen_id}', [MedicineJournalController::class, 'getCitizenMedicineJournal']);
 

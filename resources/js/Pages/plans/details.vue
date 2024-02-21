@@ -2,6 +2,7 @@
     import ProgressBar from 'primevue/progressbar';
     import { ref } from 'vue';
     import CreateGoal from '../plans/goals/create.vue';
+    import CreateSubGoal from './sub-goals/create.vue'
     const props = defineProps({
         data: Object
     })
@@ -43,18 +44,15 @@
                             <td> {{ data.date_completion }} </td>
                             <td> {{ data.completed_at }} </td>
                             <td>
-                                <ProgressBar :value="data.progress "></ProgressBar> 
+                                <ProgressBar :value="data.progress ">{{ data.progress }}/100</ProgressBar> 
                             </td>
                             <td> {{ data.status }} </td>
                             <td>
                                 <button @click="active_page = 'create_goal'" v-if="data.type == 'plan'" type="button" class="btn btn-sm btn-success mr-1">
                                     <i class="fas fa-plus"></i> Add goals
                                 </button>
-                                <button v-if="data.type == 'goal'" type="button" class="btn btn-sm btn-success mr-1">
+                                <button @click="active_page = 'create_sub_goal'" v-if="data.type == 'goal'" type="button" class="btn btn-sm btn-success mr-1">
                                     <i class="fas fa-plus"></i> Add sub goals
-                                </button>
-                                <button type="button" class="btn btn-sm btn-info mr-1">
-                                    <i class="fas fa-edit"></i> Edit
                                 </button>
                                 <button type="button" class="btn btn-sm btn-danger mr-1">
                                     <i class="fas fa-trash-alt"></i> Delete
@@ -64,6 +62,7 @@
                         </tbody>
                     </table>
                     <CreateGoal v-if="active_page == 'create_goal'" :plan_id="data.id" @setActivePage="setView" @fetchJournal="$emit('fetchJournals')"/>
+                    <CreateSubGoal v-if="active_page == 'create_sub_goal'" :goal_id="data.id" @setActivePage="setView" @fetchJournal="$emit('fetchJournals')"/>
                 </div>
             </div>
             
