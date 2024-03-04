@@ -13,7 +13,11 @@ import Button from 'primevue/button';
 import FileUpload from 'primevue/fileupload';
 import ProgressBar from 'primevue/progressbar';
 import TreeTable from 'primevue/treetable';
-
+import InputGroup from 'primevue/inputgroup';
+import InputText from 'primevue/inputtext';
+import Menu from 'primevue/menu';
+import Card from 'primevue/card';
+import Image from 'primevue/image';
 createInertiaApp({
   resolve: name => {
     const pages = import.meta.glob('./Pages/**/*.vue', { eager: true })
@@ -31,6 +35,11 @@ createInertiaApp({
       .component('FileUpload', FileUpload)
       .component('ProgressBar', ProgressBar)
       .component('TreeTable', TreeTable)
+      .component('InputText', InputText)
+      .component('InputGroup', InputGroup)
+      .component('Menu', Menu)
+      .component('Card', Card)
+      .component('Image', Image)
       .mount(el)
       
   },

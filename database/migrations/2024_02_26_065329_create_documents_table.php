@@ -14,10 +14,13 @@ return new class extends Migration
         Schema::create('documents', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->integer('parent_id');
+            $table->foreignId('parent_id');
             $table->string('file_name');
             $table->foreignId('user_id');
-            $table->foreign('citizen_id');
+            $table->foreignId('citizen_id');
+            $table->string('type');
+            $table->integer('size');
+            $table->string('path')->nullable();
         });
     }
 
