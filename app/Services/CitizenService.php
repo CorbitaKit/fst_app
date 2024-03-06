@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Citizen;
 use App\Services\CitizenAddressService;
 use Illuminate\Database\Eloquent\Collection;
+use Carbon\Carbon;
 
 class CitizenService
 {
@@ -32,7 +33,7 @@ class CitizenService
             $new_citizen->last_name = $citizen->last_name;
             $new_citizen->phone = $citizen->phone;
             $new_citizen->social_security_number = $citizen->social_security_number;
-            $new_citizen->birth_day = $citizen->birth_day;
+            $new_citizen->birth_day =  Carbon::parse($citizen->birth_day)->format('Y-m-d');
             $new_citizen->note = $citizen->note;
             $new_citizen->save();
             $this->citizenAddressService->doStore($citizen, $new_citizen->id);
@@ -59,7 +60,7 @@ class CitizenService
                 'last_name' => $request->last_name,
                 'phone' => $request->phone,
                 'social_security_number' => $request->social_security_number,
-                'birth_day' => $request->birth_day,
+                'birth_day' => Carbon::createFromFormat('d, M Y', $citizen->birth_day)->format('Y-m-d'),
                 'note' => $request->note
             ]);
             $this->citizenAddressService->doUpdate($request, $citizen_id);
