@@ -64,7 +64,7 @@
                     <a href="{{ route('apps.index') }}" class=" nav-link">
                         <i class="nav-icon fas fa-th"></i>
                         <p>
-                            App
+                            Apps
                         </p>
                     </a>
                 </li>

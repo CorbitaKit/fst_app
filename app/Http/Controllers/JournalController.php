@@ -51,4 +51,16 @@ class JournalController extends Controller
 
         return response(json_encode($journals), 200);
     }
+
+    public function getSortedJournal($citizen_id, $sort)
+    {
+        $journals = $this->journalService->doGetSortedJournal($citizen_id, $sort);
+        return response(json_encode($journals), 200);
+    }
+
+    public function getFilteredJournal($citizen_id, $field)
+    {
+        $journals = $this->journalService->doGetFilteredJournal($citizen_id, $field);
+        return response(json_encode($journals), 200);
+    }
 }

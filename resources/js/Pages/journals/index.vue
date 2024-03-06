@@ -12,9 +12,10 @@
         citizen_id: Number
     })
     const journals = ref(null)
-    const journal_id = ref(null)
     const is_creating = ref(false)
     const is_updating = ref(false)
+    const url = ref(null)
+    const filter = ref(null)
     const journal = ref(null)
     onMounted(() => {
         getCitizensJournal()
@@ -46,8 +47,24 @@
             is_updating.value = true
             
         })
-        
     };
+
+    const filterJournal = () => {
+        if (filter.value == 'sort_asc') {
+            url.value = '/journals/get-sorted-journals/' + props.citizen_id + '/asc' 
+        } else if (filter.value == 'sort_desc') {
+            url.value = '/journals/get-sorted-journals/' + props.citizen_id + '/desc'
+        } else if (filter.value == 'locked') {
+            url.value = '/journals/get-filtered-journal/' + props.citizen_id + '/is_lock'
+        } else {
+            url.value = '/journals/get-filtered-journal/' + props.citizen_id + '/is_favorite'
+        }
+
+        axios.get(url.value)
+        .then(response => {
+            journals.value = response.data
+        })
+    }
 </script>
 
 <template>
@@ -64,9 +81,11 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group" >
-                                <select class="form-control">
-                                    <option>Sort Newest First</option>
-                                    <option>Sort Oldest First</option>
+                                <select class="form-control" v-model="filter" @change="filterJournal">
+                                    <option value="sort_asc">Sort Newest First</option>
+                                    <option value="sort_desc">Sort Oldest First</option>
+                                    <option value="locked">Locked Journals</option>
+                                    <option value="favorite">Favorite Journals</option>
                                 </select>
                             </div>
                         </div>
@@ -84,6 +103,7 @@
                         <div class="flex align-items-center justify-content-between gap-2">
                             <Avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" size="large" shape="circle" />
                             <span class="font-bold">{{ journal.creator.name }}</span>
+                            
                         </div>
                     </template>
                     <template #footer>

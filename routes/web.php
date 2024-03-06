@@ -56,6 +56,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::group(['prefix' => 'journals'], function () {
         Route::get('/get-citizen-journal/{citizen_id}', [JournalController::class, 'getCitizenJournal']);
+        Route::get('/get-sorted-journals/{citizen_id}/{sort}', [JournalController::class, 'getSortedJournal']);
+        Route::get('/get-filtered-journal/{citizen_id}/{field}', [JournalController::class, 'getFilteredJournal']);
     });
 
     Route::group(['prefix' => 'medicines'], function () {
