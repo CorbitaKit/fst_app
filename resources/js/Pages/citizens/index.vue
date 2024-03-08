@@ -2,10 +2,7 @@
     import {router} from '@inertiajs/vue3';
     import Swal from 'sweetalert2/dist/sweetalert2.js'
     import 'sweetalert2/src/sweetalert2.scss'
-    import DataTable from 'primevue/datatable'
-    import Column from 'primevue/column';
-    import Button from 'primevue/button'
-    import { ref, onMounted } from 'vue'
+    import { ref } from 'vue'
     const props = defineProps({
         citizens: Object
     })
@@ -15,7 +12,6 @@
     }
 
     const show = (id) => {
-        console.log(id)
         router.get('/citizens/'+id)
     }
 
