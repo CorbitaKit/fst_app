@@ -2,8 +2,6 @@
     import Card from 'primevue/card';
     import Button from 'primevue/button';
     import Avatar from 'primevue/avatar';
-    import Dialog from 'primevue/dialog';
-    import Image from 'primevue/image';
     import { ref } from 'vue';
 
     const visible = ref(false)
@@ -37,7 +35,7 @@
                         <template #footer>
                             <div class="flex mt-1">
                                 <Button data-toggle="modal" data-target="#google-ad" style="white-space: nowrap;" label="Read more" severity="secondary" outlined class="w-full" />
-                                <Button style="white-space: nowrap;" label="Order now" class="w-full" />
+                                <Button style="white-space: nowrap;" label="Activate" class="w-full" />
                             </div>
                         </template>
                     </Card>
@@ -62,7 +60,7 @@
                         <template #footer>
                             <div class="flex mt-1">
                                 <Button data-toggle="modal" data-target="#meta-ad" style="white-space: nowrap;" label="Read more" severity="secondary" outlined class="w-full" />
-                                <Button style="white-space: nowrap;" label="Order now" class="w-full" />
+                                <Button style="white-space: nowrap;" label="Activate" class="w-full" />
                             </div>
                         </template>
                     </Card>
@@ -86,7 +84,7 @@
                         <template #footer>
                             <div class="flex mt-1">
                                 <Button data-toggle="modal" data-target="#linkedin-ad" style="white-space: nowrap;" label="Read more" severity="secondary" outlined class="w-full" />
-                                <Button style="white-space: nowrap;" label="Order now" class="w-full" />
+                                <Button style="white-space: nowrap;" label="Activate" class="w-full" />
                             </div>
                         </template>
                     </Card>
@@ -110,7 +108,7 @@
                         <template #footer>
                             <div class="flex mt-1">
                                 <Button data-toggle="modal" data-target="#seo" style="white-space: nowrap;" label="Read more" severity="secondary" outlined class="w-full" />
-                                <Button style="white-space: nowrap;" label="Order now" class="w-full" />
+                                <Button style="white-space: nowrap;" label="Activate" class="w-full" />
                             </div>
                         </template>
                     </Card>
@@ -141,7 +139,7 @@
                         </template>
                         <template #footer>
                             <div class="flex gap-3 mt-1">
-                                <Button label="Contact Us" severity="secondary" outlined class="w-full" />
+                                <a type="button" href="https://findsocialetilbud.dk/kontakt-findsocialetilbud-dk" target="_blank" class="btn btn-default w-full" label="Contact Us" severity="secondary" outlined >Contact Us</a>
                                 <Button label="Order Now" class="w-full" />
                             </div>
                         </template>
