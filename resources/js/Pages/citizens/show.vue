@@ -54,7 +54,7 @@
                         <JounalTab v-if="active_tab == 'journal'" :citizen_id="citizen.id"/>
                         <MedJournal v-if="active_tab == 'medicine_journal'" :citizen_id="citizen.id"/>
                         <PlansAndGoals v-if="active_tab == 'plans_and_goals'" :citizen_id="citizen.id"/>
-                        <Document v-if="active_tab == 'documents'" />
+                        <Document v-if="active_tab == 'documents'" :citizen_id="citizen.id"/>
                     </div>
                 </div>
             </div>
