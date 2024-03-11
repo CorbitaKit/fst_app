@@ -49,7 +49,7 @@
                 </div>
                 <div class="modal-footer justify-content-between">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                <button type="button" @click="submit" class="btn btn-primary">Save and cloe</button>
+                <button type="button" @click="submit" class="btn btn-primary">Save and close</button>
                 </div>
             </div>
         </div>

@@ -12,6 +12,7 @@
     const is_creating = ref(false)
     const is_next = ref(false)
     const fileInput = ref(null)
+    const file_size = ref({})
     const form = useForm({
         'parent_id': 0,
         'citizen_id': props.citizen_id,
@@ -21,6 +22,7 @@
     })
     onMounted(() => {
         fetchDocuments()
+        fetchFileSizes()
     })
 
     const submit = () => {
@@ -63,8 +65,32 @@
 
     const handleFileUpload = () => {
       form.file_name = fileInput.value.files[0]
-      form.post('/documents')
-    };
+      form.post('/documents', {
+        onSuccess: () => {
+            Swal.fire({
+                title: "Success!",
+                text: "File uploaded successfully!",
+                icon: "success"
+            });
+            fetchDocuments()
+            fetchFileSizes()
+        }
+      })
+    }
+
+    const fetchFileSizes = async () => {
+        try {
+            const response = await axios.get('/documents/get-file-size/' + props.citizen_id);
+            file_size.value = response.data;
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    const calculateAverageGB = () => {
+        const size = file_size.total.split(" ")
+        console.log(size)
+    }
 
 
 
@@ -93,6 +119,8 @@
                             <td>
                                 <Image src="/images/folder.png" alt="Image" width="30" v-if="document.type == 'Folder'"/> 
                                 <Image src="/images/photo.png" alt="Image" width="30" v-if="document.type == 'Image'"/> 
+                                <Image src="/images/clapperboard.png" alt="Image" width="30" v-if="document.type == 'Video'"/> 
+                                <Image src="/images/document.png" alt="Image" width="30" v-if="document.type == 'Application' || document.type == 'Text'"/> 
                             </td>
                             <td> {{ document.file_name }}</td>
                             <td> {{ formatDate(document.created_at) }}</td>
@@ -125,29 +153,22 @@
                     <ul class="nav nav-pills flex-column">
                         <li class="nav-item active">
                             <a href="#" class="nav-link">
-                                <i class="fas fa-folder"></i> Folders
-                                <span class="float-right">145 KB</span>
-                            </a>
-                        </li>
-
-                        <li class="nav-item active">
-                            <a href="#" class="nav-link">
                                 <i class="fas fa-file"></i> Documents
-                                <span class="float-right">12 GB</span>
+                                <span class="float-right">{{ file_size.document }}</span>
                             </a>
                         </li>
 
                         <li class="nav-item active">
                             <a href="#" class="nav-link">
                                 <i class="fas fa-image"></i> Images
-                                <span class="float-right">12 GB</span>
+                                <span class="float-right">{{ file_size.image }}</span>
                             </a>
                         </li>
 
                         <li class="nav-item active">
                             <a href="#" class="nav-link">
                                 <i class="fas fa-image"></i> Videos
-                                <span class="float-right">12 GB</span>
+                                <span class="float-right">{{ file_size.video }}</span>
                             </a>
                         </li>
                     
@@ -156,10 +177,10 @@
                     <!-- /.card-body -->
                 </div>
                 <div class="mt-3">
-                    <ProgressBar :value="20" />
+                    <ProgressBar :value="file_size.average" />
                     
                     <div class="d-flex justify-content-center align-items-center">
-                        <span>20 out of 5GB</span>
+                        <span>{{ file_size.total }} out of 5GB</span>
                     </div>
                 </div>
             </div>

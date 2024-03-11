@@ -42,11 +42,10 @@
                 <div class="card-header p-2">
                     <ul class="nav nav-pills">
                         <li class="nav-item"><a @click="active_tab = 'journal'" class="nav-link active" href="#journal" data-toggle="tab">Journal</a></li>
-                        <li class="nav-item"><a @click="active_tab = 'medicine_journal'" class="nav-link" href="#medJournal" data-toggle="tab">Midicine Journal</a></li>
+                        <li class="nav-item"><a @click="active_tab = 'medicine_journal'" class="nav-link" href="#medJournal" data-toggle="tab">Medicine Journal</a></li>
                         <li class="nav-item"><a @click="active_tab = 'plans_and_goals'" class="nav-link" href="#plansAndGoals" data-toggle="tab">Plans And Goals</a></li>
                         <li class="nav-item"><a @click="active_tab = 'documents'" class="nav-link" href="#documents" data-toggle="tab">Documents</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#notifications" data-toggle="tab">Notifications</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#appointments" data-toggle="tab">Appointments</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#notifications" data-toggle="tab">Log</a></li>
                     </ul>
                 </div>
                 <div class="card-body">

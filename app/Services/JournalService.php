@@ -39,4 +39,14 @@ class JournalService
     {
         return Journal::with('creator')->where('citizen_id', $citizen_id)->get();
     }
+
+    public function doGetSortedJournal(int $citizen_id, String $sort): Collection
+    {
+        return Journal::with('creator')->where('citizen_id', $citizen_id)->orderBy('created_at', $sort)->get();
+    }
+
+    public function doGetFilteredJournal(int $citizen_id, String $field): Collection
+    {
+        return Journal::with('creator')->where('citizen_id', $citizen_id)->where($field, 1)->get();
+    }
 }
