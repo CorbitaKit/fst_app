@@ -61,7 +61,7 @@
                     'id': goal.id,
                     'name': goal.name,
                     'date_completion': goal.completion_date,
-                    'progress': getCompletionRate(goal.sub_goals),
+                    'progress': goal.status == 'complete' ? 100 : getCompletionRate(goal.sub_goals),
                     'status': goal.status,
                     'completed_at': goal.date_completed,
                     'type': 'goal'

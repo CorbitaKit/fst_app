@@ -31,7 +31,8 @@
                         <template #footer>
                             <div class="flex mt-1">
                                 <Button data-toggle="modal" data-target="#microsoft" style="white-space: nowrap;" label="Read more" severity="secondary" outlined class="w-full" />
-                                <Button style="white-space: nowrap;" label="Order now" class="w-full" />
+                                <Button data-toggle="modal" data-target="#activate_now" style="white-space: nowrap;" label="Activate" class="w-full" />
+
                             </div>
                         </template>
                     </Card>
@@ -54,7 +55,8 @@
                         <template #footer>
                             <div class="flex mt-1">
                                 <Button data-toggle="modal" data-target="#secure-mail" style="white-space: nowrap;" label="Read more" severity="secondary" outlined class="w-full" />
-                                <Button style="white-space: nowrap;" label="Order now" class="w-full" />
+                                <Button data-toggle="modal" data-target="#activate_now" style="white-space: nowrap;" label="Activate" class="w-full" />
+
                             </div>
                         </template>
                     </Card>
@@ -78,7 +80,8 @@
                         <template #footer>
                             <div class="flex mt-1">
                                 <Button data-toggle="modal" data-target="#samtykke" style="white-space: nowrap;" label="Read more" severity="secondary" outlined class="w-full" />
-                                <Button style="white-space: nowrap;" label="Order now" class="w-full" />
+                                <Button data-toggle="modal" data-target="#activate_now" style="white-space: nowrap;" label="Activate" class="w-full" />
+
                             </div>
                         </template>
                     </Card>
@@ -102,7 +105,8 @@
                         <template #footer>
                             <div class="flex mt-1">
                                 <Button data-toggle="modal" data-target="#hosting" style="white-space: nowrap;" label="Read more" severity="secondary" outlined class="w-full" />
-                                <Button style="white-space: nowrap;" label="Order now" class="w-full" />
+                                <Button data-toggle="modal" data-target="#activate_now" style="white-space: nowrap;" label="Activate" class="w-full" />
+
                             </div>
                         </template>
                     </Card>
@@ -126,7 +130,8 @@
                         <template #footer>
                             <div class="flex mt-1">
                                 <Button data-toggle="modal" data-target="#clipcard" style="white-space: nowrap;" label="Read more" severity="secondary" outlined class="w-full" />
-                                <Button style="white-space: nowrap;" label="Order now" class="w-full" />
+                                <Button data-toggle="modal" data-target="#activate_now" style="white-space: nowrap;" label="Activate" class="w-full" />
+
                             </div>
                         </template>
                     </Card>
@@ -150,7 +155,8 @@
                         <template #footer>
                             <div class="flex mt-1">
                                 <Button data-toggle="modal" data-target="#ssl" style="white-space: nowrap;" label="Read more" severity="secondary" outlined class="w-full" />
-                                <Button style="white-space: nowrap;" label="Order now" class="w-full" />
+                                <Button data-toggle="modal" data-target="#activate_now" style="white-space: nowrap;" label="Activate" class="w-full" />
+
                             </div>
                         </template>
                     </Card>
@@ -181,8 +187,8 @@
                         </template>
                         <template #footer>
                             <div class="flex gap-3 mt-1">
-                                <Button label="Contact Us" severity="secondary" outlined class="w-full" />
-                                <Button label="Order Now" class="w-full" />
+                                <a type="button" href="https://findsocialetilbud.dk/kontakt-findsocialetilbud-dk" target="_blank" class="btn btn-default w-full" label="Contact Us" severity="secondary" outlined >Contact Us</a>
+                                <Button data-toggle="modal" data-dismiss="modal" data-target="#activate_now" style="white-space: nowrap;" label="Activate" class="w-full" />
                             </div>
                         </template>
                     </Card>
@@ -213,8 +219,8 @@
                         </template>
                         <template #footer>
                             <div class="flex gap-3 mt-1">
-                                <Button label="Contact Us" severity="secondary" outlined class="w-full" />
-                                <Button label="Order Now" class="w-full" />
+                                <a type="button" href="https://findsocialetilbud.dk/kontakt-findsocialetilbud-dk" target="_blank" class="btn btn-default w-full" label="Contact Us" severity="secondary" outlined >Contact Us</a>
+                                <Button data-toggle="modal" data-dismiss="modal" data-target="#activate_now" style="white-space: nowrap;" label="Activate" class="w-full" />
                             </div>
                         </template>
                     </Card>
@@ -245,8 +251,8 @@
                         </template>
                         <template #footer>
                             <div class="flex gap-3 mt-1">
-                                <Button label="Contact Us" severity="secondary" outlined class="w-full" />
-                                <Button label="Order Now" class="w-full" />
+                                <a type="button" href="https://findsocialetilbud.dk/kontakt-findsocialetilbud-dk" target="_blank" class="btn btn-default w-full" label="Contact Us" severity="secondary" outlined >Contact Us</a>
+                                <Button data-toggle="modal" data-dismiss="modal" data-target="#activate_now" style="white-space: nowrap;" label="Activate" class="w-full" />
                             </div>
                         </template>
                     </Card>
@@ -277,8 +283,8 @@
                         </template>
                         <template #footer>
                             <div class="flex gap-3 mt-1">
-                                <Button label="Contact Us" severity="secondary" outlined class="w-full" />
-                                <Button label="Order Now" class="w-full" />
+                                <a type="button" href="https://findsocialetilbud.dk/kontakt-findsocialetilbud-dk" target="_blank" class="btn btn-default w-full" label="Contact Us" severity="secondary" outlined >Contact Us</a>
+                                <Button data-toggle="modal" data-dismiss="modal" data-target="#activate_now" style="white-space: nowrap;" label="Activate" class="w-full" />
                             </div>
                         </template>
                     </Card>
@@ -309,8 +315,8 @@
                         </template>
                         <template #footer>
                             <div class="flex gap-3 mt-1">
-                                <Button label="Contact Us" severity="secondary" outlined class="w-full" />
-                                <Button label="Order Now" class="w-full" />
+                                <a type="button" href="https://findsocialetilbud.dk/kontakt-findsocialetilbud-dk" target="_blank" class="btn btn-default w-full" label="Contact Us" severity="secondary" outlined >Contact Us</a>
+                                <Button data-toggle="modal" data-dismiss="modal" data-target="#activate_now" style="white-space: nowrap;" label="Activate" class="w-full" />
                             </div>
                         </template>
                     </Card>
@@ -341,8 +347,8 @@
                         </template>
                         <template #footer>
                             <div class="flex gap-3 mt-1">
-                                <Button label="Contact Us" severity="secondary" outlined class="w-full" />
-                                <Button label="Order Now" class="w-full" />
+                                <a type="button" href="https://findsocialetilbud.dk/kontakt-findsocialetilbud-dk" target="_blank" class="btn btn-default w-full" label="Contact Us" severity="secondary" outlined >Contact Us</a>
+                                <Button data-toggle="modal" data-dismiss="modal" data-target="#activate_now" style="white-space: nowrap;" label="Activate" class="w-full" />
                             </div>
                         </template>
                     </Card>
@@ -350,4 +356,5 @@
             </div>
         </div>
     </div>
+    
 </template>
