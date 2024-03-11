@@ -11,10 +11,10 @@ class CitizenAddressService
         $new_citizen_address = new CitizenAddress;
         $new_citizen_address->address = $citizen->address;
         $new_citizen_address->postcode = $citizen->postcode;
-        $new_citizen_address->city_id = $citizen->city_id;
-        $new_citizen_address->region_id = $citizen->region_id;
+        $new_citizen_address->city_id = $citizen->city_id["id"];
+        $new_citizen_address->region_id = $citizen->region_id["id"];
         $new_citizen_address->citizen_id = $citizen_id;
-        $new_citizen_address->municipality_id = $citizen->municipality_id;
+        $new_citizen_address->municipality_id = $citizen->municipality_id["id"];
         $new_citizen_address->save();
     }
 
@@ -24,9 +24,9 @@ class CitizenAddressService
         $citizen_address->update([
             'address' => $request->address,
             'postcode' => $request->postcode,
-            'city_id' => $request->city_id,
-            'region_id' => $request->region_id,
-            'municipality_id' => $request->municipality_id
+            'city_id' => $request->city_id['id'],
+            'region_id' => $request->region_id['id'],
+            'municipality_id' => $request->municipality_id['id']
         ]);
     }
 }

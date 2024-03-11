@@ -1,7 +1,13 @@
 <script setup>
     import { router } from '@inertiajs/vue3';
     import {ref} from 'vue';
-    import { vMaska } from "maska"
+    import { vMaska } from "maska";
+    import Calendar from 'primevue/calendar';
+    import InputText from 'primevue/inputtext';
+    import InputGroup from 'primevue/inputgroup';
+    import InputGroupAddon from 'primevue/inputgroupaddon';
+    import Dropdown from 'primevue/dropdown';
+
     const props = defineProps({
         errors: Object,
         regions: Object,
@@ -16,7 +22,7 @@
 
     const getMunicipalities = () => {
         for (let key in props.regions) {
-            if (props.regions[key].id == props.form.region_id) {
+            if (props.regions[key].id == props.form.region_id.id) {
                 municipalities.value = props.regions[key].municipalities
             }
         }
@@ -24,7 +30,7 @@
 
     const getCities = () => {
         for (let key in municipalities.value) {
-            if (municipalities.value[key].id == props.form.municipality_id) {
+            if (municipalities.value[key].id == props.form.municipality_id.id) {
                 cities.value = municipalities.value[key].cities
             }
         }
@@ -59,101 +65,90 @@
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="form-group" >
-                                    <label for="exampleInputEmail1">Email address</label>
-                                    <input type="email" v-model="form.email"  class="form-control" :class="{ 'is-invalid': errors.email }" placeholder="Enter email">
+                                <div class="flex flex-column">
+                                    <label for="email">Email</label>
+                                    <InputText id="email" v-model="form.email" aria-describedby="email-help" :invalid="errors.email" />
                                     <div class="text-danger text-xs" v-if="errors.email"> {{ errors.email }} </div>
                                 </div>
+
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">First Name</label>
-                                    <input type="text" v-model="form.first_name" class="form-control" :class="{ 'is-invalid': errors.first_name }" placeholder="Enter First Name">
+                            <div class="col-md-6 mb-3">
+                                <div class="flex flex-column">
+                                    <label for="first_name">First Name</label>
+                                    <InputText id="first_name"  v-model="form.first_name" aria-describedby="first_name-help" :invalid="errors.first_name" />
                                     <div class="text-danger text-xs" v-if="errors.first_name"> {{ errors.first_name }} </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Last Name</label>
-                                    <input type="text" v-model="form.last_name" class="form-control" :class="{ 'is-invalid': errors.last_name }" placeholder="Enter Last Name">
+                            <div class="col-md-6 mb-3">
+                                <div class="flex flex-column">
+                                    <label for="last_name">Last Name</label>
+                                    <InputText id="last_name"  v-model="form.last_name" aria-describedby="last_name-help" :invalid="errors.last_name" />
                                     <div class="text-danger text-xs" v-if="errors.last_name"> {{ errors.last_name }} </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Social Security Number</label>
-                                    <input type="text" v-maska data-maska="######-####" v-model="form.social_security_number" class="form-control" :class="{ 'is-invalid': errors.social_security_number }" placeholder="Enter Social Security Number">
+                            <div class="col-md-6 mb-3">
+                                <div class="flex flex-column">
+                                    <label for="social_security_number">Social Security Number</label>
+                                    <InputText v-maska data-maska="######-####" id="social_security_number"  v-model="form.social_security_number" aria-describedby="social_security_number-help" :invalid="errors.social_security_number" />
                                     <div class="text-danger text-xs" v-if="errors.social_security_number"> {{ errors.social_security_number }} </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Date of Birth</label>
-                                    <input type="date" v-model="form.birth_day" class="form-control" :class="{ 'is-invalid': errors.birth_day }">
+                            <div class="col-md-6 mb-3">
+                                <div class="flex flex-column">
+                                    <label for="social_security_number">Birth Day</label>
+                                    <Calendar dateFormat="dd, M yy" v-model="form.birth_day" showIcon iconDisplay="input" inputId="icondisplay" :invalid="errors.birth_day" />
                                     <div class="text-danger text-xs" v-if="errors.birth_day"> {{ errors.birth_day }} </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Phone Number</label>
-                                    <div class="input-group mb-3">
+                            <div class="col-md-6 mb-3">
+                                <div class="flex flex-column">
+                                    <label for="phone_number">Phone Number</label>
+                                    <InputGroup>
+                                        <InputGroupAddon>
+                                            <span>🇩🇰</span>
+                                        </InputGroupAddon>
+                                        <InputText v-maska data-maska="+45########" id="phone_number"  v-model="form.phone" aria-describedby="phone-help" :invalid="errors.phone" />
                                         
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">🇩🇰</span>
-                                        </div>
-
-                                        
-                                        <input type="text" v-maska data-maska="(+45)###-#####" v-model="form.phone" class="form-control" :class="{ 'is-invalid': errors.phone }" placeholder="Enter Phone Number">
-                                        <div class="text-danger text-xs" v-if="errors.phone"> {{ errors.phone }} </div>
-                                    </div>
+                                    </InputGroup>
+                                    <div class="text-danger text-xs" v-if="errors.phone"> {{ errors.phone }} </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Address</label>
-                                    <input type="text" v-model="form.address" class="form-control" :class="{ 'is-invalid': errors.address }" placeholder="Enter Address">
+                            <div class="col-md-6 mb-3">
+                                <div class="flex flex-column">
+                                    <label for="address">Address</label>
+                                    <InputText id="address"  v-model="form.address" aria-describedby="address-help" :invalid="errors.address" />
                                     <div class="text-danger text-xs" v-if="errors.address"> {{ errors.address }} </div>
                                 </div>
                             </div>
                             
                             <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Region</label>
-                                    <select class="form-control select2" :class="{ 'is-invalid': errors.region_id }" @change="getMunicipalities" v-model="form.region_id">
-                                        <option v-for="(region, i) in regions" :key="i" :value="region.id">
-                                            {{ region.name }}
-                                        </option>
-                                    </select>
+                                <div class="flex flex-column">
+                                    <label for="region">Region</label>
+                                    <Dropdown :invalid="errors.region_id" v-model="form.region_id" @change="getMunicipalities" id="region" :options="regions" optionLabel="name" placeholder="Select a Region" filter/>
                                     <div class="text-danger text-xs" v-if="errors.region_id"> {{ errors.region_id }} </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Municipalities</label>
-                                    <select class="form-control" :class="{ 'is-invalid': errors.municipality_id }"  v-model="form.municipality_id" @change="getCities">
-                                        <option v-for="(municipality, i) in municipalities" :key="i" :value="municipality.id">
-                                            {{ municipality.name }}
-                                        </option>
-                                    </select>
+                            <div class="col-md-6 mb-3">
+                                <div class="flex flex-column">
+                                    <label for="municipality">Municipality</label>
+                                    <Dropdown :invalid="errors.municipality_id" v-model="form.municipality_id" id="municipality" @change="getCities" :options="municipalities" optionLabel="name" placeholder="Select a Municipality" filter/>
                                     <div class="text-danger text-xs" v-if="errors.municipality_id"> {{ errors.municipality_id }} </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">City</label>
-                                    <select class="form-control" :class="{ 'is-invalid': errors.city_id }"  v-model="form.city_id">
-                                        <option v-for="(city, i) in cities" :key="i" :value="city.id">
-                                            {{ city.name }}
-                                        </option>
-                                    </select>
+                            <div class="col-md-6 mb-3">
+                                
+                                <div class="flex flex-column">
+                                    <label for="city">City</label>
+                                    <Dropdown :invalid="errors.city_id" v-model="form.city_id" id="city" :options="cities" optionLabel="name" placeholder="Select a City" filter/>
                                     <div class="text-danger text-xs" v-if="errors.city_id"> {{ errors.city_id }} </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Post Code</label>
-                                    <input type="text" v-maska data-maska="####" v-model="form.postcode" class="form-control" :class="{ 'is-invalid': errors.postcode }" placeholder="Enter Post Code">
-                                    <div class="text-danger text-xs"  v-if="errors.postcode"> {{ errors.postcode }} </div>
+                            <div class="col-md-6 mb-3">
+                           
+                                <div class="flex flex-column">
+                                    <label for="post_code">Post Code</label>
+                                    <InputText v-maska data-maska="####" id="post_code" v-model="form.postcode" aria-describedby="postcode-help" :invalid="errors.postcode" />
+                                    <div class="text-danger text-xs" v-if="errors.postcode"> {{ errors.postcode }} </div>
                                 </div>
                             </div>
                             <div class="col-md-12">

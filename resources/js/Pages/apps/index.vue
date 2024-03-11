@@ -12,9 +12,11 @@
         <a href="#other" type="button" class="btn btn-outline-success btn-sm">Other</a>
     </div>
     <hr>
+    
     <Marketing />
     <Visual />
     <Other />
+
 </template>
 
 <style>

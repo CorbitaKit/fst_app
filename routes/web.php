@@ -58,6 +58,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::group(['prefix' => 'journals'], function () {
         Route::get('/get-citizen-journal/{citizen_id}', [JournalController::class, 'getCitizenJournal']);
+        Route::get('/get-sorted-journals/{citizen_id}/{sort}', [JournalController::class, 'getSortedJournal']);
+        Route::get('/get-filtered-journal/{citizen_id}/{field}', [JournalController::class, 'getFilteredJournal']);
     });
 
     Route::group(['prefix' => 'medicines'], function () {
@@ -82,6 +84,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::get('documents/get-citizen-documents/{citizen_id}', [DocumentController::class, 'getCitizenDocument']);
     Route::get('documents/get-document-children/{parent_id}', [DocumentController::class, 'getDocumentChildren']);
+    Route::get('documents/get-file-size/{citizen_id}', [DocumentController::class, 'getFileSize']);
 
 
     Route::post('/logout', function () {
