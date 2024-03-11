@@ -32,7 +32,7 @@
                         <template #footer>
                             <div class="flex mt-1">
                                 <Button data-toggle="modal" data-target="#photovideo" style="white-space: nowrap;" label="Read more" severity="secondary" outlined class="w-full" />
-                                <Button style="white-space: nowrap;" label="Order now" class="w-full" />
+                                <Button data-toggle="modal" data-target="#activate_now" style="white-space: nowrap;" label="Activate" class="w-full" />
                             </div>
                         </template>
                     </Card>
@@ -56,7 +56,8 @@
                         <template #footer>
                             <div class="flex mt-1">
                                 <Button data-toggle="modal" data-target="#website" style="white-space: nowrap;" label="Read more" severity="secondary" outlined class="w-full" />
-                                <Button style="white-space: nowrap;" label="Order now" class="w-full" />
+                                <Button data-toggle="modal" data-target="#activate_now" style="white-space: nowrap;" label="Activate" class="w-full" />
+
                             </div>
                         </template>
                     </Card>
@@ -80,7 +81,7 @@
                         <template #footer>
                             <div class="flex mt-1">
                                 <Button data-toggle="modal" data-target="#brand" style="white-space: nowrap;" label="Read more" severity="secondary" outlined class="w-full" />
-                                <Button style="white-space: nowrap;" label="Order now" class="w-full" />
+                                <Button data-toggle="modal" data-target="#activate_now" style="white-space: nowrap;" label="Activate" class="w-full" />
                             </div>
                         </template>
                     </Card>
@@ -112,7 +113,7 @@
                         <template #footer>
                             <div class="flex gap-3 mt-1">
                                 <Button label="Contact Us" severity="secondary" outlined class="w-full" />
-                                <Button label="Order Now" class="w-full" />
+                                <Button data-toggle="modal" data-dismiss="modal" data-target="#activate_now" style="white-space: nowrap;" label="Activate" class="w-full" />
                             </div>
                         </template>
                     </Card>
@@ -144,7 +145,7 @@
                         <template #footer>
                             <div class="flex gap-3 mt-1">
                                 <Button label="Contact Us" severity="secondary" outlined class="w-full" />
-                                <Button label="Order Now" class="w-full" />
+                                <Button data-toggle="modal" data-dismiss="modal" data-target="#activate_now" style="white-space: nowrap;" label="Activate" class="w-full" />
                             </div>
                         </template>
                     </Card>
@@ -176,7 +177,7 @@
                         <template #footer>
                             <div class="flex gap-3 mt-1">
                                 <Button label="Contact Us" severity="secondary" outlined class="w-full" />
-                                <Button label="Order Now" class="w-full" />
+                                <Button data-toggle="modal" data-dismiss="modal" data-target="#activate_now" style="white-space: nowrap;" label="Activate" class="w-full" />
                             </div>
                         </template>
                     </Card>
@@ -185,6 +186,6 @@
         </div>
     </div>
 
-   
+    
 </template>
 

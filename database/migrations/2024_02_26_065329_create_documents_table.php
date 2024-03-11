@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreignId('user_id');
             $table->foreignId('citizen_id');
             $table->string('type');
-            $table->integer('size');
+            $table->string('size')->nullable();
             $table->string('path')->nullable();
         });
     }

@@ -79,7 +79,7 @@ class JournalObserver
             ];
         } else if ($journal->is_lock == 1 && $journal->getOriginal('is_lock') == 0) {
             $action = [
-                'action' => 'unlocked the journal',
+                'action' => 'Locked the journal',
                 'color' => '#a855f7',
                 'icon' => 'pi pi-lock',
                 'status' => 'Lock'

@@ -51,7 +51,7 @@
                     icon: "success"
                 });
                 
-                emit('fetchMedicineJournal')
+                getMedicineJournal()
             })
         })
     }
@@ -67,10 +67,7 @@
                             <i class="fas fa-plus"></i>
                             Give Medicine
                         </button>
-                        <button type="button" @click="list_view = true" class="btn bg-gradient-primary mb-2 mr-2">
-                            <i class="fas fa-list"></i>
-                            Show all Citizens Medicine
-                        </button>
+                       
                     </div>
                 </div>
             </div>
@@ -98,7 +95,7 @@
                     </template>
                 </Timeline>
                 <addMedicine :citizen_id="citizen_id" v-if="is_creating" @fetchMedicineJournal="getMedicineJournal" :form="form" @submit="submit"/>
-                <medicineList :citizen_id="citizen_id" v-if="list_view" @fetchMedicineJournal="getMedicineJournal" @goBack="list_view = false"/>
+                <!-- <medicineList :citizen_id="citizen_id" v-if="list_view" @fetchMedicineJournal="getMedicineJournal" @goBack="list_view = false"/> -->
             </div>
         </div>
         
