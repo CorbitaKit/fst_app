@@ -4,6 +4,7 @@ use App\Http\Controllers\AppController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CitizenController;
 use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\FolderController;
 use App\Http\Controllers\GoalController;
 use App\Http\Controllers\JournalController;
 use App\Http\Controllers\LogController;
@@ -53,6 +54,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::resource('sub_goals', SubGoalController::class);
     Route::resource('apps', AppController::class);
     Route::resource('documents', DocumentController::class);
+    Route::resource('folders', FolderController::class);
 
     Route::group(['prefix' => 'journals'], function () {
         Route::get('/get-citizen-journal/{citizen_id}', [JournalController::class, 'getCitizenJournal']);
@@ -80,6 +82,9 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/medicine', [LogController::class, 'getMedicineLogs']);
     });
 
+    Route::get('documents/get-citizen-documents/{citizen_id}', [DocumentController::class, 'getCitizenDocument']);
+    Route::get('documents/get-document-children/{parent_id}', [DocumentController::class, 'getDocumentChildren']);
+    Route::get('documents/get-file-size/{citizen_id}', [DocumentController::class, 'getFileSize']);
 
 
     Route::post('/logout', function () {

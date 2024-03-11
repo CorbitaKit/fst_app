@@ -1,11 +1,10 @@
 <script setup>
-    import TreeTable from 'primevue/treetable';
+    
     import Button from 'primevue/button';
     import Column from 'primevue/column';
     import { ref, onMounted } from 'vue';
     import Details from '../plans/details.vue';
     import Swal from 'sweetalert2';
-    import ProgressBar from 'primevue/progressbar';
     import axios from 'axios';
     import CreatePlan from '../plans/plan/create.vue';
     const props = defineProps({
