@@ -9,6 +9,7 @@
     import Swal from 'sweetalert2';
     const props = defineProps({
         employee_id: Number,
+        btnText: String
     })
     const key = ref(0)
     const fetchEvents =  () => {
@@ -50,7 +51,7 @@
                         'end': info.endStr,
                         'employee_id': props.employee_id,
                         'title': title,
-                        'is_public': 0
+                        'is_public': 1,
                     })
 
                     form.post('/schedules', {
