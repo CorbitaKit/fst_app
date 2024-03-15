@@ -9,6 +9,6 @@ class RoleService
 {
     public function __invoke(): Collection
     {
-        return Role::all();
+        return Role::where('name', '!=', 'super admin')->get();
     }
 }

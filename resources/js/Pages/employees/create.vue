@@ -2,13 +2,17 @@
 import { useForm, router } from '@inertiajs/vue3';
 import Swal from 'sweetalert2'
 import employeeForm from './form.vue'
+const props = defineProps({
+    roles: Object
+})
 const form = useForm({
     'first_name': null,
     'last_name': null,
     'phone': null,
     'birth_day': null,
     'address': null,
-    'email': null
+    'email': null,
+    'role': null
 })
 
 const submit = () => {
@@ -27,5 +31,5 @@ const submit = () => {
 </script>
 
 <template>
-    <employeeForm :form="form" :btnText="'Add Employee'" @submit="submit"/>
+    <employeeForm :form="form" :btnText="'Add Employee'" @submit="submit" :roles="roles"/>
 </template>

@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('address');
             $table->string('email');
             $table->foreignId('company_id');
+            $table->foreignId('user_id');
         });
     }
 

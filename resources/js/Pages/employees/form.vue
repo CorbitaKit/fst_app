@@ -5,7 +5,8 @@
     import { vMaska } from "maska";
     const props = defineProps({
         form: Object,
-        btnText: String
+        btnText: String,
+        roles: Object
     })
    
     const emit = defineEmits(['submit'])
@@ -71,6 +72,13 @@
                                 <div class="flex flex-column">
                                     <label for="address">Address</label>
                                     <InputText id="address" v-model="form.address"  />
+                                    <!-- <div class="text-danger text-xs" v-if="errors.region_id"> {{ errors.region_id }} </div> -->
+                                </div>
+                            </div>
+                            <div class="col-md-6 mt-4">
+                                <div class="flex flex-column">
+                                    <label for="role">Role</label>
+                                    <Dropdown  v-model="form.role"  id="role" :options="roles" optionLabel="name" placeholder="Select a Role" filter/>
                                     <!-- <div class="text-danger text-xs" v-if="errors.region_id"> {{ errors.region_id }} </div> -->
                                 </div>
                             </div>

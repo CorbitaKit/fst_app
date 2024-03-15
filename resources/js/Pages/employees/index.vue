@@ -41,6 +41,11 @@
             <Column field="last_name" header="Last Name" />
             <Column field="phone" header="Phone Number" />
             <Column field="email" header="Email" />
+            <Column header="Role">
+                <template #body="employee">
+                    <p>{{ employee.data.user.role.name }}</p>
+                </template>
+            </Column>
            
             <Column header="Actions">
                 <template #body="employee">

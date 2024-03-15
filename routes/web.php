@@ -21,6 +21,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Response;
 /*
 |--------------------------------------------------------------------------
@@ -38,10 +39,10 @@ Route::get('/', function () {
         return redirect('/home');
     }
     return view('auth.login');
-})->name('login');
+})->name('login_page');
 
 
-Route::post('/login', [LoginController::class, 'login']);
+Route::post('/login', [LoginController::class, 'login'])->name('login');
 
 
 
@@ -100,9 +101,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('schedules/get-employee-schedule/{employee_id}', [ScheduleController::class, 'getEmployeeSchedule']);
     Route::get('schedules/get-schedules', [ScheduleController::class, 'show']);
 
-    Route::post('/logout', function () {
-        auth()->logout();
+    Route::post('/logout', function (Request $request) {
+        Auth::guard('web')->logout();
+
         $cookie = Cookie::forget('token');
-        return Response::json(['message' => 'Successfully logged out'])->withCookie($cookie);
+        return redirect()->route('login_page');
     })->name('logout');
 });

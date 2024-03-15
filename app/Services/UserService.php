@@ -13,9 +13,9 @@ class UserService
         return User::with('role')->where('company_id', $companyId)->get();
     }
 
-    public function doStore(array $userData): void
+    public function doStore(array $userData): User
     {
         $userData['role_id'] = $userData['role_id']['id'];
-        User::create($userData);
+        return User::create($userData);
     }
 }

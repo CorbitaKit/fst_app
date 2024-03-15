@@ -77,15 +77,6 @@
                         </p>
                     </a>
                 </li>
-
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-users"></i>
-                        <p>
-                            Users
-                        </p>
-                    </a>
-                </li>
                 @endif
                 @if(Auth::check() && Auth::user()->role_id == '1')
                 <li class="nav-item">
