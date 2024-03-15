@@ -3,7 +3,9 @@
 use App\Http\Controllers\AppController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CitizenController;
+use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\DocumentController;
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\FolderController;
 use App\Http\Controllers\GoalController;
 use App\Http\Controllers\JournalController;
@@ -11,7 +13,10 @@ use App\Http\Controllers\LogController;
 use App\Http\Controllers\MedicineController;
 use App\Http\Controllers\MedicineJournalController;
 use App\Http\Controllers\PlanController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\SubGoalController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -55,6 +60,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::resource('apps', AppController::class);
     Route::resource('documents', DocumentController::class);
     Route::resource('folders', FolderController::class);
+    Route::resource('companies', CompanyController::class);
+    Route::resource('users', UserController::class);
+    Route::resource('roles', RoleController::class);
+    Route::resource('employees', EmployeeController::class);
+    Route::resource('schedules', ScheduleController::class);
 
     Route::group(['prefix' => 'journals'], function () {
         Route::get('/get-citizen-journal/{citizen_id}', [JournalController::class, 'getCitizenJournal']);
@@ -85,7 +95,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('documents/get-citizen-documents/{citizen_id}', [DocumentController::class, 'getCitizenDocument']);
     Route::get('documents/get-document-children/{parent_id}', [DocumentController::class, 'getDocumentChildren']);
     Route::get('documents/get-file-size/{citizen_id}', [DocumentController::class, 'getFileSize']);
+    Route::get('users/get-company-users/{company_id}', [UserController::class, 'getUsersInCompany']);
 
+    Route::get('schedules/get-employee-schedule/{employee_id}', [ScheduleController::class, 'getEmployeeSchedule']);
 
     Route::post('/logout', function () {
         auth()->logout();

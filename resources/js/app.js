@@ -18,6 +18,15 @@ import InputText from 'primevue/inputtext';
 import Menu from 'primevue/menu';
 import Card from 'primevue/card';
 import Image from 'primevue/image';
+import Password from 'primevue/password';
+import Dropdown from 'primevue/dropdown';
+import InputGroupAddon from 'primevue/inputgroupaddon';
+import Calendar from 'primevue/calendar';
+import Checkbox from 'primevue/checkbox';
+import SelectButton from 'primevue/selectbutton';
+
+
+
 createInertiaApp({
   resolve: name => {
     const pages = import.meta.glob('./Pages/**/*.vue', { eager: true })
@@ -40,6 +49,12 @@ createInertiaApp({
       .component('Menu', Menu)
       .component('Card', Card)
       .component('Image', Image)
+      .component('Password', Password)
+      .component('Dropdown', Dropdown)
+      .component('InputGroupAddon', InputGroupAddon)
+      .component('Calendar', Calendar)
+      .component('Checkbox', Checkbox)
+      .component('SelectButton', SelectButton)
       .mount(el)
       
   },
