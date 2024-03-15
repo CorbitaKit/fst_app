@@ -48,7 +48,7 @@ Route::post('/login', [LoginController::class, 'login']);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/home', function () {
-        return inertia::render('index');
+        return inertia::render('index', ['employee_id' => Auth::user()->id]);
     })->name('home');
 
     Route::resource('citizens', CitizenController::class);
@@ -98,6 +98,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('users/get-company-users/{company_id}', [UserController::class, 'getUsersInCompany']);
 
     Route::get('schedules/get-employee-schedule/{employee_id}', [ScheduleController::class, 'getEmployeeSchedule']);
+    Route::get('schedules/get-schedules', [ScheduleController::class, 'show']);
 
     Route::post('/logout', function () {
         auth()->logout();

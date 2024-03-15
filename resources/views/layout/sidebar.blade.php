@@ -38,7 +38,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('schedules.index') }}" class="nav-link {{ request()->routeIs('schedules.index') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-briefcase"></i>
                         <p>
                             Duty Schedule

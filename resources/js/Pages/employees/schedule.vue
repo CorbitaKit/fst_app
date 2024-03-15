@@ -50,7 +50,8 @@
                         'start': info.startStr,
                         'end': info.endStr,
                         'employee_id': props.employee_id,
-                        'title': title
+                        'title': title,
+                        'is_public': 1,
                     })
 
                     form.post('/schedules', {

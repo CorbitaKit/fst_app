@@ -29,6 +29,11 @@ class ScheduleService
         $schedule->update($updatedSchedule);
     }
 
+    public function doGet(): Collection
+    {
+        return Schedule::where('is_public', 1)->get();
+    }
+
     private  function generateRandomColor()
     {
         return '#' . str_pad(dechex(mt_rand(0, 0xFFFFFF)), 6, '0', STR_PAD_LEFT);

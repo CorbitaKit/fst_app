@@ -45,8 +45,6 @@
             <Column header="Actions">
                 <template #body="employee">
                     <div class="flex flex-wrap">
-                        
-                        <Button v-tooltip.bottom="'View employee users'" class="mr-2"  icon="pi pi-eye" rounded severity="info" raised />
                         <Button v-tooltip.bottom="'Edit employee record'" class="mr-2" type="button"  icon="pi pi-file-edit" rounded severity="success" raised />
                         <Button @click="addSchedule(employee.data.id)" v-tooltip.bottom="'Set employee schedule'" class="mr-2" type="button"  icon="pi pi-calendar" rounded severity="warning" raised />
                     </div>

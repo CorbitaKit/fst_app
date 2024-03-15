@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId('employee_id');
             $table->string('title');
             $table->string('color');
+            $table->smallInteger('is_public');
         });
     }
 
