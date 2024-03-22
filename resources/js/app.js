@@ -24,8 +24,9 @@ import InputGroupAddon from 'primevue/inputgroupaddon';
 import Calendar from 'primevue/calendar';
 import Checkbox from 'primevue/checkbox';
 import SelectButton from 'primevue/selectbutton';
-
-
+import ProgressSpinner from 'primevue/progressspinner';
+import OverlayPanel from 'primevue/overlaypanel';
+import InputSwitch from 'primevue/inputswitch';
 
 createInertiaApp({
   resolve: name => {
@@ -55,6 +56,9 @@ createInertiaApp({
       .component('Calendar', Calendar)
       .component('Checkbox', Checkbox)
       .component('SelectButton', SelectButton)
+      .component('ProgressSpinner', ProgressSpinner)
+      .component('OverlayPanel', OverlayPanel)
+      .component('InputSwitch', InputSwitch)
       .mount(el)
       
   },

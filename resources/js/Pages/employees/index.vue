@@ -3,32 +3,60 @@
     import Swal from 'sweetalert2'
     import axios from 'axios'
     import scheduleForm from './schedule.vue'
-    import { ref } from 'vue'
+    import { ref, onMounted } from 'vue'
     const props = defineProps({
         employees: Object
     })
-
+    const op = ref()
+    const permissions = ref([])
     const employee_id = ref(null)
     const is_adding_schedule = ref(null)
     const addNewEmployee = () => {
         router.get('/employees/create')
     }
 
-    const edit = (company_id) => {
-        router.get('/users/' + company_id + "/edit")
-    }
 
+
+    const getPermissions = (userId) => {
+        permissions.value = []
+        axios.get('/permissions/' + userId)
+        .then(response => {
+            response.data.forEach( (permission) => {
+                permissions.value.push({
+                    'name': permission.name,
+                    'id': permission.id,
+                    'checked': permission.users.length === 0 ? false : true,
+                    'user_id': userId
+                })
+            })
+        })
+    }
     const addSchedule = (id) => {
         employee_id.value = id
         is_adding_schedule.value = true
     }
+    const toggle = (event, id) => {
+        getPermissions(id)
+        op.value.toggle(event);
+    }
 
+    const saveUserPermission = (permission) => {
+        if (permission.checked) {
+            axios.post('/permission-users', permission)
+        } else {
+            axios.delete('/permission-users/' + permission.id + '/' + permission.user_id)
+        }
+    }
+
+
+    
     
 
 </script>
 
 <template>
     <scheduleForm :employee_id="employee_id" v-if="is_adding_schedule" :btnText="'Add Schedule'"/>
+    
     <div class="card" v-if="!is_adding_schedule">
         <DataTable :value="employees" showGridlines paginator :rows="5" :rowsPerPageOptions="[5, 10, 20, 50]" >
             <template #header>
@@ -51,7 +79,20 @@
                 <template #body="employee">
                     <div class="flex flex-wrap">
                         <Button v-tooltip.bottom="'Edit employee record'" class="mr-2" type="button"  icon="pi pi-file-edit" rounded severity="success" raised />
-                        <Button @click="addSchedule(employee.data.id)" v-tooltip.bottom="'Set employee schedule'" class="mr-2" type="button"  icon="pi pi-calendar" rounded severity="warning" raised />
+                        <Button v-tooltip.bottom="'Set employee permission'" class="mr-2" type="button"  icon="pi pi-lock" rounded severity="help" raised @click="(event) => toggle(event, employee.data.id)" aria-haspopup="true" aria-controls="overlay_panel" />
+                        <OverlayPanel ref="op" appendTo="body">
+                            <DataTable :value="permissions">
+                                <Column field="name" header="Permission"></Column>
+                                <Column header="Set">
+                                    <template #body="permission">
+                                            <InputSwitch v-model="permission.data.checked" @change="saveUserPermission(permission.data)"/>
+                                    </template>
+                                </Column>
+                               
+                               
+                            </DataTable>
+                        </OverlayPanel>
+                        <Button @click="addSchedule(employee.data.id)" v-tooltip.bottom="'Set employee schedule'" class="mr-2" type="button"  icon="pi pi-calendar" rounded severity="info" raised />
                     </div>
                 </template>
             </Column>

@@ -36,4 +36,9 @@ class UserController extends Controller
     {
         $user = $this->userService->doStore($request->all());
     }
+
+    public function updatePassword(Request $request)
+    {
+        $this->userService->doUpdatePassword($request->password);
+    }
 }

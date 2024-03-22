@@ -21,6 +21,7 @@ return new class extends Migration
             $table->timestamps();
             $table->foreignId('role_id');
             $table->foreignId('company_id')->nullable();
+            $table->smallInteger('is_password_changed')->default(0)->nullable();
         });
     }
 

@@ -2,20 +2,22 @@
     import { useForm, router } from '@inertiajs/vue3'
     import companyForm from './form.vue'
     import Swal from 'sweetalert2'
-
     const props = defineProps({
         company_id: Number
     })
     const form = useForm({
-        'name': null,
+        'first_name': null,
+        'last_name': null,
+        'phone': null,
+        'address': null,
+        'birth_day': null,
         'email': null,
-        'role_id': null,
-        'password': null,
+        'role': null,
         'company_id': localStorage.getItem('company_id')
     })
 
     const submit = () => {
-        form.post('/users', {
+        form.post('/employees', {
             onSuccess: () => {
                 Swal.fire({
                     title: "Success!",

@@ -12,6 +12,8 @@ use App\Http\Controllers\JournalController;
 use App\Http\Controllers\LogController;
 use App\Http\Controllers\MedicineController;
 use App\Http\Controllers\MedicineJournalController;
+use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\PermissionUserController;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ScheduleController;
@@ -22,7 +24,6 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\Response;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -45,9 +46,15 @@ Route::get('/', function () {
 Route::post('/login', [LoginController::class, 'login'])->name('login');
 
 
+Route::get('password-change', function () {
+    return Inertia::render('auth/changepassword');
+})->name('change-password');
 
+Route::patch('users/password-change', [UserController::class, 'updatePassword']);
 
-Route::middleware('auth:sanctum')->group(function () {
+Route::resource('companies', CompanyController::class);
+
+Route::middleware(['web', 'force.password.change'])->group(function () {
     Route::get('/home', function () {
         return inertia::render('index', ['employee_id' => Auth::user()->id]);
     })->name('home');
@@ -61,7 +68,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::resource('apps', AppController::class);
     Route::resource('documents', DocumentController::class);
     Route::resource('folders', FolderController::class);
-    Route::resource('companies', CompanyController::class);
+
     Route::resource('users', UserController::class);
     Route::resource('roles', RoleController::class);
     Route::resource('employees', EmployeeController::class);
@@ -101,6 +108,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('schedules/get-employee-schedule/{employee_id}', [ScheduleController::class, 'getEmployeeSchedule']);
     Route::get('schedules/get-schedules', [ScheduleController::class, 'show']);
 
+    Route::get('permissions/{user_id}', PermissionController::class);
+
+    Route::post('permission-users', [PermissionUserController::class, 'store']);
+    Route::delete('permission-users/{permission_id}/{user_id}', [PermissionUserController::class, 'destroy']);
     Route::post('/logout', function (Request $request) {
         Auth::guard('web')->logout();
 
