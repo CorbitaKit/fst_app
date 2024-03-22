@@ -15,6 +15,7 @@ use App\Http\Controllers\MedicineJournalController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\PermissionUserController;
 use App\Http\Controllers\PlanController;
+use App\Http\Controllers\ProtocolController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\SubGoalController;
@@ -58,7 +59,7 @@ Route::middleware(['web', 'force.password.change'])->group(function () {
     Route::get('/home', function () {
         return inertia::render('index', ['employee_id' => Auth::user()->id]);
     })->name('home');
-
+    Route::get('citizens/get-citizens', [CitizenController::class, 'getCitizens']);
     Route::resource('citizens', CitizenController::class);
     Route::resource('journals', JournalController::class);
     Route::resource('medicines', MedicineController::class);
@@ -73,6 +74,8 @@ Route::middleware(['web', 'force.password.change'])->group(function () {
     Route::resource('roles', RoleController::class);
     Route::resource('employees', EmployeeController::class);
     Route::resource('schedules', ScheduleController::class);
+
+    Route::resource('protocols', ProtocolController::class);
 
     Route::group(['prefix' => 'journals'], function () {
         Route::get('/get-citizen-journal/{citizen_id}', [JournalController::class, 'getCitizenJournal']);
@@ -111,6 +114,7 @@ Route::middleware(['web', 'force.password.change'])->group(function () {
     Route::get('permissions/{user_id}', PermissionController::class);
 
     Route::post('permission-users', [PermissionUserController::class, 'store']);
+
     Route::delete('permission-users/{permission_id}/{user_id}', [PermissionUserController::class, 'destroy']);
     Route::post('/logout', function (Request $request) {
         Auth::guard('web')->logout();

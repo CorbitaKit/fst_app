@@ -7,6 +7,7 @@ use App\Models\Citizen;
 use App\Services\CitizenAddressService;
 use Illuminate\Database\Eloquent\Collection;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 class CitizenService
 {
@@ -35,6 +36,7 @@ class CitizenService
             $new_citizen->social_security_number = $citizen->social_security_number;
             $new_citizen->birth_day =  Carbon::parse($citizen->birth_day)->format('Y-m-d');
             $new_citizen->note = $citizen->note;
+            $new_citizen->company_id = Auth::user()->employee->company_id;
             $new_citizen->save();
             $this->citizenAddressService->doStore($citizen, $new_citizen->id);
 

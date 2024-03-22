@@ -27,6 +27,9 @@ import SelectButton from 'primevue/selectbutton';
 import ProgressSpinner from 'primevue/progressspinner';
 import OverlayPanel from 'primevue/overlaypanel';
 import InputSwitch from 'primevue/inputswitch';
+import ContextMenu from 'primevue/contextmenu';
+import MultiSelect from 'primevue/multiselect';
+import Tag from 'primevue/tag';
 
 createInertiaApp({
   resolve: name => {
@@ -59,6 +62,9 @@ createInertiaApp({
       .component('ProgressSpinner', ProgressSpinner)
       .component('OverlayPanel', OverlayPanel)
       .component('InputSwitch', InputSwitch)
+      .component('ContextMenu', ContextMenu)
+      .component('Tag', Tag)
+      .component('MultiSelect', MultiSelect)
       .mount(el)
       
   },
