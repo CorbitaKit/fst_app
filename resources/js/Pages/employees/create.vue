@@ -12,7 +12,8 @@ const form = useForm({
     'birth_day': null,
     'address': null,
     'email': null,
-    'role': null
+    'role': null,
+    'permissions': []
 })
 
 const submit = () => {

@@ -34,18 +34,25 @@ class ScheduleService
         }
 
 
-        $calendar = $calendar->map(function ($post) {
-            $post['start'] =  $post->start . ' ' . $post->start_time;
-            $post['end'] =  $post->end . ' ' . $post->end_time;
-            return $post;
-        });
+        $calendar = $this->setEventStart($calendar);
 
         return $calendar;
     }
 
+    public function doGetAllEmployeeSchedules(): Collection
+    {
+        $employeeId = Auth::user()->employee->id;
+        $schedules = Schedule::whereHas('employee', function ($query) use ($employeeId) {
+            $query->where('company_id', $employeeId);
+        })->where('type', 'Schedule')->get();
+
+        $schedules = $this->setEventStart($schedules);
+        return $schedules;
+    }
+
     public function doGetSchedule(int $scheduleId): Schedule
     {
-        return Schedule::where('id', $scheduleId)->first();
+        return Schedule::with('employee')->where('id', $scheduleId)->first();
     }
 
     public function doUpdate(array $updatedSchedule, int $scheduleId)
@@ -73,5 +80,16 @@ class ScheduleService
     private  function generateRandomColor()
     {
         return '#' . str_pad(dechex(mt_rand(0, 0xFFFFFF)), 6, '0', STR_PAD_LEFT);
+    }
+
+    private function setEventStart(object $calendar): Collection
+    {
+        $calendar = $calendar->map(function ($post) {
+            $post['start'] =  $post->start . ' ' . $post->start_time;
+            $post['end'] =  $post->end . ' ' . $post->end_time;
+            return $post;
+        });
+
+        return $calendar;
     }
 }

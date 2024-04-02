@@ -28,8 +28,9 @@ class EmployeeController extends Controller
         );
     }
 
-    public function store(EmployeeRequest $request)
+    public function store(Request $request)
     {
+
         $this->employeeService->doStore($request->all());
     }
 

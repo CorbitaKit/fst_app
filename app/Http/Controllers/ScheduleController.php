@@ -51,4 +51,12 @@ class ScheduleController extends Controller
     {
         $this->scheduleService->doMarkAsPrivate($scheduleId);
     }
+
+
+    public function getEmployeeSchedules()
+    {
+        $schedules = $this->scheduleService->doGetAllEmployeeSchedules();
+
+        return response(json_encode($schedules), 200);
+    }
 }

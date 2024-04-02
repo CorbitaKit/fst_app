@@ -61,6 +61,7 @@ Route::middleware(['web', 'force.password.change'])->group(function () {
     })->name('home');
     Route::get('citizens/get-citizens', [CitizenController::class, 'getCitizens']);
     Route::get('employees/get-employees', [EmployeeController::class, 'getEmployees']);
+    Route::get('schedules/get-schedules', [ScheduleController::class, 'getEmployeeSchedules']);
     Route::resource('citizens', CitizenController::class);
     Route::resource('journals', JournalController::class);
     Route::resource('medicines', MedicineController::class);
@@ -110,7 +111,7 @@ Route::middleware(['web', 'force.password.change'])->group(function () {
     Route::get('users/get-company-users/{company_id}', [UserController::class, 'getUsersInCompany']);
 
     Route::get('schedules/get-employee-schedule/{employee_id}', [ScheduleController::class, 'getEmployeeSchedule']);
-    Route::get('schedules/get-schedules', [ScheduleController::class, 'show']);
+
     Route::patch('schedules/mark-as-private/{schedule_id}', [ScheduleController::class, 'markAsPrivate']);
 
 
