@@ -36,6 +36,8 @@ import Timeline from 'primevue/timeline';
 import InputMask from 'primevue/inputmask';
 import Avatar from 'primevue/avatar';
 import Toolbar from 'primevue/toolbar';
+import VueDatePicker from '@vuepic/vue-datepicker';
+import '@vuepic/vue-datepicker/dist/main.css'
 createInertiaApp({
   resolve: name => {
     const pages = import.meta.glob('./Pages/**/*.vue', { eager: true })
@@ -76,6 +78,7 @@ createInertiaApp({
       .component('InputMask', InputMask)
       .component('Avatar', Avatar)
       .component('Toolbar', Toolbar)
+      .component('VueDatePicker', VueDatePicker)
       .mount(el)
       
   },

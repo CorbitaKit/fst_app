@@ -42,9 +42,9 @@ class ProtocolController extends Controller
         CitizenProtocol::findOrFail($citizenProtocolId)->delete();
     }
 
-    public function markAsAbsent($citizenProtocolId)
+    public function markAsAbsent($citizenProtocolId, $status)
     {
         $citizenProtocol = CitizenProtocol::findOrFail($citizenProtocolId);
-        $citizenProtocol->update(['status' => 'Absent']);
+        $citizenProtocol->update(['status' => $status]);
     }
 }

@@ -47,22 +47,22 @@ const removeCitizen = (citizen) => {
         }
     });
 }
-const markAsAbsent = (citizen) => {
+const updateStatus = (citizen, status) => {
         Swal.fire({
         title: "Are you sure?",
-        text: "You want to mark as absent this citizen for this date?",
+        text: "You want to mark as " + status +" this citizen for this date?",
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor: "#3085d6",
         cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, mark as absent!"
+        confirmButtonText: "Yes, mark as " + status + "!"
     }).then((result) => {
         if (result.isConfirmed) {
-            axios.patch('/protocols/mark-as-absent-citizen-into-protocol' + '/' + citizen.pivot.id)
+            axios.patch('/protocols/mark-as-absent-citizen-into-protocol' + '/' + citizen.pivot.id + '/' + status)
             .then(() => {
                 Swal.fire({
                     title: "Updated!",
-                    text: "Citizen has been marked as absent.",
+                    text: "Citizen has been marked as " + status,
                     icon: "success"
                 });
                 router.get('/protocols/')
@@ -98,7 +98,7 @@ const markAsAbsent = (citizen) => {
         </div>
     </div>
     <div class="row">
-        <div class="col-md-4" v-for="(protocol, i) in protocols" :key="i">
+        <div class="col-md-5" v-for="(protocol, i) in protocols" :key="i">
             <div class="card">
                 <div class="flex flex-wrap align-items-center justify-content-between gap-2 p-2">
                     
@@ -128,7 +128,8 @@ const markAsAbsent = (citizen) => {
                     <td> {{ citizen.pivot.status }}</td>
                     <td>
                         <Button @click="removeCitizen(citizen)"  v-tooltip="'Remove citizen in this protocol'" icon="pi pi-trash" class="mr-2" severity="danger" rounded  />
-                        <Button @click="markAsAbsent(citizen)"  v-tooltip="'Mark citizen as absent'" icon="pi pi-clock" severity="warning" rounded  />
+                        <Button @click="updateStatus(citizen, 'Absent')"  v-tooltip="'Mark citizen as absent'" icon="pi pi-calendar-minus" class="mr-2" severity="warning" rounded  />
+                        <Button @click="updateStatus(citizen, 'Attended')"  v-tooltip="'Mark citizen as attended'" icon="pi pi-calendar-plus" severity="success" rounded  />
                     </td>
                     
                 </tr>
