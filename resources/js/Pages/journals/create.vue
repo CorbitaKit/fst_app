@@ -31,6 +31,11 @@
             }
         })
     }
+
+    const saveAsDraft = () => {
+        form.is_draft = 1
+        submit()
+    }
   
     const emit = defineEmits(['cancelAction', 'fetchJournals'])
     
@@ -42,5 +47,5 @@
     }
 </style>
 <template>
-    <journalForm @submit="submit" :form="form" @cancelAction="$emit('cancelAction')" />
+    <journalForm @submit="submit" :form="form" @cancelAction="$emit('cancelAction')" @saveAsDraft="saveAsDraft"/>
 </template>

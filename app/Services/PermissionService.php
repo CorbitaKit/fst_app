@@ -13,4 +13,9 @@ class PermissionService
             $query->where('user_id', $userId);
         }])->get();
     }
+
+    public function doGetPermissions(): Collection
+    {
+        return Permission::get();
+    }
 }

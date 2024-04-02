@@ -41,13 +41,14 @@
             <div class="float-right">
                 <a  type="button" @click="$emit('removeGoal', i)" class="text-red">x</a>
             </div>
-            <div class="form-group" >
-                <label for="exampleInputEmail1">{{ getOrdinalText(i+1) }} Goal Name</label>
-                <input type="text" v-model="goal.name" class="form-control"  placeholder="Enter email">
+
+            <div class="flex flex-column">
+                <label for="name">{{ getOrdinalText(i+1) }} Name</label>
+                <InputText id="name"  v-model="goal.name" aria-describedby="name-help" />
             </div>
-            <div class="form-group" >
-                <label for="exampleInputEmail1">Date Completion</label>
-                <input type="date" v-model="goal.completion_date" class="form-control"  placeholder="Enter email">
+            <div class="flex flex-column">
+                <label for="date">Date Completion</label>
+                <Calendar class="mb-2" dateFormat="dd, M yy" v-model="goal.completion_date" showIcon iconDisplay="input" inputId="icondisplay" />
             </div>
             <div style="margin-bottom: 50px;">
                 <button @click="addSubGoal(goal)" type="button" class="btn btn-xs btn-primary float-right"><i class="nav-icon fas fa-plus"></i> Add Sub Goal</button>
@@ -58,13 +59,13 @@
                 <div class="float-right">
                     <a  type="button" @click="removeSubGoal(goal, i)" class="text-red">x</a>
                 </div>
-                <div class="form-group" >
-                    <label for="exampleInputEmail1">{{ getOrdinalText(i+1) }} Sub Goal Name</label>
-                    <input type="text" v-model="sub_goal.name" class="form-control"  placeholder="Enter email">
+                <div class="flex flex-column">
+                    <label for="name">{{ getOrdinalText(i+1) }} Name</label>
+                    <InputText id="name"  v-model="sub_goal.name" aria-describedby="name-help" />
                 </div>
-                <div class="form-group" >
-                    <label for="exampleInputEmail1">Date Completion</label>
-                    <input type="date" v-model="sub_goal.completion_date" class="form-control"  placeholder="Enter email">
+                <div class="flex flex-column">
+                    <label for="date">Date Completion</label>
+                    <Calendar class="mb-2" dateFormat="dd, M yy" v-model="sub_goal.completion_date" showIcon iconDisplay="input" inputId="icondisplay" />
                 </div>
                 <div style="margin-bottom: 20x;">
                     

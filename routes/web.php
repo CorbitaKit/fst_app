@@ -57,9 +57,10 @@ Route::resource('companies', CompanyController::class);
 
 Route::middleware(['web', 'force.password.change'])->group(function () {
     Route::get('/home', function () {
-        return inertia::render('index', ['employee_id' => Auth::user()->id]);
+        return inertia::render('home/index', ['employee_id' => Auth::user()->employee->id]);
     })->name('home');
     Route::get('citizens/get-citizens', [CitizenController::class, 'getCitizens']);
+    Route::get('employees/get-employees', [EmployeeController::class, 'getEmployees']);
     Route::resource('citizens', CitizenController::class);
     Route::resource('journals', JournalController::class);
     Route::resource('medicines', MedicineController::class);
@@ -100,7 +101,7 @@ Route::middleware(['web', 'force.password.change'])->group(function () {
 
     Route::group(['prefix' => 'logs'], function () {
         Route::get('/journal/{journal_id}', [LogController::class, 'getJournalLogs']);
-        Route::get('/medicine', [LogController::class, 'getMedicineLogs']);
+        Route::get('/medicine/{medicine_id}', [LogController::class, 'getMedicineLogs']);
     });
 
     Route::get('documents/get-citizen-documents/{citizen_id}', [DocumentController::class, 'getCitizenDocument']);
@@ -110,6 +111,9 @@ Route::middleware(['web', 'force.password.change'])->group(function () {
 
     Route::get('schedules/get-employee-schedule/{employee_id}', [ScheduleController::class, 'getEmployeeSchedule']);
     Route::get('schedules/get-schedules', [ScheduleController::class, 'show']);
+    Route::patch('schedules/mark-as-private/{schedule_id}', [ScheduleController::class, 'markAsPrivate']);
+
+
 
     Route::get('permissions/{user_id}', PermissionController::class);
 

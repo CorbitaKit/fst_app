@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\RoleService;
+use App\Services\PermissionService;
 use App\Services\UserService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class UserController extends Controller
 {
     private $userService;
-    public function __construct(UserService $userService)
+    private $permissionService;
+    public function __construct(UserService $userService, PermissionService $permissionService)
     {
         $this->userService = $userService;
+        $this->permissionService = $permissionService;
     }
     public function getUsersInCompany($companyId)
     {
@@ -28,7 +29,10 @@ class UserController extends Controller
     public function create()
     {
         return Inertia::render(
-            'users/create'
+            'users/create',
+            [
+                'permissions' => $this->permissionService->doGetPermissions()
+            ]
         );
     }
 

@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Interfaces\PlansAndGoalsInterface;
 use App\Models\SubGoal;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Date;
 
 class SubGoalService implements PlansAndGoalsInterface
@@ -18,6 +19,8 @@ class SubGoalService implements PlansAndGoalsInterface
     }
     public function doCreate(array $object): void
     {
+        $object['completion_date'] = Carbon::parse($object['completion_date'])->format('Y-m-d');
+
         SubGoal::create($object);
     }
 

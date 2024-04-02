@@ -268,8 +268,13 @@
                         </template>
                         <template #footer>
                             <span>DKK 2999 per month</span>
+                            <div class="flex align-items-center">
+                                <Checkbox v-model="pizza" inputId="ingredient1" name="pizza" value="Cheese" />
+                                <label for="ingredient1" class="ml-2 mt-2">
+                                    I have read and accept the <a href=" https://awork.dk/vilkaarogbetingelser" target="_blank">terms and conditions</a>
+                                </label>
+                            </div>
                             <div class="flex gap-3 mt-1">
-                               
                                 <Button label="I accept, activate now" class="w-full" />
                             </div>
                         </template>

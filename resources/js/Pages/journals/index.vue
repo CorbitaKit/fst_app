@@ -7,7 +7,7 @@
     import axios from 'axios';
     import Panel from 'primevue/panel';
 
-    import Avatar from 'primevue/avatar';
+    
     const props = defineProps({
         citizen_id: Number
     })
@@ -15,7 +15,7 @@
     const is_creating = ref(false)
     const is_updating = ref(false)
     const url = ref(null)
-    const filter = ref(null)
+    const filter = ref(1)
     const journal = ref(null)
     onMounted(() => {
         getCitizensJournal()
@@ -33,8 +33,18 @@
     
 
 
-    const formatDate = (date) => {
-        return moment(date).locale('da').format('D. MMMM YYYY HH:mm');
+    const formatDate = (journal_date) => {
+        
+        const date = new Date(journal_date);
+        const options = {day: 'numeric', 
+            month: 'long', 
+            year: 'numeric',
+            hour: 'numeric',
+            minute: 'numeric',
+            hour12: false // Use 24-hour format
+        };
+        const formattedDate = date.toLocaleDateString('da-DK', options);
+        return formattedDate
     }
 
     const createJournal = () => {
@@ -82,8 +92,9 @@
                         <div class="col-md-6">
                             <div class="form-group" >
                                 <select class="form-control" v-model="filter" @change="filterJournal">
-                                    <option value="sort_asc">Sort Newest First</option>
-                                    <option value="sort_desc">Sort Oldest First</option>
+                                    <option value="1" selected>Sort and filter here</option>
+                                    <option value="sort_desc">Sort Newest First</option>
+                                    <option value="sort_asc">Sort Oldest First</option>
                                     <option value="locked">Locked Journals</option>
                                     <option value="favorite">Favorite Journals</option>
                                 </select>
@@ -98,24 +109,26 @@
                 </div>
             </div>
             <div class="card" v-for="(journal, i) in journals" :key="i">
-                <Panel toggleable>
-                    <template #header>
-                        <div class="flex align-items-center justify-content-between gap-2">
-                            <Avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" size="large" shape="circle" />
-                            <span class="font-bold">{{ journal.creator.name }}</span>
-                            
-                        </div>
-                    </template>
-                    <template #footer>
-                        <div class="flex flex-wrap align-items-right justify-content-between gap-3">
-                            
-                            
-                            <journalBtns :journal="journal" @setJournalID="setJournal" @fetchJournals="getCitizensJournal"/>
-                            <span class="p-text-secondary">{{ formatDate(journal.created_at) }}</span>
-                        </div>
-                    </template>
-                    <p class="m-0" v-html="journal.content" ></p>
-                </Panel>
+                <BlockUI :blocked="journal.is_draft == 1">
+                    <Panel>
+                        <template #header>
+                            <div class="flex align-items-center justify-content-between gap-2">
+                                <Avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" size="large" shape="circle" />
+                                <span class="font-bold">{{ journal.creator.name }}</span>
+                                
+                            </div>
+                        </template>
+                        <template #footer>
+                            <div class="flex flex-wrap align-items-right justify-content-between gap-3">
+                                
+                                
+                                <journalBtns :journal="journal" @setJournalID="setJournal" @fetchJournals="getCitizensJournal"/>
+                                <span class="p-text-secondary">{{ formatDate(journal.created_at) }}</span>
+                            </div>
+                        </template>
+                        <p class="m-0" v-html="journal.content" ></p>
+                    </Panel>
+                </BlockUI>
             </div>
         </div>
         <journalCreation v-if="is_creating" @fetchJournals="getCitizensJournal" @cancelAction="is_creating = false" :citizen_id="citizen_id"/>

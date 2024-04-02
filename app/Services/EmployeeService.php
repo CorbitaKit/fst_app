@@ -29,7 +29,8 @@ class EmployeeService
                 'role_id' => $employee['role'],
                 'name' => $employee['first_name'] . ' ' . $employee['last_name'],
                 'password' => $password,
-                'email' => $employee['email']
+                'email' => $employee['email'],
+                'permissions' => $employee['permissions']
             ]);
 
             $employee['user_id'] = $user->id;

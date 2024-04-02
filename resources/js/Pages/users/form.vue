@@ -5,7 +5,9 @@
     import { vMaska } from "maska";
     const props = defineProps({
         form: Object,
-        btnText: String
+        btnText: String,
+        permissions: Object,
+        errors: Object
     })
     const roles = ref(null)
     onMounted(() => {
@@ -95,12 +97,19 @@
                                     <!-- <div class="text-danger text-xs" v-if="errors.region_id"> {{ errors.region_id }} </div> -->
                                 </div>
                             </div>
+                            <div class="col-md-6 mt-4">
+                                <div class="flex flex-column">
+                                    <label for="permissions">Permissions</label>
+                                    <MultiSelect v-model="form.permissions" display="chip" :options="permissions" optionLabel="name" placeholder="Select Permissions" />
+
+                                </div>
+                            </div>
                             
                         </div>
                     </div>
                     <div class="card-footer d-flex justify-content-end">
                         <button type="button" @click="cancel"  class="btn btn-danger mr-1">Cancel</button>
-                        <button type="submit" @click="$emit('submit')" class="btn btn-primary"> {{ btnText }} </button>
+                        <button type="submit" :disabled="form.processing" @click="$emit('submit')" class="btn btn-primary"> {{ btnText }} </button>
                         
                     </div>
                 </form>

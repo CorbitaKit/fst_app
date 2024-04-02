@@ -30,7 +30,11 @@ import InputSwitch from 'primevue/inputswitch';
 import ContextMenu from 'primevue/contextmenu';
 import MultiSelect from 'primevue/multiselect';
 import Tag from 'primevue/tag';
-
+import BlockUI from 'primevue/blockui';
+import Dialog from 'primevue/dialog';
+import Timeline from 'primevue/timeline';
+import InputMask from 'primevue/inputmask';
+import Avatar from 'primevue/avatar';
 createInertiaApp({
   resolve: name => {
     const pages = import.meta.glob('./Pages/**/*.vue', { eager: true })
@@ -65,6 +69,11 @@ createInertiaApp({
       .component('ContextMenu', ContextMenu)
       .component('Tag', Tag)
       .component('MultiSelect', MultiSelect)
+      .component('BlockUI', BlockUI)
+      .component('Timeline', Timeline)
+      .component('Dialog', Dialog)
+      .component('InputMask', InputMask)
+      .component('Avatar', Avatar)
       .mount(el)
       
   },

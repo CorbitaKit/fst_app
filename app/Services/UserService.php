@@ -17,8 +17,12 @@ class UserService
 
     public function doStore(array $userData): User
     {
+
         $userData['role_id'] = $userData['role_id']['id'];
-        return User::create($userData);
+        $permissionIds = array_column($userData['permissions'], 'id');
+        $user =  User::create($userData);
+        $user->permissions()->attach($permissionIds);
+        return $user;
     }
 
     public function doUpdatePassword(string $password)

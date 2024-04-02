@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\EmployeeRequest;
 use App\Services\EmployeeService;
 use App\Services\RoleService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
 class EmployeeController extends Controller
@@ -26,9 +28,8 @@ class EmployeeController extends Controller
         );
     }
 
-    public function store(Request $request)
+    public function store(EmployeeRequest $request)
     {
-
         $this->employeeService->doStore($request->all());
     }
 
@@ -42,5 +43,11 @@ class EmployeeController extends Controller
                 'roles' => $roles
             ]
         );
+    }
+
+    public function getEmployees()
+    {
+        $employees = $this->employeeService->doGet();
+        return response(json_encode($employees), 200);
     }
 }

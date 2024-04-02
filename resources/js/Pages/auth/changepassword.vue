@@ -1,11 +1,19 @@
 <script setup>
 import { useForm, router } from '@inertiajs/vue3';
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
+import Swal from 'sweetalert2';
 const form = useForm({
     'password': null,
     'password_confirmation': null
 })
 
+onMounted (() => {
+    Swal.fire({
+        'title': 'This is you first time login',
+        'text': 'Please change your password to a preferred one',
+        'icon': 'warning'
+    })
+})
 const is_matched = ref(true)
 
 const checkIfPasswordMatch = () => {
@@ -31,6 +39,7 @@ const submit = () => {
                 <div class="card-header">
                     <h3 class="card-title">Password Change</h3>
                 </div>
+                
                 <form @submit.prevent="submit">
                     <div class="card-body">
                         <div class="row">
