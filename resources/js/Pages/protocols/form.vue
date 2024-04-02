@@ -7,9 +7,6 @@
         btnText: String
     })
 
-    onMounted(() => {
-        fetchCitizens()
-    })
     const citizens = ref();
    
     const emit = defineEmits(['submit'])
@@ -18,7 +15,7 @@
     }
 
     const fetchCitizens = () => {
-        axios.get('/citizens/get-citizens')
+        axios.get('/citizens/get-citizens/' + props.form.start_date + '/' + props.form.end_date)
         .then(response => {
             citizens.value = response.data
         })
@@ -53,14 +50,14 @@
                             <div class="col-md-6">
                                 <div class="flex flex-column">
                                     <label for="end_date">End Date</label>
-                                    <Calendar dateFormat="dd, M yy" v-model="form.end_date" showIcon iconDisplay="input" inputId="icondisplay" />
+                                    <Calendar dateFormat="dd, M yy" v-model="form.end_date" showIcon iconDisplay="input" inputId="icondisplay" @date-select="fetchCitizens"/>
                                     <!-- <div class="text-danger text-xs" v-if="errors.email"> {{ errors.email }} </div> -->
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="flex flex-column">
                                     <label for="citizens">Citizens</label>
-                                    <MultiSelect v-model="form.citizens" display="chip" :options="citizens" optionLabel="name" placeholder="Select Cities" />
+                                    <MultiSelect v-model="form.citizens" display="chip" :options="citizens" optionLabel="name" placeholder="Select Citizens" />
                                     <!-- <div class="text-danger text-xs" v-if="errors.email"> {{ errors.email }} </div> -->
                                 </div>
                             </div>

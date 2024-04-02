@@ -74,9 +74,9 @@ class CitizenController extends Controller
         $this->citizenService->doDelete($citizen_id);
     }
 
-    public function getCitizens()
+    public function getCitizens($startDate, $endDate)
     {
-        $citizens = $this->citizenService->doGet();
+        $citizens = $this->citizenService->doGetCitizens($startDate, $endDate);
         return response(json_encode(CitizenResource::collection($citizens)), 200);
     }
 }

@@ -12,6 +12,6 @@ class Protocol extends Model
     protected $fillable = ['name', 'start_date', 'end_date', 'organizer_id'];
     public function citizens()
     {
-        return $this->belongsToMany(Citizen::class, 'citizen_protocols');
+        return $this->belongsToMany(Citizen::class, 'citizen_protocols')->withPivot('date', 'status', 'id');
     }
 }

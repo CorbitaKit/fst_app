@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class CitizenProtocol extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['status'];
 }

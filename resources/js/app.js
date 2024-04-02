@@ -35,6 +35,7 @@ import Dialog from 'primevue/dialog';
 import Timeline from 'primevue/timeline';
 import InputMask from 'primevue/inputmask';
 import Avatar from 'primevue/avatar';
+import Toolbar from 'primevue/toolbar';
 createInertiaApp({
   resolve: name => {
     const pages = import.meta.glob('./Pages/**/*.vue', { eager: true })
@@ -74,6 +75,7 @@ createInertiaApp({
       .component('Dialog', Dialog)
       .component('InputMask', InputMask)
       .component('Avatar', Avatar)
+      .component('Toolbar', Toolbar)
       .mount(el)
       
   },
