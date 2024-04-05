@@ -19,7 +19,7 @@
         <!-- Sidebar Menu -->
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                @if(Auth::check() && Auth::user()->role_id == '2')
+                @if(Auth::check() && Auth::user()->role_id != '1' )
                 <li class="nav-item">
                     <a href="{{ route('citizens.index') }}" class="nav-link {{ request()->routeIs('citizens.index') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-users"></i>

@@ -93,7 +93,7 @@
                                
                             </DataTable>
                         </OverlayPanel>
-                        <Button v-if="settings.employee_schedule == 0" @click="addSchedule(employee.data)" v-tooltip.bottom="'Set employee schedule'" class="mr-2" type="button"  icon="pi pi-calendar" rounded severity="info" raised />
+                        <Button @click="addSchedule(employee.data)" v-tooltip.bottom="'Set employee schedule'" class="mr-2" type="button"  icon="pi pi-calendar" rounded severity="info" raised />
                     </div>
                 </template>
             </Column>
