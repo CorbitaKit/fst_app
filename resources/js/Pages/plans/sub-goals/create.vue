@@ -50,10 +50,10 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="col-md-12">
-                    <div class="form-group" >
-                        <label for="exampleInputEmail1">Sub Goal Name</label>
-                        <input type="text" v-model="form.name" class="form-control"  placeholder="Enter Name">
-                    </div>
+                    <div class="flex flex-column">
+                <label for="name"> Name</label>
+                <InputText id="name"  v-model="form.name" aria-describedby="name-help" />
+            </div>
                 </div>
                 <div class="col-md-12">
                     <div class="form-group" >

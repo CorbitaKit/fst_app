@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Medicine;
 use Auth;
 use App\Models\MedicineJournal;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 
 class MedicineService
@@ -12,6 +13,7 @@ class MedicineService
     public function doStore(array $medicine): void
     {
         $medicine['user_id'] = Auth::user()->id;
+        $medicine['date_given'] = Carbon::parse($medicine['date_given'])->format('Y-m-d');
         $medicine = Medicine::create($medicine);
     }
 

@@ -9,9 +9,11 @@ use App\Listeners\SaveMedicineProcess;
 use App\Models\Journal;
 use App\Models\Medicine;
 use App\Models\SubGoal;
+use App\Models\User;
 use App\Observers\JournalObserver;
 use App\Observers\MedicineObserver;
 use App\Observers\SubGoalObserver;
+use App\Observers\UserObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -38,6 +40,7 @@ class EventServiceProvider extends ServiceProvider
         SubGoal::observe(SubGoalObserver::class);
         Journal::observe(JournalObserver::class);
         Medicine::observe(MedicineObserver::class);
+        User::observe(UserObserver::class);
         Event::listen(
             JournalProcessed::class,
             SaveJournalProcess::class

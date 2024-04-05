@@ -21,6 +21,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role_id',
+        'company_id',
+        'is_password_changed'
     ];
 
     /**
@@ -42,4 +45,19 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+
+    public function employee()
+    {
+        return $this->belongsTo(Employee::class, 'id', 'user_id');
+    }
+
+    public function permissions()
+    {
+        return $this->belongsToMany(Permission::class, 'permission_users', 'user_id', 'permission_id');
+    }
 }

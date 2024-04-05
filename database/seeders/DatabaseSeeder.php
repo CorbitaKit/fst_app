@@ -27,7 +27,9 @@ class DatabaseSeeder extends Seeder
             CitySeeder::class,
             PlanSeeder::class,
             GoalSeeder::class,
-            SubGoalSeeder::class
+            SubGoalSeeder::class,
+            RolesTableSeeder::class,
+            PermissionTableSeeder::class,
         ]);
     }
 }

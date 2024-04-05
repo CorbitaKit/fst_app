@@ -6,7 +6,7 @@
         form: Object
     })
 
-    const emit = defineEmits(['cancelAction', 'submit'])
+    const emit = defineEmits(['cancelAction', 'submit', 'saveAsDraft'])
 
     const toolbar = ref([
         ['bold', 'italic', 'underline', 'strike'],
@@ -28,16 +28,16 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-md-6">
-                    <div class="form-group" >
-                        <label for="exampleInputEmail1">Title</label>
-                        <input type="text" class="form-control" v-model="form.title"  placeholder="Enter title">
+                    <div class="flex flex-column">
+                        <label for="title">Title</label>
+                        <InputText id="title"  v-model="form.title" aria-describedby="title-help" />
                     </div>
                 </div>
+               
                 <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">Date</label>
-                        <input type="date" min="01. 01 1990" class="form-control" v-model="form.date">
-                        
+                    <div class="flex flex-column">
+                        <label for="social_security_number">Date</label>
+                        <Calendar dateFormat="dd, M yy" v-model="form.date" showIcon iconDisplay="input" inputId="icondisplay" />
                     </div>
                 </div>
                 <div class="col-md-12">
@@ -51,7 +51,7 @@
         
         <div class="card-footer d-flex justify-content-end">
             <button type="button" @click="$emit('cancelAction')" class="btn btn-danger mr-1">Cancel</button>
-            <button type="submit" class="btn btn-success mr-1">Save as draft</button>
+            <button type="button" @click="$emit('saveAsDraft')" class="btn btn-success mr-1">Save as draft</button>
             <button type="button" @click="$emit('submit')" class="btn btn-primary">Save and close</button>
         </div>
         
