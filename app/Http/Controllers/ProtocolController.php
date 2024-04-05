@@ -47,4 +47,11 @@ class ProtocolController extends Controller
         $citizenProtocol = CitizenProtocol::findOrFail($citizenProtocolId);
         $citizenProtocol->update(['status' => $status]);
     }
+
+    public function filterProtocol(Request $request)
+    {
+        $protocols = $this->protocolService->doFilterProtocol($request->all());
+
+        return response(json_encode($protocols), 200);
+    }
 }

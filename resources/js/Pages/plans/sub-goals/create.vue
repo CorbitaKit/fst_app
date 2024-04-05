@@ -51,8 +51,8 @@
             <div class="col-md-6">
                 <div class="col-md-12">
                     <div class="flex flex-column">
-                <label for="name">{{ getOrdinalText(i+1) }} Name</label>
-                <InputText id="name"  v-model="goal.name" aria-describedby="name-help" />
+                <label for="name"> Name</label>
+                <InputText id="name"  v-model="form.name" aria-describedby="name-help" />
             </div>
                 </div>
                 <div class="col-md-12">

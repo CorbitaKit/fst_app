@@ -90,8 +90,8 @@
                 <div class="col-md-6">
                     <div class="row">
                         <div class="col-md-6">
-                            <Button @click="filterJournal('sort_desc')" v-tooltip="'Filter journals by descending order'" icon="pi pi-sort-alpha-down" class="mr-1" severity="secondary" rounded outlined aria-label="Bookmark" />
-                            <Button @click="filterJournal('sort_asc')" v-tooltip="'Filter journals by ascending order'" icon="pi pi-sort-alpha-up-alt" class="mr-1" severity="secondary" rounded outlined aria-label="Bookmark" />
+                            <Button @click="filterJournal('sort_desc')" v-tooltip="'Filter journals by descending date'" icon="pi pi-sort-alpha-down" class="mr-1" severity="secondary" rounded outlined aria-label="Bookmark" />
+                            <Button @click="filterJournal('sort_asc')" v-tooltip="'Filter journals by ascending date'" icon="pi pi-sort-alpha-up-alt" class="mr-1" severity="secondary" rounded outlined aria-label="Bookmark" />
                             <Button @click="filterJournal('locked')" v-tooltip="'Filter journals by lock'" icon="pi pi-lock" class="mr-1" severity="secondary" rounded outlined aria-label="Bookmark" />
                             <Button @click="filterJournal('favorite')" v-tooltip="'Filter journals by favorite'" icon="pi pi-star-fill" class="mr-1" severity="secondary" rounded outlined aria-label="Bookmark" />
                         </div>

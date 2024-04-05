@@ -36,7 +36,7 @@ class ProtocolService
             foreach ($dates as $date) {
                 $protocol->citizens()->attach(
                     array_column($protocolData['citizens'], 'id'),
-                    ['date' => $date, 'status' => 'Active']
+                    ['date' => $date, 'status' => '-']
                 );
             }
             DB::commit();
@@ -44,5 +44,20 @@ class ProtocolService
             DB::rollback();
             dd($e);
         }
+    }
+
+    public function doFilterProtocol(array $filter): Collection
+    {
+        $start_date = Carbon::parse($filter['start_date'])->format('Y-m-d');
+        $end_date = Carbon::parse($filter['end_date'])->format('Y-m-d');
+        $citizenIds = array_column($filter['citizens'], 'id');
+        $protocols = Protocol::with('citizens')->where('start_date', '>=', $start_date)
+            ->where('end_date', '<=', $end_date)
+            ->whereHas('citizens', function ($query) use ($citizenIds) {
+                $query->whereIn('citizen_id', $citizenIds);
+            })
+            ->get();
+
+        return $protocols;
     }
 }

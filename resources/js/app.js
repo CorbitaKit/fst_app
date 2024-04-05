@@ -38,6 +38,8 @@ import Avatar from 'primevue/avatar';
 import Toolbar from 'primevue/toolbar';
 import VueDatePicker from '@vuepic/vue-datepicker';
 import '@vuepic/vue-datepicker/dist/main.css'
+import Accordion from 'primevue/accordion';
+import AccordionTab from 'primevue/accordiontab';
 createInertiaApp({
   resolve: name => {
     const pages = import.meta.glob('./Pages/**/*.vue', { eager: true })
@@ -79,6 +81,8 @@ createInertiaApp({
       .component('Avatar', Avatar)
       .component('Toolbar', Toolbar)
       .component('VueDatePicker', VueDatePicker)
+      .component('Accordion', Accordion)
+      .component('AccordionTab', AccordionTab)
       .mount(el)
       
   },

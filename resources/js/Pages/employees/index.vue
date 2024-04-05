@@ -9,7 +9,7 @@
     })
     const op = ref()
     const permissions = ref([])
-    const employee_id = ref(null)
+    const employee= ref(null)
     const is_adding_schedule = ref(null)
     const addNewEmployee = () => {
         router.get('/employees/create')
@@ -31,8 +31,8 @@
             })
         })
     }
-    const addSchedule = (id) => {
-        employee_id.value = id
+    const addSchedule = (emp) => {
+        employee.value = emp
         is_adding_schedule.value = true
     }
     const toggle = (event, id) => {
@@ -55,7 +55,7 @@
 </script>
 
 <template>
-    <scheduleForm :employee_id="employee_id" v-if="is_adding_schedule" :btnText="'Add Schedule'"/>
+    <scheduleForm :employee="employee" v-if="is_adding_schedule" :btnText="'Add Schedule'"/>
     
     <div class="card" v-if="!is_adding_schedule">
         <DataTable :value="employees" showGridlines paginator :rows="5" :rowsPerPageOptions="[5, 10, 20, 50]" >
@@ -92,7 +92,7 @@
                                
                             </DataTable>
                         </OverlayPanel>
-                        <Button @click="addSchedule(employee.data.id)" v-tooltip.bottom="'Set employee schedule'" class="mr-2" type="button"  icon="pi pi-calendar" rounded severity="info" raised />
+                        <Button @click="addSchedule(employee.data)" v-tooltip.bottom="'Set employee schedule'" class="mr-2" type="button"  icon="pi pi-calendar" rounded severity="info" raised />
                     </div>
                 </template>
             </Column>

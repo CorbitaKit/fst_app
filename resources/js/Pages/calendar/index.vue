@@ -13,7 +13,7 @@
         right: String
     })
 
-   
+    const multiple_days = ref(false)
     const key = ref(0)
     const create = ref(false)
     const view =ref(false)
@@ -73,6 +73,8 @@
             form.start = info.start
             form.end = info.end
             create.value = true
+
+           
         },
         eventDrop: (arg) => {
             
@@ -194,15 +196,15 @@
             <InputText id="name" v-model="form.title"  aria-describedby="last_name-help"/>
         </div>
         <div class="row">
-           
+            
             <div class="col-md-6">
                 <label for="start_time">Start Time</label>
-                    <InputMask v-model="form.start_time" mask="99:99" max="24"/>
+                    <InputMask v-model="form.start_time" mask="99:99" max="24" placeholder="00:00"/>
             </div>
             <div class="col-md-6">
                 <div class="flex flex-column">
                     <label for="start_time">End Time</label>
-                    <InputMask v-model="form.end_time" mask="99:99" max="24"/>
+                    <InputMask v-model="form.end_time" mask="99:99" max="24" placeholder="00:00"/>
                 </div>
             </div>
        </div>
