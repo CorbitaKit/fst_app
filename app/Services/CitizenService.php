@@ -21,7 +21,13 @@ class CitizenService
 
     public function doGet(): Collection
     {
-        return Citizen::where('company_id', Auth::user()->employee->company_id)->get();
+        return Citizen::with('journals')->where('company_id', Auth::user()->employee->company_id)->whereHas('journals', function ($query) {
+                $today = Carbon::today();
+                $yesterday = Carbon::yesterday();
+
+                $query->whereDate('created_at', $today)
+                    ->orWhereDate('created_at', $yesterday);
+            })->get();
     }
     public function doStore(object $citizen): void
     {

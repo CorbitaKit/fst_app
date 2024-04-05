@@ -7,6 +7,10 @@
         citizens: Object
     })
     const data = ref([])
+    const op = ref();
+    const toggle = (event) => {
+        op.value.toggle(event);
+    };
     const createNewCitizen = () => {
         router.get('/citizens/create')
     }
@@ -51,7 +55,12 @@
             <template #header>
                 <div class="flex flex-wrap align-items-center justify-content-between gap-2">
                     <span class="text-xl text-900 font-bold">Citizen List</span>
-                    <Button label="Add new citizen" @click="createNewCitizen" icon="pi pi-plus" class="float-right" raised />
+                    <div>
+                       
+                        <Button label="Add new citizen" @click="createNewCitizen" icon="pi pi-plus" class="float-right" raised />
+
+                    </div>
+                    
                 </div>
             </template>
             <Column field="first_name" header="First Name" />
@@ -63,8 +72,16 @@
                     <div class="flex flex-wrap">
                         <Button @click="show(citizen.data.id)"  v-tooltip.bottom="'View citizens details'" class="mr-2"  icon="pi pi-eye" rounded severity="info" raised />
                         <Button @click="edit(citizen.data.id)"  v-tooltip.bottom="'Edit Citizens record'" class="mr-2" type="button"  icon="pi pi-file-edit" rounded severity="success" raised />
-                        <Button @click="destroy(citizen.data.id)"  v-tooltip.bottom="'Delete Citizens record'" type="button"  icon="pi pi-trash" rounded severity="danger" raised />
+                        <Button @click="destroy(citizen.data.id)"  v-tooltip.bottom="'Delete Citizens record'" class="mr-2" type="button"  icon="pi pi-trash" rounded severity="danger" raised />
+                        <Button @click="toggle"  v-tooltip.bottom="'Show citizen notes'" type="button"  icon="pi pi-bars" rounded severity="help" raised />
                     </div>
+                    <OverlayPanel ref="op" appendTo="body">
+                        <div class="card flex flex-column gap-3 w-30rem" v-for="(journal, i) in citizen.data.journals" :key="i">
+                            <Panel>
+                                <p class="m-0" v-html="journal.content" ></p>
+                            </Panel>
+                        </div>
+                    </OverlayPanel>
                 </template>
             </Column>
         </DataTable>
