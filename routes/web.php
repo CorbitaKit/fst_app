@@ -51,7 +51,9 @@ Route::get('/', function () {
 Route::get('password-change', function () {
     return Inertia::render('auth/changepassword');
 })->name('change-password');
-
+Route::get('sign-up', function () {
+    return view('auth.signup');
+})->name('sign-up');
 Route::patch('users/password-change', [UserController::class, 'updatePassword']);
 
 Route::resource('companies', CompanyController::class);
