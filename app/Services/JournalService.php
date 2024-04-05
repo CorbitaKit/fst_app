@@ -50,4 +50,11 @@ class JournalService
     {
         return Journal::with('creator')->where('citizen_id', $citizen_id)->where($field, 1)->get();
     }
+
+    public function dofilterJournalDateRange(array $dateRange): Collection
+    {
+        $start_date = Carbon::parse($dateRange[0])->format('Y-m-d');
+        $end_date = Carbon::parse($dateRange[1])->format('Y-m-d');
+        return Journal::with('creator')->whereBetween('created_at', [$start_date, $end_date])->get();
+    }
 }

@@ -70,6 +70,7 @@ Route::middleware(['web', 'force.password.change'])->group(function () {
     Route::get('protocols/get-protocols', [ProtocolController::class, 'getProtocol']);
     Route::get('protocols/get-citizen-protocols/{citizen_id}', [ProtocolController::class, 'getCitizenProtocol']);
     Route::patch('settings/update-feature/{settings_id}/{feature}/{status}', [SettingsController::class, 'updateFeature']);
+    Route::get('journals/filter-journal-date-range/{date_range}', [JournalController::class, 'filterJournalDateRange']);
     Route::resource('citizens', CitizenController::class);
     Route::resource('journals', JournalController::class);
     Route::resource('medicines', MedicineController::class);

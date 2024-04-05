@@ -63,4 +63,11 @@ class JournalController extends Controller
         $journals = $this->journalService->doGetFilteredJournal($citizen_id, $field);
         return response(json_encode($journals), 200);
     }
+
+    public function filterJournalDateRange($dateRange)
+    {
+        $journals = $this->journalService->dofilterJournalDateRange(json_decode($dateRange));
+
+        return response(json_encode($journals), 200);
+    }
 }
