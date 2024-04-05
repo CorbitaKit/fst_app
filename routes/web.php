@@ -18,6 +18,7 @@ use App\Http\Controllers\PlanController;
 use App\Http\Controllers\ProtocolController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ScheduleController;
+use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\SubGoalController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
@@ -36,6 +37,9 @@ use Illuminate\Support\Facades\Request;
 |
 */
 
+
+
+Route::post('/login', [LoginController::class, 'login'])->name('login');
 Route::get('/', function () {
     if (Auth::check()) {
         return redirect('/home');
@@ -44,19 +48,19 @@ Route::get('/', function () {
 })->name('login_page');
 
 
-Route::post('/login', [LoginController::class, 'login'])->name('login');
-
-
 Route::get('password-change', function () {
     return Inertia::render('auth/changepassword');
 })->name('change-password');
-
+Route::get('sign-up', function () {
+    return view('auth.signup');
+})->name('sign-up');
 Route::patch('users/password-change', [UserController::class, 'updatePassword']);
 
 Route::resource('companies', CompanyController::class);
 
 Route::middleware(['web', 'force.password.change'])->group(function () {
     Route::get('/home', function () {
+        Inertia::share('settings', Auth::user()->employee->company->settings);
         return inertia::render('home/index', ['employee_id' => Auth::user()->employee->id]);
     })->name('home');
     Route::get('citizens/get-citizens/{start_date}/{end_date}', [CitizenController::class, 'getCitizens']);
@@ -66,6 +70,9 @@ Route::middleware(['web', 'force.password.change'])->group(function () {
     Route::patch('protocols/mark-as-absent-citizen-into-protocol/{citizen_protocol_id}/{status}', [ProtocolController::class, 'markAsAbsent']);
     Route::get('protocols/filter-protocol', [ProtocolController::class, 'filterProtocol']);
     Route::get('protocols/get-protocols', [ProtocolController::class, 'getProtocol']);
+    Route::get('protocols/get-citizen-protocols/{citizen_id}', [ProtocolController::class, 'getCitizenProtocol']);
+    Route::patch('settings/update-feature/{settings_id}/{feature}/{status}', [SettingsController::class, 'updateFeature']);
+    Route::get('journals/filter-journal-date-range/{date_range}', [JournalController::class, 'filterJournalDateRange']);
     Route::resource('citizens', CitizenController::class);
     Route::resource('journals', JournalController::class);
     Route::resource('medicines', MedicineController::class);
@@ -83,6 +90,7 @@ Route::middleware(['web', 'force.password.change'])->group(function () {
 
     Route::resource('protocols', ProtocolController::class);
 
+    Route::resource('settings', SettingsController::class);
     Route::group(['prefix' => 'journals'], function () {
         Route::get('/get-citizen-journal/{citizen_id}', [JournalController::class, 'getCitizenJournal']);
         Route::get('/get-sorted-journals/{citizen_id}/{sort}', [JournalController::class, 'getSortedJournal']);

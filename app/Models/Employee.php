@@ -20,4 +20,9 @@ class Employee extends Model
     {
         return $this->hasMany(Schedule::class);
     }
+
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
+    }
 }

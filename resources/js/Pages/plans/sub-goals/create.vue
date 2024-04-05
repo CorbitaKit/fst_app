@@ -56,9 +56,9 @@
             </div>
                 </div>
                 <div class="col-md-12">
-                    <div class="form-group" >
-                        <label for="exampleInputEmail1">Completion Date</label>
-                        <input v-model="form.completion_date" type="date" class="form-control">
+                    <div class="flex flex-column">
+                        <label for="date">Date Completion</label>
+                        <Calendar class="mb-2" dateFormat="dd, M yy" v-model="form.completion_date" showIcon iconDisplay="input" inputId="icondisplay" />
                     </div>
                 </div>
                 <div class="text-right">
