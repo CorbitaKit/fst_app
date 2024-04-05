@@ -13,9 +13,9 @@ class LogController extends Controller
         return response(json_encode($logs), 200);
     }
 
-    public function getMedicineLogs()
+    public function getMedicineLogs($medicine_id)
     {
-        $logs = Log::with('user')->where('record', 'medicine')->get();
+        $logs = Log::with('user')->where('record', 'medicine')->where('record_id', $medicine_id)->get();
         return response(json_encode($logs), 200);
     }
 }

@@ -7,6 +7,8 @@ use App\Models\Citizen;
 use App\Services\CitizenAddressService;
 use Illuminate\Database\Eloquent\Collection;
 use Carbon\Carbon;
+use DateTime;
+use Illuminate\Support\Facades\Auth;
 
 class CitizenService
 {
@@ -19,7 +21,7 @@ class CitizenService
 
     public function doGet(): Collection
     {
-        return Citizen::get();
+        return Citizen::where('company_id', Auth::user()->employee->company_id)->get();
     }
     public function doStore(object $citizen): void
     {
@@ -35,6 +37,7 @@ class CitizenService
             $new_citizen->social_security_number = $citizen->social_security_number;
             $new_citizen->birth_day =  Carbon::parse($citizen->birth_day)->format('Y-m-d');
             $new_citizen->note = $citizen->note;
+            $new_citizen->company_id = Auth::user()->employee->company_id;
             $new_citizen->save();
             $this->citizenAddressService->doStore($citizen, $new_citizen->id);
 
@@ -73,5 +76,25 @@ class CitizenService
     public function doDelete(int $citizen_id): void
     {
         Citizen::findOrFail($citizen_id)->delete();
+    }
+
+    public function doGetCitizens(string $startDate, string $endDate): Collection
+    {
+        $startDate = preg_replace('/\(.*\)/', '', $startDate);
+        $endDate = preg_replace('/\(.*\)/', '', $endDate);
+
+        $start_date = Carbon::parse($startDate)->format('Y-m-d');
+        $end_date = Carbon::parse($endDate)->format('Y-m-d');
+        $citizens = Citizen::whereNotIn('id', function ($query) use ($start_date, $end_date) {
+            $query->select('citizen_id')
+                ->from('citizen_protocols')
+                ->whereBetween('date', [$start_date, $end_date])
+                ->orWhere(function ($query) use ($start_date, $end_date) {
+                    $query->where('date', '<=', $start_date)
+                        ->where('date', '>=', $end_date);
+                });
+        })->get();
+
+        return $citizens;
     }
 }

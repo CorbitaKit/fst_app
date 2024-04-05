@@ -28,15 +28,17 @@
                 <div class="modal-body">
                     <form>
                         <div class="col-md-12">
-                            <div class="form-group" >
-                                <label for="exampleInputEmail1">Medicine Name</label>
-                                <input type="text" class="form-control" v-model="form.name"  placeholder="Enter medicine" />
+                            
+                            <div class="flex flex-column">
+                                <label for="name">Medicine Name</label>
+                                <InputText id="name"  v-model="form.name" aria-describedby="name-help" />
                             </div>
                         </div>
                         <div class="col-md-12">
-                            <div class="form-group" >
-                                <label for="exampleInputEmail1">Date Given</label>
-                                <input type="date" v-model="form.date_given" class="form-control" />
+                            
+                            <div class="flex flex-column">
+                                <label for="date">Date Given</label>
+                                <Calendar dateFormat="dd, M yy" v-model="form.date_given" showIcon iconDisplay="input" inputId="icondisplay" />
                             </div>
                         </div>
                         <div class="col-md-12">

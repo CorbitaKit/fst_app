@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Interfaces\PlansAndGoalsInterface;
 use App\Models\Goal;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 class GoalService implements PlansAndGoalsInterface
@@ -19,6 +20,7 @@ class GoalService implements PlansAndGoalsInterface
     {
         DB::beginTransaction();
         try {
+            $object['completion_date'] = Carbon::parse($object['completion_date'])->format('Y-m-d');
             $goal = Goal::create($object);
             $subGoalService = new SubGoalService();
 

@@ -12,7 +12,10 @@ use App\Http\Controllers\JournalController;
 use App\Http\Controllers\LogController;
 use App\Http\Controllers\MedicineController;
 use App\Http\Controllers\MedicineJournalController;
+use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\PermissionUserController;
 use App\Http\Controllers\PlanController;
+use App\Http\Controllers\ProtocolController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\SubGoalController;
@@ -22,7 +25,6 @@ use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Request;
-use Illuminate\Support\Facades\Response;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -45,13 +47,24 @@ Route::get('/', function () {
 Route::post('/login', [LoginController::class, 'login'])->name('login');
 
 
+Route::get('password-change', function () {
+    return Inertia::render('auth/changepassword');
+})->name('change-password');
 
+Route::patch('users/password-change', [UserController::class, 'updatePassword']);
 
-Route::middleware('auth:sanctum')->group(function () {
+Route::resource('companies', CompanyController::class);
+
+Route::middleware(['web', 'force.password.change'])->group(function () {
     Route::get('/home', function () {
-        return inertia::render('index', ['employee_id' => Auth::user()->id]);
+        return inertia::render('home/index', ['employee_id' => Auth::user()->employee->id]);
     })->name('home');
-
+    Route::get('citizens/get-citizens/{start_date}/{end_date}', [CitizenController::class, 'getCitizens']);
+    Route::get('employees/get-employees', [EmployeeController::class, 'getEmployees']);
+    Route::get('schedules/get-schedules', [ScheduleController::class, 'getEmployeeSchedules']);
+    Route::delete('protocols/remove-citizen-into-protocol/{citizen_protocol_id}', [ProtocolController::class, 'removeCitizenIntoProtocol']);
+    Route::patch('protocols/mark-as-absent-citizen-into-protocol/{citizen_protocol_id}/{status}', [ProtocolController::class, 'markAsAbsent']);
+    Route::get('protocols/filter-protocol', [ProtocolController::class, 'filterProtocol']);
     Route::resource('citizens', CitizenController::class);
     Route::resource('journals', JournalController::class);
     Route::resource('medicines', MedicineController::class);
@@ -61,11 +74,13 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::resource('apps', AppController::class);
     Route::resource('documents', DocumentController::class);
     Route::resource('folders', FolderController::class);
-    Route::resource('companies', CompanyController::class);
+
     Route::resource('users', UserController::class);
     Route::resource('roles', RoleController::class);
     Route::resource('employees', EmployeeController::class);
     Route::resource('schedules', ScheduleController::class);
+
+    Route::resource('protocols', ProtocolController::class);
 
     Route::group(['prefix' => 'journals'], function () {
         Route::get('/get-citizen-journal/{citizen_id}', [JournalController::class, 'getCitizenJournal']);
@@ -90,7 +105,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::group(['prefix' => 'logs'], function () {
         Route::get('/journal/{journal_id}', [LogController::class, 'getJournalLogs']);
-        Route::get('/medicine', [LogController::class, 'getMedicineLogs']);
+        Route::get('/medicine/{medicine_id}', [LogController::class, 'getMedicineLogs']);
     });
 
     Route::get('documents/get-citizen-documents/{citizen_id}', [DocumentController::class, 'getCitizenDocument']);
@@ -99,8 +114,16 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('users/get-company-users/{company_id}', [UserController::class, 'getUsersInCompany']);
 
     Route::get('schedules/get-employee-schedule/{employee_id}', [ScheduleController::class, 'getEmployeeSchedule']);
-    Route::get('schedules/get-schedules', [ScheduleController::class, 'show']);
 
+    Route::patch('schedules/mark-as-private/{schedule_id}', [ScheduleController::class, 'markAsPrivate']);
+
+
+
+    Route::get('permissions/{user_id}', PermissionController::class);
+
+    Route::post('permission-users', [PermissionUserController::class, 'store']);
+
+    Route::delete('permission-users/{permission_id}/{user_id}', [PermissionUserController::class, 'destroy']);
     Route::post('/logout', function (Request $request) {
         Auth::guard('web')->logout();
 

@@ -8,6 +8,7 @@ use App\Http\Resources\CitizenResource;
 use Inertia\Inertia;
 use App\Services\CitizenService;
 use App\Services\RegionService;
+use Illuminate\Log\Logger;
 use Illuminate\Support\Facades\Redirect;
 
 class CitizenController extends Controller
@@ -21,7 +22,6 @@ class CitizenController extends Controller
     }
     public function index()
     {
-
         return Inertia::render(
             'citizens/index',
             [
@@ -72,5 +72,11 @@ class CitizenController extends Controller
     public function destroy($citizen_id)
     {
         $this->citizenService->doDelete($citizen_id);
+    }
+
+    public function getCitizens($startDate, $endDate)
+    {
+        $citizens = $this->citizenService->doGetCitizens($startDate, $endDate);
+        return response(json_encode(CitizenResource::collection($citizens)), 200);
     }
 }

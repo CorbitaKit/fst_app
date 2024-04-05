@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('phone');
             $table->longText('note');
             $table->date('birth_day');
+            $table->foreignId('company_id');
         });
     }
 

@@ -50,13 +50,14 @@
         </div>
         <form class="form-horizontal">
             <div class="card-body">
-                <div class="form-group" >
-                    <label for="exampleInputEmail1">Plan Name</label>
-                    <input type="text" v-model="form.name" class="form-control"  placeholder="Enter email">
+                <div class="flex flex-column">
+                    <label for="name">Plan Name</label>
+                    <InputText id="name"  v-model="form.name" aria-describedby="name-help" />
                 </div>
-                <div class="form-group" >
-                    <label for="exampleInputEmail1">Date Completion</label>
-                    <input type="date" v-model="form.completion_date" class="form-control"  placeholder="Enter email">
+                
+                <div class="flex flex-column">
+                    <label for="date">Date Completion</label>
+                    <Calendar class="mb-2" dateFormat="dd, M yy" v-model="form.completion_date" showIcon iconDisplay="input" inputId="icondisplay" />
                 </div>
                 <div>
                     <button type="button" class="btn btn-xs btn-primary float-right" @click="addGoal"><i class="nav-icon fas fa-plus"></i> Add Goal</button>
