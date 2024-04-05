@@ -6,6 +6,7 @@ use App\Http\Requests\EmployeeRequest;
 use App\Services\EmployeeService;
 use App\Services\RoleService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
@@ -23,7 +24,8 @@ class EmployeeController extends Controller
         return Inertia::render(
             'employees/index',
             [
-                'employees' => $this->employeeService->doGet()
+                'employees' => $this->employeeService->doGet(),
+                'settings' => Auth::user()->employee->company->settings
             ]
         );
     }

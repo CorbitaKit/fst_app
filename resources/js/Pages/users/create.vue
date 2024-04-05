@@ -21,9 +21,14 @@
 
     const submit = () => {
         form.post('/employees',{
-            onError: (errors) => {
-                console.log(errors)
-            }
+            onSuccess: (() => {
+                Swal.fire({
+                    'title': "Success",
+                    'text': 'User added successfully!',
+                    'icon': 'success'
+                })
+                router.get('/companies')
+            })
         })
     }
 </script>

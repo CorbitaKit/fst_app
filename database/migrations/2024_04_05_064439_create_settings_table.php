@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->smallInteger('protocol')->nullable()->default(0);
-            $table->smallInteger('duty_schedule')->nullable()->defualt(0);
+            $table->smallInteger('duty_schedule')->nullable()->default(0);
             $table->foreignId('company_id');
             $table->integer('file_storage');
         });

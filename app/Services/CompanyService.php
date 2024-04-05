@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Company;
+use App\Models\Setting;
 use Illuminate\Database\Eloquent\Collection;
 
 class CompanyService
@@ -14,7 +15,11 @@ class CompanyService
 
     public function doStore(array $company): void
     {
-        Company::create($company);
+        $company = Company::create($company);
+        Setting::create([
+            'company_id' => $company->id,
+            'file_storage' => 5120
+        ]);
     }
 
     public function doGetCompany($companyId): Company

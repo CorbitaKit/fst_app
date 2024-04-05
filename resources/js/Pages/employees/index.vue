@@ -5,7 +5,8 @@
     import scheduleForm from './schedule.vue'
     import { ref, onMounted } from 'vue'
     const props = defineProps({
-        employees: Object
+        employees: Object,
+        settings: Object
     })
     const op = ref()
     const permissions = ref([])
@@ -92,7 +93,7 @@
                                
                             </DataTable>
                         </OverlayPanel>
-                        <Button @click="addSchedule(employee.data)" v-tooltip.bottom="'Set employee schedule'" class="mr-2" type="button"  icon="pi pi-calendar" rounded severity="info" raised />
+                        <Button v-if="settings.employee_schedule == 0" @click="addSchedule(employee.data)" v-tooltip.bottom="'Set employee schedule'" class="mr-2" type="button"  icon="pi pi-calendar" rounded severity="info" raised />
                     </div>
                 </template>
             </Column>

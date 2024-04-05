@@ -1,12 +1,10 @@
 <script setup>
-    import { useForm, router } from '@inertiajs/vue3';
+    import { useForm } from '@inertiajs/vue3';
     import Calendar from '../calendar/index.vue'
     const props = defineProps({
         employee_id: Number,
     })
 
-   
-  
     const form = useForm({
         'start': null,
         'end': null,
