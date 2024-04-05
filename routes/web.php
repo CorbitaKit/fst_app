@@ -65,6 +65,7 @@ Route::middleware(['web', 'force.password.change'])->group(function () {
     Route::delete('protocols/remove-citizen-into-protocol/{citizen_protocol_id}', [ProtocolController::class, 'removeCitizenIntoProtocol']);
     Route::patch('protocols/mark-as-absent-citizen-into-protocol/{citizen_protocol_id}/{status}', [ProtocolController::class, 'markAsAbsent']);
     Route::get('protocols/filter-protocol', [ProtocolController::class, 'filterProtocol']);
+    Route::get('protocols/get-protocols', [ProtocolController::class, 'getProtocol']);
     Route::resource('citizens', CitizenController::class);
     Route::resource('journals', JournalController::class);
     Route::resource('medicines', MedicineController::class);
