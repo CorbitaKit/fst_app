@@ -48,10 +48,10 @@
                             </td>
                             <td> {{ data.status }} </td>
                             <td>
-                                <button @click="active_page = 'create_goal'" v-if="data.type == 'plan'" type="button" class="btn btn-sm btn-success mr-1">
+                                <button @click="active_page = 'create_goal'" v-if="data.type == 'plan' && data.progress < 100" type="button" class="btn btn-sm btn-success mr-1">
                                     <i class="fas fa-plus"></i> Add goals
                                 </button>
-                                <button @click="active_page = 'create_sub_goal'" v-if="data.type == 'goal'" type="button" class="btn btn-sm btn-success mr-1">
+                                <button @click="active_page = 'create_sub_goal'" v-if="data.type == 'goal' && data.progress < 100" type="button" class="btn btn-sm btn-success mr-1">
                                     <i class="fas fa-plus"></i> Add sub goals
                                 </button>
                                 <button type="button" class="btn btn-sm btn-danger mr-1">
