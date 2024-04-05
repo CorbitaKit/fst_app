@@ -59,4 +59,11 @@ class ProtocolController extends Controller
         $protocols = $this->protocolService->doGet();
         return response(json_encode($protocols), 200);
     }
+
+    public function getCitizenProtocol($citizenId)
+    {
+        $protocols = $this->protocolService->doGetCitizenProtocols($citizenId);
+
+        return response(json_encode($protocols));
+    }
 }

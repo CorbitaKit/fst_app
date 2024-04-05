@@ -19,7 +19,7 @@
         <!-- Sidebar Menu -->
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                @if(Auth::check() && Auth::user()->role_id == '2')
+                @if(Auth::check() && Auth::user()->role_id != '1' )
                 <li class="nav-item">
                     <a href="{{ route('citizens.index') }}" class="nav-link {{ request()->routeIs('citizens.index') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-users"></i>
@@ -36,7 +36,7 @@
                         </p>
                     </a>
                 </li>
-
+                @if(Auth::user()->employee->company->settings->duty_schedule == 0)
                 <li class="nav-item">
                     <a href="{{ route('schedules.index') }}" class="nav-link {{ request()->routeIs('schedules.index') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-briefcase"></i>
@@ -45,6 +45,7 @@
                         </p>
                     </a>
                 </li>
+                @endif
                 <li class="nav-item">
                     <a href="{{ route('employees.index') }}" class="nav-link {{ request()->routeIs('employees.index') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-file-invoice"></i>
@@ -53,6 +54,7 @@
                         </p>
                     </a>
                 </li>
+                @if(Auth::user()->employee->company->settings->protocol == 0)
                 <li class="nav-item">
                     <a href="{{ route('protocols.index') }}" class="nav-link {{ request()->routeIs('protocols.index') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-chart-pie"></i>
@@ -61,6 +63,7 @@
                         </p>
                     </a>
                 </li>
+                @endif
                 <li class="nav-item">
                     <a href="{{ route('apps.index') }}" class="nav-link {{ request()->routeIs('apps.index') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-th"></i>
@@ -70,7 +73,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('settings.index') }}" class="nav-link {{ request()->routeIs('settings.index') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-cog"></i>
                         <p>
                             Settings

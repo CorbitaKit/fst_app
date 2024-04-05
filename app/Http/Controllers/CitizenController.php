@@ -9,6 +9,7 @@ use Inertia\Inertia;
 use App\Services\CitizenService;
 use App\Services\RegionService;
 use Illuminate\Log\Logger;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 
 class CitizenController extends Controller
@@ -49,7 +50,13 @@ class CitizenController extends Controller
 
     public function show($citizen_id)
     {
-        return Inertia::render('citizens/show', ['citizen' => $this->citizenService->doGetCitizenInfo($citizen_id)]);
+        return Inertia::render(
+            'citizens/show',
+            [
+                'citizen' => $this->citizenService->doGetCitizenInfo($citizen_id),
+                'settings' => Auth::user()->employee->company->settings
+            ]
+        );
     }
 
     public function edit($citizen_id, RegionService $regionService)
