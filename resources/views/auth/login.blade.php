@@ -128,10 +128,13 @@
                 if (response.ok) {
                     const responseData = await response.json();
                     document.cookie = `token=${response.token}; path=/; samesite=lax; secure`;
-                    if (responseData.user.role_id == '1') {
-                        window.location.href = '/employees'
+                    if (responseData.user.role_id == 1) {
+
+                        window.location.href = '/companies'
+                    } else {
+                        window.location.href = '/home'
                     }
-                    window.location.href = '/home'
+
                 } else {
                     document.getElementById('error-message').innerText = "Invalid Credentials";
                 }
