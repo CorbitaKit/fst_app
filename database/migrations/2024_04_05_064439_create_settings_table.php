@@ -11,14 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('protocols', function (Blueprint $table) {
+        Schema::create('settings', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('name');
-            $table->date('start_date');
-            $table->date('end_date');
-            $table->foreignId('organizer_id');
+            $table->smallInteger('protocol')->nullable()->default(0);
+            $table->smallInteger('duty_schedule')->nullable()->defualt(0);
             $table->foreignId('company_id');
+            $table->integer('file_storage');
         });
     }
 
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('protocols');
+        Schema::dropIfExists('settings');
     }
 };
