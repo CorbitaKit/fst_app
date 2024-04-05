@@ -30,6 +30,7 @@ class ProtocolService
             $protocolData['start_date'] = Carbon::parse($protocolData['start_date'])->format('Y-m-d');
             $protocolData['end_date'] = Carbon::parse($protocolData['end_date'])->format('Y-m-d');
             $protocolData['organizer_id'] = Auth::user()->id;
+            $protocolData['company_id'] = Auth::user()->employee->company_id;
 
             $protocol = Protocol::create($protocolData);
 
@@ -59,5 +60,12 @@ class ProtocolService
             ->get();
 
         return $protocols;
+    }
+
+    public function doGetCitizenProtocols($citizenId): Collection
+    {
+        return Protocol::with('citizens')->whereHas('citizens', function ($query) use ($citizenId) {
+            $query->where('citizen_id', $citizenId);
+        })->get();
     }
 }

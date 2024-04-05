@@ -5,7 +5,8 @@
     import scheduleForm from './schedule.vue'
     import { ref, onMounted } from 'vue'
     const props = defineProps({
-        employees: Object
+        employees: Object,
+        settings: Object
     })
     const op = ref()
     const permissions = ref([])

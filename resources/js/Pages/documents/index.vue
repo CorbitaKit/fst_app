@@ -135,7 +135,7 @@
               
                
             </div>
-            <div class="col-md-3">
+            <div class="col-md-3 mb-2">
                 <button v-if="!is_creating" class="btn btn-block btn-success" @click="is_creating = true">Create new folder</button>
                 <InputGroup v-if="is_creating">
                     <Button icon="pi pi-times" severity="danger" @click="is_creating = false"/>
@@ -143,8 +143,11 @@
                     <Button icon="pi pi-check" severity="success" @click="submit"/>
                     
                 </InputGroup>
-                <button class="btn btn-block btn-default" @click="openFileUpload"><i class="fas fa-upload"></i> Upload File</button>
-                <input type="file" ref="fileInput" style="display: none;" @change="handleFileUpload">
+                <div id="drop_area" class="mt-2" @dragover.prevent @drop="handleDrop">
+                    <button class="btn btn-block btn-default" @click="openFileUpload"><i class="fas fa-upload"></i> Upload File</button>
+                    <input webkitdirectory directory multiple type="file" ref="fileInput" style="display: none;" @change="handleFileUpload">
+                </div>
+                
                 <div class="card mt-3">
                     <div class="card-header">
                     <h3 class="card-title">Storage</h3>

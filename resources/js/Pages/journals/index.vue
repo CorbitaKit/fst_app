@@ -3,7 +3,6 @@
     import journalCreation from '../journals/create.vue'
     import journalEdit from '../journals/edit.vue'
     import { ref, onMounted } from 'vue'
-    import moment from 'moment';
     import axios from 'axios';
     import Panel from 'primevue/panel';
 
@@ -15,6 +14,7 @@
     const is_creating = ref(false)
     const is_updating = ref(false)
     const url = ref(null)
+    const date_range = ref(null)
     const journal = ref(null)
     onMounted(() => {
         getCitizensJournal()
@@ -75,28 +75,36 @@
             journals.value = response.data
         })
     }
+
+    const filterJournalToDateRange = () => {
+        axios.get('/journals/filter-journal-date-range/' + JSON.stringify(date_range.value))
+        .then(response=> {
+            journals.value = response.data
+        })
+    }
 </script>
 
 <template>
     <div class="active tab-pane" id="journal">
         <div v-if="!is_creating && !is_updating">
             <div class="row mb-5">
-                <div class="col-md-6">
+                <div class="col-md-5">
                     <button type="button" @click.prevent="createJournal" class="btn bg-gradient-success mb-2 mr-2">
                         <i class="fas fa-plus"></i>
                         Add new journal
                     </button>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-7">
                     <div class="row">
                         <div class="col-md-6">
                             <Button @click="filterJournal('sort_desc')" v-tooltip="'Filter journals by descending date'" icon="pi pi-sort-alpha-down" class="mr-1" severity="secondary" rounded outlined aria-label="Bookmark" />
                             <Button @click="filterJournal('sort_asc')" v-tooltip="'Filter journals by ascending date'" icon="pi pi-sort-alpha-up-alt" class="mr-1" severity="secondary" rounded outlined aria-label="Bookmark" />
                             <Button @click="filterJournal('locked')" v-tooltip="'Filter journals by lock'" icon="pi pi-lock" class="mr-1" severity="secondary" rounded outlined aria-label="Bookmark" />
                             <Button @click="filterJournal('favorite')" v-tooltip="'Filter journals by favorite'" icon="pi pi-star-fill" class="mr-1" severity="secondary" rounded outlined aria-label="Bookmark" />
+                            <Button @click="getCitizensJournal()" v-tooltip="'Reset filter'" icon="pi pi-refresh" class="mr-1" severity="secondary" rounded outlined aria-label="Bookmark" />
                         </div>
                         <div class="col-md-6">
-                            <VueDatePicker v-model="date" range />
+                            <VueDatePicker v-model="date_range" range @update:model-value="filterJournalToDateRange"/>
                         </div>
                         
                     </div>

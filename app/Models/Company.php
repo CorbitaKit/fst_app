@@ -10,4 +10,9 @@ class Company extends Model
     use HasFactory;
 
     protected $fillable = ['name', 'status'];
+
+    public function settings()
+    {
+        return $this->hasOne(Setting::class);
+    }
 }
