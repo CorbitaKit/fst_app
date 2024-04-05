@@ -3,16 +3,22 @@ import { router } from '@inertiajs/vue3';
 import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
 import axios from 'axios'
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 const props = defineProps({
-    protocols: Object,
     citizens: Object
 })
 
 const filter_start_date = ref()
 const filter_end_date = ref()
 const filter_citizens = ref([])
+const protocols = ref()
 
+onMounted(() => {
+    axios.get('/protocols/get-protocols')
+    .then(response => {
+        protocols.value = response.data
+    })
+})
 const addNewProtocol = () => {
     router.get('/protocols/create')
 }
@@ -96,7 +102,7 @@ const filterProtocol = () => {
         }
     }
     ).then(response => {
-        props.protocols.value = response.data
+        protocols.value = response.data
     })
 }
 </script>

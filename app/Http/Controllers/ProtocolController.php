@@ -22,7 +22,6 @@ class ProtocolController extends Controller
     public function index()
     {
         return Inertia::render('protocols/index', [
-            'protocols' => $this->protocolService->doGet(),
             'citizens' => $this->citizenService->doGet()
         ]);
     }
@@ -52,6 +51,12 @@ class ProtocolController extends Controller
     {
         $protocols = $this->protocolService->doFilterProtocol($request->all());
 
+        return response(json_encode($protocols), 200);
+    }
+
+    public function getProtocol()
+    {
+        $protocols = $this->protocolService->doGet();
         return response(json_encode($protocols), 200);
     }
 }
