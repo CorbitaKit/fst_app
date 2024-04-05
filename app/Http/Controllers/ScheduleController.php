@@ -36,9 +36,27 @@ class ScheduleController extends Controller
         $this->scheduleService->doUpdate($request->all(), $scheduleId);
     }
 
-    public function show()
+    public function show($scheduleId)
     {
-        $schedules = $this->scheduleService->doGet();
+        $schedules = $this->scheduleService->doGetSchedule($scheduleId);
+        return response(json_encode($schedules), 200);
+    }
+
+    public function destroy($scheduleId)
+    {
+        $this->scheduleService->doDestroy($scheduleId);
+    }
+
+    public function markAsPrivate($scheduleId)
+    {
+        $this->scheduleService->doMarkAsPrivate($scheduleId);
+    }
+
+
+    public function getEmployeeSchedules()
+    {
+        $schedules = $this->scheduleService->doGetAllEmployeeSchedules();
+
         return response(json_encode($schedules), 200);
     }
 }

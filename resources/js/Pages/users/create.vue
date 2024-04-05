@@ -2,33 +2,32 @@
     import { useForm, router } from '@inertiajs/vue3'
     import companyForm from './form.vue'
     import Swal from 'sweetalert2'
-
     const props = defineProps({
-        company_id: Number
+        company_id: Number,
+        permissions: Object,
+        errors: Object,
     })
     const form = useForm({
-        'name': null,
+        'first_name': null,
+        'last_name': null,
+        'phone': null,
+        'address': null,
+        'birth_day': null,
         'email': null,
-        'role_id': null,
-        'password': null,
-        'company_id': localStorage.getItem('company_id')
+        'role': null,
+        'company_id': localStorage.getItem('company_id'),
+        'permissions': null
     })
 
     const submit = () => {
-        form.post('/users', {
-            onSuccess: () => {
-                Swal.fire({
-                    title: "Success!",
-                    text: "User added successfully!",
-                    icon: "success"
-                });
-
-                router.get('/users/get-company-users/' + localStorage.getItem('company_id'))
+        form.post('/employees',{
+            onError: (errors) => {
+                console.log(errors)
             }
         })
     }
 </script>
 
 <template>
-    <companyForm :form="form" :btnText="'Add User'" @submit="submit"/>
+    <companyForm :errors="errors" :permissions="permissions" :form="form" :btnText="'Add User'" @submit="submit"/>
 </template>

@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Journal;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 
 class JournalService
@@ -10,7 +11,7 @@ class JournalService
     public function doStore(array $journal): Journal
     {
         $journal['created_by'] = auth()->id();
-
+        $journal['date'] = Carbon::parse($journal['date'])->format('Y-m-d');
         return Journal::create($journal);
     }
 

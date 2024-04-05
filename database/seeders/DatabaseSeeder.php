@@ -29,6 +29,7 @@ class DatabaseSeeder extends Seeder
             GoalSeeder::class,
             SubGoalSeeder::class,
             RolesTableSeeder::class,
+            PermissionTableSeeder::class,
         ]);
     }
 }

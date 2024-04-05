@@ -28,6 +28,7 @@ class CitizenResource extends JsonResource
             'city_id' => $this->address->city_id,
             'postcode' => $this->address->postcode,
             'note' => $this->note,
+            'name' => $this->first_name . ' ' . $this->last_name
         ];
     }
 }

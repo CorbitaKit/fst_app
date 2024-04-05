@@ -7,7 +7,7 @@
     import axios from 'axios';
     import Panel from 'primevue/panel';
 
-    import Avatar from 'primevue/avatar';
+    
     const props = defineProps({
         citizen_id: Number
     })
@@ -15,7 +15,6 @@
     const is_creating = ref(false)
     const is_updating = ref(false)
     const url = ref(null)
-    const filter = ref(null)
     const journal = ref(null)
     onMounted(() => {
         getCitizensJournal()
@@ -33,8 +32,18 @@
     
 
 
-    const formatDate = (date) => {
-        return moment(date).locale('da').format('D. MMMM YYYY HH:mm');
+    const formatDate = (journal_date) => {
+        
+        const date = new Date(journal_date);
+        const options = {day: 'numeric', 
+            month: 'long', 
+            year: 'numeric',
+            hour: 'numeric',
+            minute: 'numeric',
+            hour12: false // Use 24-hour format
+        };
+        const formattedDate = date.toLocaleDateString('da-DK', options);
+        return formattedDate
     }
 
     const createJournal = () => {
@@ -49,14 +58,15 @@
         })
     };
 
-    const filterJournal = () => {
-        if (filter.value == 'sort_asc') {
+    const filterJournal = (filter) => {
+        if (filter == 'sort_asc') {
             url.value = '/journals/get-sorted-journals/' + props.citizen_id + '/asc' 
-        } else if (filter.value == 'sort_desc') {
+        } else if (filter == 'sort_desc') {
             url.value = '/journals/get-sorted-journals/' + props.citizen_id + '/desc'
-        } else if (filter.value == 'locked') {
+        } else if (filter == 'locked') {
             url.value = '/journals/get-filtered-journal/' + props.citizen_id + '/is_lock'
         } else {
+         
             url.value = '/journals/get-filtered-journal/' + props.citizen_id + '/is_favorite'
         }
 
@@ -80,30 +90,27 @@
                 <div class="col-md-6">
                     <div class="row">
                         <div class="col-md-6">
-                            <div class="form-group" >
-                                <select class="form-control" v-model="filter" @change="filterJournal">
-                                    <option value="sort_asc">Sort Newest First</option>
-                                    <option value="sort_desc">Sort Oldest First</option>
-                                    <option value="locked">Locked Journals</option>
-                                    <option value="favorite">Favorite Journals</option>
-                                </select>
-                            </div>
+                            <Button @click="filterJournal('sort_desc')" v-tooltip="'Filter journals by descending date'" icon="pi pi-sort-alpha-down" class="mr-1" severity="secondary" rounded outlined aria-label="Bookmark" />
+                            <Button @click="filterJournal('sort_asc')" v-tooltip="'Filter journals by ascending date'" icon="pi pi-sort-alpha-up-alt" class="mr-1" severity="secondary" rounded outlined aria-label="Bookmark" />
+                            <Button @click="filterJournal('locked')" v-tooltip="'Filter journals by lock'" icon="pi pi-lock" class="mr-1" severity="secondary" rounded outlined aria-label="Bookmark" />
+                            <Button @click="filterJournal('favorite')" v-tooltip="'Filter journals by favorite'" icon="pi pi-star-fill" class="mr-1" severity="secondary" rounded outlined aria-label="Bookmark" />
                         </div>
                         <div class="col-md-6">
-                            <div class="form-group" >
-                                <input type="email" class="form-control" placeholder="Search...">
-                            </div>
+                            <VueDatePicker v-model="date" range />
                         </div>
+                        
                     </div>
+                    
                 </div>
             </div>
             <div class="card" v-for="(journal, i) in journals" :key="i">
-                <Panel toggleable>
+                <Panel :class="{'draft-panel': journal.is_draft === 1}">
                     <template #header>
                         <div class="flex align-items-center justify-content-between gap-2">
                             <Avatar image="https://primefaces.org/cdn/primevue/images/avatar/amyelsner.png" size="large" shape="circle" />
                             <span class="font-bold">{{ journal.creator.name }}</span>
                             
+                            <span class="font-bold" v-if="journal.is_draft == 1"><i>(Drafted)</i></span>
                         </div>
                     </template>
                     <template #footer>
@@ -122,3 +129,9 @@
         <journalEdit v-if="is_updating" @fetchJournals="getCitizensJournal" @cancelAction="is_updating = false" :journal="journal" />
     </div>
 </template>
+<style scoped>
+.draft-panel {
+    background-color: rgb(211, 211, 224);
+    opacity: .5
+}
+</style>
