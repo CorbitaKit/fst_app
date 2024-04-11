@@ -22,13 +22,14 @@
     const submit = () => {
         form.post('/employees',{
             onSuccess: (() => {
-                Swal.fire({
-                    'title': "Success",
-                    'text': 'User added successfully!',
-                    'icon': 'success'
-                })
-                router.get('/companies')
-            })
+                // Swal.fire({
+                //     'title': "Success",
+                //     'text': 'User added successfully!',
+                //     'icon': 'success'
+                // })
+                // router.get('/companies')
+            }),
+            
         })
     }
 </script>

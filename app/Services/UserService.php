@@ -12,7 +12,9 @@ class UserService
 
     public function doGetUsers(int $companyId): Collection
     {
-        return User::with('role')->where('company_id', $companyId)->get();
+        return User::with('role')->whereHas('employee', function ($query) use ($companyId) {
+            $query->where('company_id', $companyId);
+        })->get();
     }
 
     public function doStore(array $userData): User

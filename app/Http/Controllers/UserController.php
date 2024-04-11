@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserRequest;
 use App\Services\PermissionService;
 use App\Services\UserService;
 use Illuminate\Http\Request;
@@ -36,9 +37,9 @@ class UserController extends Controller
         );
     }
 
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
-        $user = $this->userService->doStore($request->all());
+        $this->userService->doStore($request->all());
     }
 
     public function updatePassword(Request $request)

@@ -12,6 +12,7 @@ use App\Http\Controllers\JournalController;
 use App\Http\Controllers\LogController;
 use App\Http\Controllers\MedicineController;
 use App\Http\Controllers\MedicineJournalController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\PermissionUserController;
 use App\Http\Controllers\PlanController;
@@ -21,11 +22,15 @@ use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\SubGoalController;
 use App\Http\Controllers\UserController;
+use App\Mail\UserCreated;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Request;
+use Snowfire\Beautymail\Beautymail;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -58,7 +63,7 @@ Route::patch('users/password-change', [UserController::class, 'updatePassword'])
 
 Route::resource('companies', CompanyController::class);
 
-Route::middleware(['web', 'force.password.change'])->group(function () {
+Route::middleware(['auth:sanctum', 'force.password.change'])->group(function () {
     Route::get('/home', function () {
         Inertia::share('settings', Auth::user()->employee->company->settings);
         return inertia::render('home/index', ['employee_id' => Auth::user()->employee->id]);

@@ -96,4 +96,8 @@
         <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->
+    <footer style="background-color:white; padding: 10px;">
+        Storage Space: 5GB
+
+    </footer>
 </aside>

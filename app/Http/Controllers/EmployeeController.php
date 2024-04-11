@@ -30,10 +30,10 @@ class EmployeeController extends Controller
         );
     }
 
-    public function store(Request $request)
+    public function store(EmployeeRequest $request)
     {
-
         $this->employeeService->doStore($request->all());
+        return Redirect::route('companies.index');
     }
 
     public function create()

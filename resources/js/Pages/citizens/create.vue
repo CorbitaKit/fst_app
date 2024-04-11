@@ -27,7 +27,11 @@
 
 
     function submit() {
-        form.post('/citizens')
+        form.post('/citizens',{
+            onError: ((error) => {
+                console.log(error)
+            })
+        })
     }
     
 </script>
