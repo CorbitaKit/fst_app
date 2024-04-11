@@ -74,12 +74,6 @@
         select: (info) => {
             form.start = info.start
             form.end = info.end
-           
-            
-            if (checkForMultipleDays(new Date(info.startStr), new Date(info.endStr))) {
-                multiple_days.value = true
-            }
-
             create.value = true
 
            
@@ -138,11 +132,7 @@
         
     }
 
-    const checkForMultipleDays = (start, end) => {
-        const oneDayInMillis = 24 * 60 * 60 * 1000;
-        const diff = Math.abs(start.getTime() - end.getTime());
-        return diff === oneDayInMillis;
-    }
+    
 
     
 </script>
