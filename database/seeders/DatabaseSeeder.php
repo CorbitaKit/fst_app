@@ -30,6 +30,7 @@ class DatabaseSeeder extends Seeder
             SubGoalSeeder::class,
             RolesTableSeeder::class,
             PermissionTableSeeder::class,
+            AppTableSeeder::class,
         ]);
     }
 }
