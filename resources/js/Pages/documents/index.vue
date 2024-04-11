@@ -112,94 +112,36 @@ const fetchFileSizes = async () => {
                     <tbody>
                         <tr v-for="(document, i) in documents" :key="i">
                             <td>
-                                <Image
-                                    src="/images/folder.png"
-                                    alt="Image"
-                                    width="30"
-                                    v-if="document.type == 'Folder'"
-                                />
-                                <Image
-                                    src="/images/photo.png"
-                                    alt="Image"
-                                    width="30"
-                                    v-if="document.type == 'Image'"
-                                />
-                                <Image
-                                    src="/images/clapperboard.png"
-                                    alt="Image"
-                                    width="30"
-                                    v-if="document.type == 'Video'"
-                                />
-                                <Image
-                                    src="/images/document.png"
-                                    alt="Image"
-                                    width="30"
-                                    v-if="
-                                        document.type == 'Application' ||
-                                        document.type == 'Text'
-                                    "
-                                />
+                                <Image  src="/images/folder.png" alt="Image" width="30" v-if="document.type == 'Folder'" />
+                                <Image src="/images/photo.png" alt="Image" width="30" v-if="document.type == 'Image'" />
+                                <Image src="/images/clapperboard.png" alt="Image" width="30" v-if="document.type == 'Video'" />
+                                <Image src="/images/document.png" alt="Image" width="30" v-if="document.type == 'Application' || document.type == 'Text'" />
                             </td>
                             <td>{{ document.file_name }}</td>
                             <td>{{ formatDate(document.created_at) }}</td>
                             <td>{{ document.user_id }}</td>
                             <td>{{ formatDate(document.updated_at) }}</td>
                             <td>
-                                <Button
-                                    v-if="document.type == 'Folder'"
-                                    icon="pi pi-angle-right"
-                                    @click="getDocumentsChildren(document.id)"
-                                ></Button>
+                                <Button v-if="document.type == 'Folder'" icon="pi pi-angle-right" @click="getDocumentsChildren(document.id)" />
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
             <div class="col-md-3 mb-2">
-                <button
-                    v-if="!is_creating"
-                    class="btn btn-block btn-success"
-                    @click="is_creating = true"
-                >
+                <button v-if="!is_creating" class="btn btn-block btn-success" @click="is_creating = true" >
                     Create new folder
                 </button>
                 <InputGroup v-if="is_creating">
-                    <Button
-                        icon="pi pi-times"
-                        severity="danger"
-                        @click="is_creating = false"
-                    />
-                    <InputText
-                        placeholder="Folder Name"
-                        v-model="form.file_name"
-                    />
-                    <Button
-                        icon="pi pi-check"
-                        severity="success"
-                        @click="submit"
-                    />
+                    <Button icon="pi pi-times" severity="danger" @click="is_creating = false" />
+                    <InputText placeholder="Folder Name" v-model="form.file_name" />
+                    <Button icon="pi pi-check" severity="success" @click="submit" />
                 </InputGroup>
-                <div
-                    id="drop_area"
-                    class="mt-2"
-                    @dragover.prevent
-                    @drop="handleDrop"
-                >
-                    <button
-                        class="btn btn-block btn-default"
-                        @click="openFileUpload"
-                    >
+                <div id="drop_area" class="mt-2" @dragover.prevent @drop="handleDrop">
+                    <button class="btn btn-block btn-default" @click="openFileUpload">
                         <i class="fas fa-upload"></i> Upload File
                     </button>
-                    <input
-                        webkitdirectory
-                        directory
-                        multiple
-                        type="file"
-                        ref="fileInput"
-                        style="display: none"
-                        @change="handleFileUpload"
-                    />
+                    <input webkitdirectory directory multiple type="file" ref="fileInput" style="display: none" @change="handleFileUpload" />
                 </div>
 
                 <div class="card mt-3">
@@ -241,9 +183,7 @@ const fetchFileSizes = async () => {
                 <div class="mt-3">
                     <ProgressBar :value="file_size.average" />
 
-                    <div
-                        class="d-flex justify-content-center align-items-center"
-                    >
+                    <div class="d-flex justify-content-center align-items-center">
                         <span>{{ file_size.total }} out of 5GB</span>
                     </div>
                 </div>

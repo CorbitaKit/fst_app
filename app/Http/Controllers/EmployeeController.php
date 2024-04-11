@@ -47,6 +47,11 @@ class EmployeeController extends Controller
         );
     }
 
+    public function update(Request $request, $employeeId)
+    {
+        $this->employeeService->doUpdate($request->all(), $employeeId);
+    }
+
     public function getEmployees()
     {
         $employees = $this->employeeService->doGet();

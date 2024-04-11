@@ -10,10 +10,10 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img src="{{ asset('dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
+
             </div>
             <div class="info">
-                <a href="#" class="d-block">Admin Admin</a>
+                <a href="#" class="d-block">Feature Wishlist</a>
             </div>
         </div>
         <!-- Sidebar Menu -->
@@ -72,14 +72,7 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="{{ route('settings.index') }}" class="nav-link {{ request()->routeIs('settings.index') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-cog"></i>
-                        <p>
-                            Settings
-                        </p>
-                    </a>
-                </li>
+
                 @endif
                 @if(Auth::check() && Auth::user()->role_id == '1')
                 <li class="nav-item">

@@ -46,4 +46,12 @@ class UserController extends Controller
     {
         $this->userService->doUpdatePassword($request->password);
     }
+
+    public function show($userId)
+    {
+        $user = $this->userService->doGetUser($userId);
+        return Inertia::render('users/edit-profile', [
+            'user' => $user
+        ]);
+    }
 }

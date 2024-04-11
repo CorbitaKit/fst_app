@@ -37,4 +37,14 @@ class UserService
 
         Auth::setUser($user);
     }
+    public function doGetUser(int $userId): User
+    {
+        return User::with('employee')->where('id', $userId)->first();
+    }
+
+    public function doUpdate(array $user): void
+    {
+        $userData = User::findOrFail(Auth::user()->id);
+        $userData->update($user);
+    }
 }
