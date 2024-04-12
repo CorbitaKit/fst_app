@@ -18,7 +18,7 @@ class UserObserver
         $beautymail = app()->make(Beautymail::class);
         $beautymail->send('mail.user.created',  ['user' => $user, 'password' => Session::get('password')], function ($message) use ($user) {
             $message
-                ->from(env('MAIL_FROM_ADDRESS'))
+                ->from('fstapp@awork.dk')
                 ->to($user->email, $user->name)
                 ->subject('Welcome!');
         });

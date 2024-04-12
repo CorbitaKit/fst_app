@@ -37,8 +37,16 @@ class HandleInertiaRequests extends Middleware
      */
     public function share(Request $request): array
     {
+        if (Auth::check()) {
+            // If there is a logged-in user, set permissions
+            $permissions = Auth::user()->permissions;
+        } else {
+            // If there is no logged-in user, set permissions to null
+            $permissions = null;
+        }
         return array_merge(parent::share($request), [
-            'permissions' => Auth::user()->permissions
+            'permissions' => $permissions,
+            'errors' => session()->get('errors') ? session()->get('errors')->getBag('default')->getMessages() : (object) []
         ]);
     }
 }

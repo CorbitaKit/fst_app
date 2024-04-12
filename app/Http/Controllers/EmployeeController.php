@@ -8,6 +8,7 @@ use App\Services\RoleService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
 
 class EmployeeController extends Controller
@@ -30,8 +31,10 @@ class EmployeeController extends Controller
         );
     }
 
-    public function store(Request $request)
+    public function store(EmployeeRequest $request)
     {
+
+
         $this->employeeService->doStore($request->all());
     }
 

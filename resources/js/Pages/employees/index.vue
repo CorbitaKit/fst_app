@@ -46,6 +46,10 @@
         is_adding_schedule.value = true
     }
     const toggle = (event, id) => {
+        if (!canAdd()) {
+            popUp()
+            return
+        }
         getPermissions(id)
         op.value.toggle(event);
     }
