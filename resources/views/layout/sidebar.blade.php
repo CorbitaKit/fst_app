@@ -59,7 +59,17 @@
                     <a href="{{ route('protocols.index') }}" class="nav-link {{ request()->routeIs('protocols.index') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-chart-pie"></i>
                         <p>
-                            Protocol
+                            Protocols
+                        </p>
+                    </a>
+                </li>
+                @endif
+                @if(Auth::user()->role->name == 'admin')
+                <li class="nav-item">
+                    <a href="{{ route('procedures.index') }}" class="nav-link {{ request()->routeIs('procedures.index') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-list"></i>
+                        <p>
+                            Procedures
                         </p>
                     </a>
                 </li>

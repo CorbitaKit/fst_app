@@ -25,4 +25,10 @@ class Employee extends Model
     {
         return $this->belongsTo(Company::class);
     }
+
+    public function procedures()
+    {
+        return $this->belongsToMany(Procedure::class, 'employee_procedures')
+            ->withTimestamps();
+    }
 }

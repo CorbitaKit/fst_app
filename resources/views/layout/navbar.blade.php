@@ -72,7 +72,7 @@
                     Company Settings
                 </a>
                 @endif
-                <a href="#" class="dropdown-item">
+                <a href=" {{route('company.procedures', Auth::user()->employee->id) }}" class="dropdown-item">
                     <i class="nav-icon fas fa-list"></i>
                     Company Procedures
                 </a>

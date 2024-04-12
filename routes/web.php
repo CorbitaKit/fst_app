@@ -6,6 +6,7 @@ use App\Http\Controllers\CitizenController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\EmployeeProcedureController;
 use App\Http\Controllers\FolderController;
 use App\Http\Controllers\GoalController;
 use App\Http\Controllers\JournalController;
@@ -16,6 +17,7 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\PermissionUserController;
 use App\Http\Controllers\PlanController;
+use App\Http\Controllers\ProcedureController;
 use App\Http\Controllers\ProtocolController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ScheduleController;
@@ -78,6 +80,8 @@ Route::middleware(['auth:sanctum', 'force.password.change'])->group(function () 
     Route::get('protocols/get-citizen-protocols/{citizen_id}', [ProtocolController::class, 'getCitizenProtocol']);
     Route::patch('settings/update-feature/{settings_id}/{feature}/{status}', [SettingsController::class, 'updateFeature']);
     Route::get('journals/filter-journal-date-range/{date_range}', [JournalController::class, 'filterJournalDateRange']);
+    Route::get('procedures/get-company-procedures/{employee_id}', [ProcedureController::class, 'getCompanyProcedure'])->name('company.procedures');
+    Route::get('employee-procedure/complete/{procedure_id}', [EmployeeProcedureController::class, 'markAsComplete']);
     Route::resource('citizens', CitizenController::class);
     Route::resource('journals', JournalController::class);
     Route::resource('medicines', MedicineController::class);
@@ -94,6 +98,7 @@ Route::middleware(['auth:sanctum', 'force.password.change'])->group(function () 
     Route::resource('schedules', ScheduleController::class);
 
     Route::resource('protocols', ProtocolController::class);
+    Route::resource('procedures', ProcedureController::class);
 
     Route::resource('settings', SettingsController::class);
     Route::group(['prefix' => 'journals'], function () {
