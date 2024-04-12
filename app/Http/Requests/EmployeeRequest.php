@@ -28,7 +28,8 @@ class EmployeeRequest extends FormRequest
             'phone' => 'required',
             'birth_day' => 'required',
             'role' => 'required',
-            'permissions' => 'required'
+            'permissions' => 'required',
+            'address' => 'required'
         ];
     }
 }

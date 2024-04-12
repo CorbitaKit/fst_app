@@ -11,6 +11,14 @@ class ScheduleService
 {
     public function doStore(array $schedule): void
     {
+
+        // if (count($schedule['dates']) > 0) {
+        //     foreach ($schedule['dates'] as $date) {
+
+        //     }
+        // } else {
+        //     dd("HUHUHUHU");
+        // }
         $sched = Schedule::where('employee_id', $schedule['employee_id'])->first();
         $color = $this->generateRandomColor();
         if ($sched) {

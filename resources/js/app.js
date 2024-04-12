@@ -41,6 +41,8 @@ import '@vuepic/vue-datepicker/dist/main.css'
 import Accordion from 'primevue/accordion';
 import AccordionTab from 'primevue/accordiontab';
 import Panel from 'primevue/panel';
+import Knob from 'primevue/knob';
+import Badge from 'primevue/badge';
 
 createInertiaApp({
   resolve: name => {
@@ -86,6 +88,8 @@ createInertiaApp({
       .component('Accordion', Accordion)
       .component('AccordionTab', AccordionTab)
       .component('Panel', Panel)
+      .component('Knob', Knob)
+      .component('Badge', Badge)
       .mount(el)
       
   },

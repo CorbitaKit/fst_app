@@ -6,26 +6,34 @@ use App\Http\Controllers\CitizenController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\EmployeeProcedureController;
+use App\Http\Controllers\FeatureController;
 use App\Http\Controllers\FolderController;
 use App\Http\Controllers\GoalController;
 use App\Http\Controllers\JournalController;
 use App\Http\Controllers\LogController;
 use App\Http\Controllers\MedicineController;
 use App\Http\Controllers\MedicineJournalController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\PermissionUserController;
 use App\Http\Controllers\PlanController;
+use App\Http\Controllers\ProcedureController;
 use App\Http\Controllers\ProtocolController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\SubGoalController;
 use App\Http\Controllers\UserController;
+use App\Mail\UserCreated;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Request;
+use Snowfire\Beautymail\Beautymail;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -37,6 +45,7 @@ use Illuminate\Support\Facades\Request;
 |
 */
 
+// Route::get('payment-test', [PaymentController::class, 'index']);
 
 
 Route::post('/login', [LoginController::class, 'login'])->name('login');
@@ -58,8 +67,9 @@ Route::patch('users/password-change', [UserController::class, 'updatePassword'])
 
 Route::resource('companies', CompanyController::class);
 
-Route::middleware(['web', 'force.password.change'])->group(function () {
+Route::middleware(['auth:sanctum', 'force.password.change'])->group(function () {
     Route::get('/home', function () {
+
         Inertia::share('settings', Auth::user()->employee->company->settings);
         return inertia::render('home/index', ['employee_id' => Auth::user()->employee->id]);
     })->name('home');
@@ -73,6 +83,8 @@ Route::middleware(['web', 'force.password.change'])->group(function () {
     Route::get('protocols/get-citizen-protocols/{citizen_id}', [ProtocolController::class, 'getCitizenProtocol']);
     Route::patch('settings/update-feature/{settings_id}/{feature}/{status}', [SettingsController::class, 'updateFeature']);
     Route::get('journals/filter-journal-date-range/{date_range}', [JournalController::class, 'filterJournalDateRange']);
+    Route::get('procedures/get-company-procedures/{employee_id}', [ProcedureController::class, 'getCompanyProcedure'])->name('company.procedures');
+    Route::get('employee-procedure/complete/{procedure_id}', [EmployeeProcedureController::class, 'markAsComplete']);
     Route::resource('citizens', CitizenController::class);
     Route::resource('journals', JournalController::class);
     Route::resource('medicines', MedicineController::class);
@@ -89,6 +101,8 @@ Route::middleware(['web', 'force.password.change'])->group(function () {
     Route::resource('schedules', ScheduleController::class);
 
     Route::resource('protocols', ProtocolController::class);
+    Route::resource('procedures', ProcedureController::class);
+    Route::resource('features', FeatureController::class);
 
     Route::resource('settings', SettingsController::class);
     Route::group(['prefix' => 'journals'], function () {

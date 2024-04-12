@@ -1,13 +1,14 @@
 <script setup>
-    import {useForm} from '@inertiajs/vue3';
+    import {useForm, router} from '@inertiajs/vue3';
     import citizenForm from '../citizens/forms/citizen-forms.vue'
+    import axios from 'axios'
+    import { ref } from 'vue';
 
 
     const props = defineProps({
-        errors: Object,
         regions: Object
     })
-
+    const errors = ref([])
     const form = useForm({
         'email': null,
         'first_name': null,
@@ -27,7 +28,18 @@
 
 
     function submit() {
-        form.post('/citizens')
+
+        axios.post('/citizens', form)
+        .then(() => {
+            Swal.fire({
+                'title': 'Success',
+                'text': 'Citizen added successfully!',
+                'icon': 'success'
+            })
+            router.get('/citizens')
+        }).catch(err => {
+            errors.value = err.response.data.errors
+        })
     }
     
 </script>

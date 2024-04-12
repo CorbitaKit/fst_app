@@ -5,6 +5,8 @@ namespace App\Observers;
 use App\Mail\UserCreated;
 use App\Models\User;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session;
+use Snowfire\Beautymail\Beautymail;
 
 class UserObserver
 {
@@ -13,7 +15,13 @@ class UserObserver
      */
     public function created(User $user): void
     {
-        Mail::to($user)->send(new UserCreated($user));
+        $beautymail = app()->make(Beautymail::class);
+        $beautymail->send('mail.user.created',  ['user' => $user, 'password' => Session::get('password')], function ($message) use ($user) {
+            $message
+                ->from('fstapp@awork.dk')
+                ->to($user->email, $user->name)
+                ->subject('Welcome!');
+        });
     }
 
     /**

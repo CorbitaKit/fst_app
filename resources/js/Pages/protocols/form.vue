@@ -4,7 +4,8 @@
     import axios from 'axios'
     const props = defineProps({
         form: Object,
-        btnText: String
+        btnText: String,
+        errors: Object
     })
 
     const citizens = ref();
@@ -35,30 +36,30 @@
                             <div class="col-md-6">
                                 <div class="flex flex-column">
                                     <label for="first_name">Protocol Name</label>
-                                    <InputText id="first_name" v-model="form.name"  />
-                                    <!-- <div class="text-danger text-xs" v-if="errors.email"> {{ errors.email }} </div> -->
+                                    <InputText id="first_name" v-model="form.name" :invalid="errors.name" />
+                                    <div class="text-danger text-xs" v-if="errors.name"> {{ errors.name[0] }} </div>
                                 </div>
                             </div>
                             
                             <div class="col-md-6">
                                 <div class="flex flex-column">
                                     <label for="start_date">Start Date</label>
-                                    <Calendar dateFormat="dd, M yy" v-model="form.start_date" showIcon iconDisplay="input" inputId="icondisplay" />
-                                    <!-- <div class="text-danger text-xs" v-if="errors.email"> {{ errors.email }} </div> -->
+                                    <Calendar dateFormat="dd, M yy" :invalid="errors.start_date" v-model="form.start_date" showIcon iconDisplay="input" inputId="icondisplay" />
+                                    <div class="text-danger text-xs" v-if="errors.start_date"> {{ errors.start_date[0] }} </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="flex flex-column">
                                     <label for="end_date">End Date</label>
-                                    <Calendar dateFormat="dd, M yy" v-model="form.end_date" showIcon iconDisplay="input" inputId="icondisplay" @date-select="fetchCitizens"/>
-                                    <!-- <div class="text-danger text-xs" v-if="errors.email"> {{ errors.email }} </div> -->
+                                    <Calendar :invalid="errors.end_date" dateFormat="dd, M yy" v-model="form.end_date" showIcon iconDisplay="input" inputId="icondisplay" @date-select="fetchCitizens"/>
+                                    <div class="text-danger text-xs" v-if="errors.end_date"> {{ errors.end_date[0] }} </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="flex flex-column">
                                     <label for="citizens">Citizens</label>
-                                    <MultiSelect v-model="form.citizens" display="chip" :options="citizens" optionLabel="name" placeholder="Select Citizens" />
-                                    <!-- <div class="text-danger text-xs" v-if="errors.email"> {{ errors.email }} </div> -->
+                                    <MultiSelect v-model="form.citizens" :invalid="errors.citizens" display="chip" :options="citizens" optionLabel="name" placeholder="Select Citizens" />
+                                    <div class="text-danger text-xs" v-if="errors.citizens"> {{ errors.citizens[0] }} </div>
                                 </div>
                             </div>
                         </div>

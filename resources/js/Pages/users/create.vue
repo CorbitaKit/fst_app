@@ -2,11 +2,15 @@
     import { useForm, router } from '@inertiajs/vue3'
     import companyForm from './form.vue'
     import Swal from 'sweetalert2'
+    import axios from 'axios'
+    import { ref } from 'vue'
+    
     const props = defineProps({
         company_id: Number,
         permissions: Object,
-        errors: Object,
+
     })
+    const errors = ref([])
     const form = useForm({
         'first_name': null,
         'last_name': null,
@@ -20,15 +24,17 @@
     })
 
     const submit = () => {
-        form.post('/employees',{
-            onSuccess: (() => {
-                Swal.fire({
-                    'title': "Success",
-                    'text': 'User added successfully!',
-                    'icon': 'success'
-                })
-                router.get('/companies')
+
+        axios.post('/employees', form)
+        .then(() => {
+            Swal.fire({
+                'title': "Success",
+                'text': 'User added successfully!',
+                'icon': 'success'
             })
+            router.get('/companies')
+        }).catch(err => {
+            errors.value = err.response.data.errors
         })
     }
 </script>

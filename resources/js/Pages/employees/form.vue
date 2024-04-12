@@ -1,11 +1,10 @@
 <script setup>
     import { router } from "@inertiajs/vue3"
-    import { onMounted, ref } from 'vue'
-    import axios from 'axios'
     import { vMaska } from "maska";
     const props = defineProps({
         form: Object,
         btnText: String,
+        errors: Object,
         roles: Object
     })
    
@@ -28,23 +27,23 @@
                             <div class="col-md-6">
                                 <div class="flex flex-column">
                                     <label for="first_name">First Name</label>
-                                    <InputText id="first_name" v-model="form.first_name"  />
-                                    <!-- <div class="text-danger text-xs" v-if="errors.email"> {{ errors.email }} </div> -->
+                                    <InputText id="first_name" v-model="form.first_name" :invalid="errors.first_name" />
+                                    <div class="text-danger text-xs" v-if="errors.first_name"> {{ errors.first_name[0] }} </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="flex flex-column">
                                     <label for="last_name">Last Name</label>
-                                    <InputText id="last_name" v-model="form.last_name"  />
-                                    <!-- <div class="text-danger text-xs" v-if="errors.email"> {{ errors.email }} </div> -->
+                                    <InputText id="last_name" v-model="form.last_name" :invalid="errors.last_name"  />
+                                    <div class="text-danger text-xs" v-if="errors.last_name"> {{ errors.last_name[0] }} </div>
                                 </div>
                             </div>
 
                             <div class="col-md-6 mt-4">
                                 <div class="flex flex-column">
                                     <label for="email">Email</label>
-                                    <InputText id="email" v-model="form.email"  />
-                                    <!-- <div class="text-danger text-xs" v-if="errors.email"> {{ errors.email }} </div> -->
+                                    <InputText id="email" v-model="form.email" :invalid="errors.email" />
+                                    <div class="text-danger text-xs" v-if="errors.email"> {{ errors.email[0] }} </div>
                                 </div>
                             </div>
                             
@@ -55,31 +54,31 @@
                                         <InputGroupAddon>
                                             <span>🇩🇰</span>
                                         </InputGroupAddon>
-                                        <InputText v-maska data-maska="+45########" id="phone"  v-model="form.phone" aria-describedby="phone-help" />
+                                        <InputText :invalid="errors.phone" v-maska data-maska="+45########" id="phone"  v-model="form.phone" aria-describedby="phone-help" />
                                         
                                     </InputGroup>
-                                    <!-- <div class="text-danger text-xs" v-if="errors.region_id"> {{ errors.region_id }} </div> -->
+                                    <div class="text-danger text-xs" v-if="errors.phone"> {{ errors.phone[0] }} </div>
                                 </div>
                             </div>
                             <div class="col-md-6 mt-4">
                                 <div class="flex flex-column">
                                     <label for="birthday">Birthday</label>
-                                    <Calendar dateFormat="dd, M yy" v-model="form.birth_day" showIcon iconDisplay="input" inputId="icondisplay" />
-                                    <!-- <div class="text-danger text-xs" v-if="errors.region_id"> {{ errors.region_id }} </div> -->
+                                    <Calendar :invalid="errors.birth_day" dateFormat="dd, M yy" v-model="form.birth_day" showIcon iconDisplay="input" inputId="icondisplay" />
+                                    <div class="text-danger text-xs" v-if="errors.birth_day"> {{ errors.birth_day[0] }} </div>
                                 </div>
                             </div>
                             <div class="col-md-6 mt-4">
                                 <div class="flex flex-column">
                                     <label for="address">Address</label>
-                                    <InputText id="address" v-model="form.address"  />
-                                    <!-- <div class="text-danger text-xs" v-if="errors.region_id"> {{ errors.region_id }} </div> -->
+                                    <InputText id="address" v-model="form.address" :invalid="errors.address" />
+                                    <div class="text-danger text-xs" v-if="errors.address"> {{ errors.address[0] }} </div>
                                 </div>
                             </div>
                             <div class="col-md-6 mt-4">
                                 <div class="flex flex-column">
                                     <label for="role">Role</label>
-                                    <Dropdown  v-model="form.role"  id="role" :options="roles" optionLabel="name" placeholder="Select a Role" filter/>
-                                    <!-- <div class="text-danger text-xs" v-if="errors.region_id"> {{ errors.region_id }} </div> -->
+                                    <Dropdown  v-model="form.role" :invalid="errors.role" id="role" :options="roles" optionLabel="name" placeholder="Select a Role" filter/>
+                                    <div class="text-danger text-xs" v-if="errors.role"> {{ errors.role[0] }} </div>
                                 </div>
                             </div>
                             

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProtocolRequest;
 use App\Http\Resources\CitizenResource;
 use App\Models\CitizenProtocol;
 use App\Services\CitizenService;
@@ -31,7 +32,7 @@ class ProtocolController extends Controller
         return Inertia::render('protocols/create');
     }
 
-    public function store(Request $request)
+    public function store(ProtocolRequest $request)
     {
         $this->protocolService->doStore($request->all());
     }

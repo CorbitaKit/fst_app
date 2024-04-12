@@ -3,15 +3,24 @@
     import Swal from 'sweetalert2/dist/sweetalert2.js'
     import 'sweetalert2/src/sweetalert2.scss'
     import { ref } from 'vue'
+    import { permissionChecker } from '../plugins/permission-checker';
+    permissionChecker
     const props = defineProps({
         citizens: Object
     })
+
+    const {canAdd, canEdit, canDelete, popUp} = permissionChecker()
     const data = ref([])
     const op = ref();
     const toggle = (event) => {
         op.value.toggle(event);
     };
     const createNewCitizen = () => {
+
+        if (!canAdd()) {
+            popUp()
+            return
+        }
         router.get('/citizens/create')
     }
 
@@ -20,9 +29,17 @@
     }
 
     const edit = (id) => {
+        if (!canEdit()) {
+            popUp()
+            return
+        }
         router.get('/citizens/' + id +"/edit")
     }
     const destroy = (id) => {
+        if (!canDelete()) {
+            popUp()
+            return
+        }
         Swal.fire({
             title: "Are you sure?",
             text: "You won't be able to revert this!",
