@@ -10,10 +10,10 @@
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img src="{{ asset('dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
+
             </div>
             <div class="info">
-                <a href="#" class="d-block">Admin Admin</a>
+                <a href="{{ route('features.create') }}" class="d-block">Feature Wishlist</a>
             </div>
         </div>
         <!-- Sidebar Menu -->
@@ -59,7 +59,17 @@
                     <a href="{{ route('protocols.index') }}" class="nav-link {{ request()->routeIs('protocols.index') ? 'active' : '' }}">
                         <i class="nav-icon fas fa-chart-pie"></i>
                         <p>
-                            Protocol
+                            Protocols
+                        </p>
+                    </a>
+                </li>
+                @endif
+                @if(Auth::user()->role->name == 'admin')
+                <li class="nav-item">
+                    <a href="{{ route('procedures.index') }}" class="nav-link {{ request()->routeIs('procedures.index') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-list"></i>
+                        <p>
+                            Procedures
                         </p>
                     </a>
                 </li>
@@ -72,14 +82,7 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="{{ route('settings.index') }}" class="nav-link {{ request()->routeIs('settings.index') ? 'active' : '' }}">
-                        <i class="nav-icon fas fa-cog"></i>
-                        <p>
-                            Settings
-                        </p>
-                    </a>
-                </li>
+
                 @endif
                 @if(Auth::check() && Auth::user()->role_id == '1')
                 <li class="nav-item">
@@ -90,10 +93,22 @@
                         </p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('features.index') }}" class=" nav-link">
+                        <i class="nav-icon fas fa-list"></i>
+                        <p>
+                            Features
+                        </p>
+                    </a>
+                </li>
                 @endif
             </ul>
         </nav>
         <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->
+    <footer style="background-color:white; padding: 10px;">
+        Storage Space: 5GB
+
+    </footer>
 </aside>

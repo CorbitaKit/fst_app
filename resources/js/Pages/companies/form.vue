@@ -2,7 +2,8 @@
     import { router } from "@inertiajs/vue3"
     const props = defineProps({
         form: Object,
-        btnText: String
+        btnText: String,
+        errors: Object
     })
 
     const emit = defineEmits(['submit'])
@@ -24,8 +25,8 @@
                             <div class="col-md-12">
                                 <div class="flex flex-column">
                                     <label for="company_name">Company Name</label>
-                                    <InputText id="company_name" v-model="form.name"  />
-                                    <!-- <div class="text-danger text-xs" v-if="errors.email"> {{ errors.email }} </div> -->
+                                    <InputText id="company_name" v-model="form.name" :invalid="errors.name" />
+                                    <div class="text-danger text-xs" v-if="errors.name"> {{ errors.name[0] }} </div>
                                 </div>
                             </div>
                         </div>

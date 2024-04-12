@@ -12,7 +12,9 @@ class UserService
 
     public function doGetUsers(int $companyId): Collection
     {
-        return User::with('role')->where('company_id', $companyId)->get();
+        return User::with('role')->whereHas('employee', function ($query) use ($companyId) {
+            $query->where('company_id', $companyId);
+        })->get();
     }
 
     public function doStore(array $userData): User
@@ -34,5 +36,15 @@ class UserService
         ]);
 
         Auth::setUser($user);
+    }
+    public function doGetUser(int $userId): User
+    {
+        return User::with('employee')->where('id', $userId)->first();
+    }
+
+    public function doUpdate(array $user): void
+    {
+        $userData = User::findOrFail(Auth::user()->id);
+        $userData->update($user);
     }
 }

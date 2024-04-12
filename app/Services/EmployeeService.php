@@ -44,4 +44,25 @@ class EmployeeService
             dd($e);
         }
     }
+
+    public function doUpdate(array $employee, int $employeeId): void
+    {
+        DB::beginTransaction();
+
+        try {
+            $userService = new UserService();
+            $userService->doUpdate([
+                'name' => $employee['first_name'] . ' ' . $employee['last_name'],
+                'email' => $employee['email']
+            ]);
+            $employee['birth_day'] = Carbon::parse($employee['birth_day'])->format('Y-m-d');
+            $employeeData = Employee::findOrFail($employeeId);
+            $employeeData->update($employee);
+
+            DB::commit();
+        } catch (\Exception $e) {
+            DB::rollback();
+            dd($e);
+        }
+    }
 }
