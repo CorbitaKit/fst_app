@@ -13,8 +13,9 @@
         'start_time': null,
         'end_time': null,
         'employee_id': props.employee.id,
-        'type': 'Schedule',
-        'is_public': 1
+        'type': 'schedule',
+        'is_public': 1,
+        'dates': []
     })
 
 </script>

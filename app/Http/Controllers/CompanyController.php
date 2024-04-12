@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CompanyRequest;
 use App\Services\CompanyService;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -32,7 +33,7 @@ class CompanyController extends Controller
         );
     }
 
-    public function store(Request $request)
+    public function store(CompanyRequest $request)
     {
         $this->companyService->doStore($request->all());
     }

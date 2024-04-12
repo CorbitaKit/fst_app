@@ -2,6 +2,8 @@
 import { useForm, router } from '@inertiajs/vue3';
 import protocolForm from './form.vue'
 import Swal from 'sweetalert2'
+import { ref } from 'vue';
+import axios from 'axios';
 
 const form = useForm({
     'name': null,
@@ -10,21 +12,23 @@ const form = useForm({
     'citizens': [],
 })
 
+const errors = ref([])
 const submit = () => {
-    form.post('/protocols', {
-        onSuccess: () => {
-            Swal.fire({
-                title: "Success!",
-                text: "Protocol added successfully!",
-                icon: "success"
-            });
+    axios.post('/protocols', form)
+    .then(() => {
+        Swal.fire({
+            title: "Success!",
+            text: "Protocol added successfully!",
+            icon: "success"
+        });
 
-            router.get('/protocols')
-        }
+        router.get('/protocols')
+    }).catch(err => {
+        errors.value = err.response.data.errors
     })
 }
 </script>
 
 <template>
-    <protocolForm :form="form" :btnText="'Create new Protocol'" @submit="submit"/>
+    <protocolForm :errors="errors" :form="form" :btnText="'Create new Protocol'" @submit="submit"/>
 </template>

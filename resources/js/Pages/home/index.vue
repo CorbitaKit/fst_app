@@ -13,7 +13,8 @@
         'end_time': null,
         'employee_id': props.employee_id,
         'type': 'event',
-        'is_public': 1
+        'is_public': 1,
+        'dates': []
     })
 
 </script>

@@ -9,7 +9,7 @@ class LoginService
 {
     public function doLogin(array $credentials): JsonResponse
     {
-        if (Auth::attempt($credentials)) {
+        if (Auth::guard('web')->attempt($credentials)) {
             $user = auth()->user();
             $token = $user->createToken('web-token')->plainTextToken;
             $cookie = cookie('token', $token, 60 * 24);
