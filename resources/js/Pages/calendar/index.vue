@@ -1,5 +1,5 @@
 <script setup>
-    import { useForm, router } from '@inertiajs/vue3';
+    import { useForm } from '@inertiajs/vue3';
     import { ref } from 'vue';
     import FullCalendar from '@fullcalendar/vue3';
     import dayGridPlugin from '@fullcalendar/daygrid';
@@ -9,12 +9,13 @@
     import axios from 'axios';
     import CreateEvent from './create.vue'
     import ViewEvent from './view.vue'
+    import { permissionChecker } from '../plugins/permission-checker'
     const props = defineProps({
         employee_id: Number,
         form: Object,
         right: String
     })
-
+    const { canAdd, popUp, canUpdate } = permissionChecker()
     const multiple_days = ref(false)
     const key = ref(0)
     const create = ref(false)
@@ -26,6 +27,7 @@
     const selectedEmployees = ref()
     const calendar = ref(null)
     const form = useForm(props.form)
+    
     const calendarOptions = {
         timeZone: 'UTC',
         plugins: [dayGridPlugin, timeGridPlugin, InterActionPlugin],
@@ -72,11 +74,13 @@
            })
         },
         select: (info) => {
-            form.start = info.start
-            form.end = info.end
-            create.value = true
-
-           
+            if (canAdd()) {
+                form.start = info.start
+                form.end = info.end
+                create.value = true
+            } else {
+                popUp()
+            }
         },
         eventDrop: (arg) => {
             
@@ -88,6 +92,10 @@
     }
 
     const updateEvent = (arg) => {
+        if (!canUpdate()) {
+            popUp()
+            return
+        }
         const form = useForm({
             'start': arg.event.startStr,
             'end': arg.event.endStr,

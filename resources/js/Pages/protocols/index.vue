@@ -4,6 +4,7 @@ import Swal from 'sweetalert2/dist/sweetalert2.js'
 import 'sweetalert2/src/sweetalert2.scss'
 import axios from 'axios'
 import { ref, onMounted } from 'vue'
+import { permissionChecker } from '../plugins/permission-checker';
 const props = defineProps({
     citizens: Object
 })
@@ -12,7 +13,7 @@ const filter_start_date = ref()
 const filter_end_date = ref()
 const filter_citizens = ref([])
 const protocols = ref()
-
+const { canAdd, canEdit, canDelete, popUp } = permissionChecker()
 onMounted(() => {
     axios.get('/protocols/get-protocols')
     .then(response => {
@@ -20,6 +21,10 @@ onMounted(() => {
     })
 })
 const addNewProtocol = () => {
+    if (!canAdd()) {
+        popUp()
+        return
+    }
     router.get('/protocols/create')
 }
 
@@ -36,6 +41,10 @@ const getTodaysDate = (protocol_date) => {
 }
 
 const removeCitizen = (citizen) => {
+    if (!canDelete()) {
+        popUp()
+        return
+    }
     Swal.fire({
         title: "Are you sure?",
         text: "You want to remove this citizen for this date?",
@@ -59,14 +68,18 @@ const removeCitizen = (citizen) => {
     });
 }
 const updateStatus = (citizen, status) => {
-        Swal.fire({
-        title: "Are you sure?",
-        text: "You want to mark as " + status +" this citizen for this date?",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Yes, mark as " + status + "!"
+    if (!canEdit()) {
+        popUp()
+        return
+    }
+    Swal.fire({
+    title: "Are you sure?",
+    text: "You want to mark as " + status +" this citizen for this date?",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, mark as " + status + "!"
     }).then((result) => {
         if (result.isConfirmed) {
             axios.patch('/protocols/mark-as-absent-citizen-into-protocol' + '/' + citizen.pivot.id + '/' + status)

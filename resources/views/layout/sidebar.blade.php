@@ -13,7 +13,7 @@
 
             </div>
             <div class="info">
-                <a href="#" class="d-block">Feature Wishlist</a>
+                <a href="{{ route('features.create') }}" class="d-block">Feature Wishlist</a>
             </div>
         </div>
         <!-- Sidebar Menu -->
@@ -90,6 +90,14 @@
                         <i class="nav-icon fas fa-building"></i>
                         <p>
                             Companies
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="{{ route('features.index') }}" class=" nav-link">
+                        <i class="nav-icon fas fa-list"></i>
+                        <p>
+                            Features
                         </p>
                     </a>
                 </li>

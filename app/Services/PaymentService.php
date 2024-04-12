@@ -88,7 +88,6 @@ class PaymentService
         if ($err) {
             dd($err);
         } else {
-            // dd($response);
             $this->payment = json_decode($response);
             $this->retrievePayment();
         }

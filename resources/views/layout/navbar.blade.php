@@ -58,6 +58,7 @@
             </div>
         </li>
         <li class="nav-item dropdown">
+            @if(Auth::user()->role->name != 'super admin')
             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                 {{ Auth::user()->name }}
             </a>
@@ -76,6 +77,7 @@
                     <i class="nav-icon fas fa-list"></i>
                     Company Procedures
                 </a>
+                @endif
                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     <i class="nav-icon fas fa-arrow-right"></i>
                     Logout

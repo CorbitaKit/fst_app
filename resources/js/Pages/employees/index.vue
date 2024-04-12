@@ -1,18 +1,23 @@
 <script setup>
     import {router} from '@inertiajs/vue3';
-    import Swal from 'sweetalert2'
     import axios from 'axios'
     import scheduleForm from './schedule.vue'
-    import { ref, onMounted } from 'vue'
+    import { ref } from 'vue'
+    import { permissionChecker } from '../plugins/permission-checker';
     const props = defineProps({
         employees: Object,
         settings: Object
     })
+    const { canAdd, canEdit, canDelete, popUp} = permissionChecker()
     const op = ref()
     const permissions = ref([])
     const employee= ref(null)
     const is_adding_schedule = ref(null)
     const addNewEmployee = () => {
+        if (!canAdd()) {
+            popUp()
+            return
+        }
         router.get('/employees/create')
     }
 
@@ -33,6 +38,10 @@
         })
     }
     const addSchedule = (emp) => {
+        if (!canAdd()) {
+            popUp()
+            return
+        }
         employee.value = emp
         is_adding_schedule.value = true
     }

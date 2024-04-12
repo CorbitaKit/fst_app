@@ -1,13 +1,18 @@
 <script setup>
     import axios from 'axios';
     import Swal from 'sweetalert2';
+    import { permissionChecker } from '../plugins/permission-checker';
     const props = defineProps({
         event: Object
     })
-
+    const { canDelete, popUp } = permissionChecker()
     const emit = defineEmits(['updateCalendar', 'hideDialog'])
 
     const destroy = (event_id) => {
+        if (!canDelete()) {
+            popUp()
+            return
+        }
         emit('hideDialog')
         Swal.fire({
             title: "Are you sure?",

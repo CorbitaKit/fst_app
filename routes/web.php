@@ -7,6 +7,7 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\EmployeeProcedureController;
+use App\Http\Controllers\FeatureController;
 use App\Http\Controllers\FolderController;
 use App\Http\Controllers\GoalController;
 use App\Http\Controllers\JournalController;
@@ -44,6 +45,7 @@ use Snowfire\Beautymail\Beautymail;
 |
 */
 
+// Route::get('payment-test', [PaymentController::class, 'index']);
 
 
 Route::post('/login', [LoginController::class, 'login'])->name('login');
@@ -67,6 +69,7 @@ Route::resource('companies', CompanyController::class);
 
 Route::middleware(['auth:sanctum', 'force.password.change'])->group(function () {
     Route::get('/home', function () {
+
         Inertia::share('settings', Auth::user()->employee->company->settings);
         return inertia::render('home/index', ['employee_id' => Auth::user()->employee->id]);
     })->name('home');
@@ -99,6 +102,7 @@ Route::middleware(['auth:sanctum', 'force.password.change'])->group(function () 
 
     Route::resource('protocols', ProtocolController::class);
     Route::resource('procedures', ProcedureController::class);
+    Route::resource('features', FeatureController::class);
 
     Route::resource('settings', SettingsController::class);
     Route::group(['prefix' => 'journals'], function () {
