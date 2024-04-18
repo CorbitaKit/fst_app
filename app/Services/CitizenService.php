@@ -24,8 +24,10 @@ class CitizenService
         return Citizen::with(['journals' => function ($query) {
             $today = Carbon::today();
             $yesterday = Carbon::yesterday();
-            $query->whereDate('created_at', $today)
-                ->orWhereDate('created_at', $yesterday);
+            $query->whereDate('created_at', '>=', $yesterday)
+                ->whereDate('created_at', '<=', $today)
+                ->orderBy('created_at', 'desc')
+                ->limit(1);
         }])
             ->where('company_id', Auth::user()->employee->company_id)
             ->get();
