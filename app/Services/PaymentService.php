@@ -33,11 +33,7 @@ class PaymentService
                 "url" => "http://localhost:8000",
                 "integrationType" => "EmbeddedCheckout",
                 "returnUrl" => "http://localhost:8000",
-
                 "termsUrl" => "string",
-
-
-
                 "charge" => true,
                 "publicDevice" => true,
                 "merchantHandlesConsumerData" => true,

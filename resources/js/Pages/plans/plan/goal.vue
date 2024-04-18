@@ -43,7 +43,7 @@
             </div>
 
             <div class="flex flex-column">
-                <label for="name">{{ getOrdinalText(i+1) }} Name</label>
+                <label for="name">Goal Name</label>
                 <InputText id="name"  v-model="goal.name" aria-describedby="name-help" />
             </div>
             <div class="flex flex-column">
@@ -60,7 +60,7 @@
                     <a  type="button" @click="removeSubGoal(goal, i)" class="text-red">x</a>
                 </div>
                 <div class="flex flex-column">
-                    <label for="name">{{ getOrdinalText(i+1) }} Name</label>
+                    <label for="name">Sub Goal Name</label>
                     <InputText id="name"  v-model="sub_goal.name" aria-describedby="name-help" />
                 </div>
                 <div class="flex flex-column">
