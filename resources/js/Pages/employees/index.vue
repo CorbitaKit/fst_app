@@ -1,5 +1,5 @@
 <script setup>
-    import {router} from '@inertiajs/vue3';
+    import {router, useForm} from '@inertiajs/vue3';
     import axios from 'axios'
     import scheduleForm from './schedule.vue'
     import { ref } from 'vue'
@@ -8,7 +8,7 @@
         employees: Object,
         settings: Object
     })
-    const { canAdd, canEdit, canDelete, popUp} = permissionChecker()
+    const { canAdd, popUp} = permissionChecker()
     const op = ref()
     const permissions = ref([])
     const employee= ref(null)
@@ -62,6 +62,15 @@
         }
     }
 
+    const sendMessage = (user_id) => {
+        const form = useForm({
+            'user_id': user_id,
+            'type': 'one_to_one'
+        })
+
+        form.post('/conversations')
+    }
+
 
     
     
@@ -107,6 +116,8 @@
                             </DataTable>
                         </OverlayPanel>
                         <Button @click="addSchedule(employee.data)" v-tooltip.bottom="'Set employee schedule'" class="mr-2" type="button"  icon="pi pi-calendar" rounded severity="info" raised />
+                        <Button @click="sendMessage(employee.data.user.id)" v-tooltip.bottom="'Message this employee'" class="mr-2" type="button"  icon="pi pi-send" rounded severity="secondary" raised />
+                        
                     </div>
                 </template>
             </Column>

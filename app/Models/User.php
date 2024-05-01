@@ -60,4 +60,13 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Permission::class, 'permission_users', 'user_id', 'permission_id');
     }
+    public function conversations()
+    {
+        return $this->belongsToMany(Conversation::class, 'participants');
+    }
+
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
+    }
 }

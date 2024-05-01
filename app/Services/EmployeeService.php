@@ -14,7 +14,7 @@ class EmployeeService
 {
     public function doGet(): Collection
     {
-        return Employee::with('user.role', 'user.permissions')->where('company_id', Auth::user()->employee->company_id)
+        return Employee::with('user.role', 'user.permissions', 'user')->where('company_id', Auth::user()->employee->company_id)
             ->where('user_id', '!=', Auth::user()->id)->get();
     }
 

@@ -43,7 +43,7 @@ import AccordionTab from 'primevue/accordiontab';
 import Panel from 'primevue/panel';
 import Knob from 'primevue/knob';
 import Badge from 'primevue/badge';
-
+import Listbox from 'primevue/listbox';
 createInertiaApp({
   resolve: name => {
     const pages = import.meta.glob('./Pages/**/*.vue', { eager: true })
@@ -90,6 +90,7 @@ createInertiaApp({
       .component('Panel', Panel)
       .component('Knob', Knob)
       .component('Badge', Badge)
+      .component('Listbox', Listbox)
       .mount(el)
       
   },
