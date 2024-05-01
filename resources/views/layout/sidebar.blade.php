@@ -58,6 +58,14 @@
                         </p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{ route('messages.index') }}" class="nav-link {{ request()->routeIs('messages.index') ? 'active' : '' }}">
+                        <i class="nav-icon fas fa-envelope"></i>
+                        <p>
+                            Messages
+                        </p>
+                    </a>
+                </li>
                 @if(Auth::user()->employee->company->settings->protocol == 0)
                 <li class="nav-item">
                     <a href="{{ route('protocols.index') }}" class="nav-link {{ request()->routeIs('protocols.index') ? 'active' : '' }}">

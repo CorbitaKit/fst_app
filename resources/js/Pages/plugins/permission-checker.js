@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 export function permissionChecker () {
     const page = usePage()
     const permissions = computed(() => page.props.permissions)
+    const user = computed(() => page.props.user)
 
     const canAdd = () => {
 
@@ -27,7 +28,6 @@ export function permissionChecker () {
             'icon': 'warning'
         })
     }
-
 
     return { canAdd, canEdit, canDelete, popUp }
 }
