@@ -4,6 +4,7 @@ use App\Http\Controllers\AppController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\CitizenController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\ConversationController;
 use App\Http\Controllers\DocumentController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\EmployeeProcedureController;
@@ -14,6 +15,7 @@ use App\Http\Controllers\JournalController;
 use App\Http\Controllers\LogController;
 use App\Http\Controllers\MedicineController;
 use App\Http\Controllers\MedicineJournalController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\PermissionUserController;
@@ -105,6 +107,8 @@ Route::middleware(['auth:sanctum', 'force.password.change'])->group(function () 
     Route::resource('features', FeatureController::class);
 
     Route::resource('settings', SettingsController::class);
+    Route::resource('messages', MessageController::class);
+    Route::resource('conversations', ConversationController::class);
     Route::group(['prefix' => 'journals'], function () {
         Route::get('/get-citizen-journal/{citizen_id}', [JournalController::class, 'getCitizenJournal']);
         Route::get('/get-sorted-journals/{citizen_id}/{sort}', [JournalController::class, 'getSortedJournal']);
